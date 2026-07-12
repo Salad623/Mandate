@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#9f1026" />
-  <title>MANDATE v0.14 — 142-Sector Economic Engine</title>
+  <title>MANDATE v0.15 — Main Menu Restored</title>
   <style>
     :root {
       --ink:#271116;
@@ -26,6 +26,36 @@
     button,input,select{font:inherit}
     button{cursor:pointer}
     .hidden{display:none!important}
+
+    .main-menu{
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      padding:28px 18px;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(210,33,62,.20), transparent 35%),
+        linear-gradient(180deg,#fff 0%,#fff7f8 62%,#f8edef 100%);
+    }
+    .menu-shell{width:min(560px,100%);}
+    .menu-logo{text-align:center;margin-bottom:28px}
+    .menu-emblem{width:66px;height:66px;margin:0 auto 16px;border-radius:22px;background:linear-gradient(145deg,var(--blue),var(--blue-2));box-shadow:0 18px 40px rgba(159,16,38,.24);display:grid;place-items:center;color:#fff;font-weight:950;font-size:22px;letter-spacing:-.05em}
+    .menu-logo h1{font-size:clamp(44px,12vw,72px);line-height:.95;letter-spacing:-.06em;margin:0;color:var(--ink)}
+    .menu-logo p{margin:10px 0 0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.2em;font-weight:850}
+    .save-card{border:1px solid var(--line);background:rgba(255,255,255,.94);border-radius:20px;padding:17px;box-shadow:var(--shadow);margin-bottom:14px}
+    .save-card.empty{opacity:.7}
+    .save-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
+    .save-icon{width:44px;height:44px;border-radius:15px;background:var(--blue-3);border:1px solid #efb5c1;display:grid;place-items:center;color:var(--blue);font-weight:950}
+    .save-copy{flex:1;min-width:0}.save-copy small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:900}.save-copy b{display:block;font-size:16px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.save-copy span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
+    .menu-actions{display:grid;gap:10px}
+    .menu-btn{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:13px;text-align:left;font-weight:900;box-shadow:0 8px 22px rgba(76,13,27,.05);transition:.16s ease}
+    .menu-btn:hover{transform:translateY(-1px);border-color:#dfa0ad;box-shadow:0 12px 28px rgba(111,10,30,.10)}
+    .menu-btn.primary-menu{border:0;color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue-2));box-shadow:0 15px 30px rgba(159,16,38,.24)}
+    .menu-btn:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
+    .menu-btn .menu-glyph{width:34px;height:34px;border:1px solid currentColor;border-radius:11px;display:grid;place-items:center;font-size:14px;flex:0 0 auto}
+    .menu-btn .menu-text{flex:1}.menu-btn .menu-text small{display:block;font-size:10px;font-weight:650;opacity:.72;margin-top:3px}.menu-arrow{font-size:20px}
+    .menu-note{text-align:center;color:var(--muted);font-size:10px;line-height:1.55;margin-top:17px}
+    .setup-back{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 13px;font-size:11px;font-weight:850}
+    @media(max-width:620px){.main-menu{align-items:start;padding-top:54px}.menu-shell{max-width:420px}.menu-logo{margin-bottom:22px}}
 
     .setup{
       min-height:100vh;
@@ -442,20 +472,45 @@
 </style>
 </head>
 <body>
-  <section id="setup" class="setup">
+  <section id="mainMenu" class="main-menu">
+    <div class="menu-shell">
+      <div class="menu-logo">
+        <div class="menu-emblem">M</div>
+        <h1>MANDATE</h1>
+        <p>Global Power Simulator</p>
+      </div>
+      <div id="menuSaveCard" class="save-card empty">
+        <div class="save-top">
+          <div class="save-icon">S</div>
+          <div class="save-copy">
+            <small>Current career</small>
+            <b id="menuSaveTitle">No saved game</b>
+            <span id="menuSaveMeta">Start a new career to create a local save.</span>
+          </div>
+        </div>
+      </div>
+      <div class="menu-actions">
+        <button id="menuNewGame" class="menu-btn primary-menu"><span class="menu-glyph">＋</span><span class="menu-text">New Game<small>Choose one role and country for a locked career.</small></span><span class="menu-arrow">›</span></button>
+        <button id="menuContinue" class="menu-btn" disabled><span class="menu-glyph">▶</span><span class="menu-text">Continue<small>Resume your latest saved career.</small></span><span class="menu-arrow">›</span></button>
+      </div>
+      <div class="menu-note">One playable entity per career. To choose another role or country, return here and begin a new game.</div>
+    </div>
+  </section>
+
+  <section id="setup" class="setup hidden">
     <div class="setup-wrap">
       <div class="brand-row">
         <div class="brand"><span class="brand-mark"></span> MANDATE</div>
-        <div class="version">MONETARY & GLOBAL FINANCE · v0.13</div>
+        <div style="display:flex;align-items:center;gap:8px"><button id="setupBack" class="setup-back">Main menu</button><div class="version">SECTOR ECONOMY · v0.15</div></div>
       </div>
       <div class="hero">
         <div class="eyebrow">A global political and economic power simulator</div>
         <h1>Control a government—or challenge one.</h1>
-        <p>Rule a country, lead its opposition, command an underground movement, build a multinational empire, or control several actors in the same living world. Every playable country carries a deep national data model, and national leaders can now directly manage ministers, ministries, public workers, security, intelligence, and government crises.</p>
+        <p>Choose one political or corporate career and live with that choice for the entire save. Every playable country carries a deep national model, while national leaders directly manage ministers, budgets, workers, security, intelligence, laws, markets, projects, and crises.</p>
       </div>
       <div class="setup-grid">
         <div class="country-panel">
-          <div class="panel-head"><div><h2>Choose your starting role</h2><span>You can add and control more countries, parties, organizations, and companies after the game begins.</span></div></div>
+          <div class="panel-head"><div><h2>Choose your starting role</h2><span>Your selected role is locked for this career unless gameplay changes your political position.</span></div></div>
           <div id="roleGrid" class="role-grid">
             <button class="role-card selected" data-role="government"><small>Government</small><b>Head of state or government</b><span>Play as a president, prime minister, king, or queen.</span></button>
             <button class="role-card" data-role="opposition"><small>Legal politics</small><b>Opposition party leader</b><span>Build support, win seats, expose the government, and contest elections.</span></button>
@@ -463,7 +518,7 @@
             <button class="role-card" data-role="company"><small>Corporate power</small><b>Multinational CEO</b><span>Invest, expand, lobby governments, acquire rivals, and dominate markets.</span></button>
           </div>
           <div id="roleConfig" class="role-config"></div>
-          <div class="panel-head"><div><h2>Choose your country or headquarters</h2><span>This becomes the starting country in the shared world.</span></div></div>
+          <div class="panel-head"><div><h2>Choose your country or headquarters</h2><span>This country is locked to your new career.</span></div></div>
           <div id="countryGrid" class="country-grid"></div>
           <div class="setup-actions">
             <input id="leaderName" class="name-input" value="Salha Akmad" maxlength="30" aria-label="Leader name" />
@@ -514,7 +569,7 @@
         <div class="top-actions">
           <div class="entity-toolbar"><select id="entitySwitcher" class="entity-select" aria-label="Controlled entity"></select><button id="addEntityBtn" class="ghost">+</button></div>
           <button id="saveBtn" class="ghost hide-mobile">Save</button>
-          <button id="resetBtn" class="ghost hide-mobile">New game</button>
+          <button id="resetBtn" class="ghost" title="Return to main menu">Menu</button>
           <button id="advanceBtn" class="advance">Next month</button>
         </div>
       </header>
@@ -1129,6 +1184,65 @@
   let pendingEvent = null;
 
   const el = id => document.getElementById(id);
+  let volatileSave = null;
+  function storageGet(key){try{return localStorage.getItem(key);}catch{return key==='mandate-save'?volatileSave:null;}}
+  function storageSet(key,value){try{localStorage.setItem(key,value);}catch{if(key==='mandate-save')volatileSave=value;}}
+  function storageRemove(key){try{localStorage.removeItem(key);}catch{if(key==='mandate-save')volatileSave=null;}}
+
+  function readSaveSummary(){
+    try{
+      const raw=storageGet('mandate-save');
+      if(!raw)return null;
+      const save=JSON.parse(raw);
+      if(!save?.countryId)return null;
+      const actor=Array.isArray(save.controlledEntities)?save.controlledEntities.find(x=>x.id===save.activeEntityId)||save.controlledEntities[0]:null;
+      return {
+        title:actor?.name||`${save.office||'Leader'} ${save.leader||''}`.trim(),
+        role:actor?.type||save.startingRole||'government',
+        country:save.country||countries[save.countryId]?.name||save.countryId,
+        month:save.month||1,
+        year:save.year||2026
+      };
+    }catch{return null;}
+  }
+  function updateMainMenu(){
+    const info=readSaveSummary(),card=el('menuSaveCard'),btn=el('menuContinue');
+    if(info){
+      const roleLabel={government:'National leader',opposition:'Opposition leader',underground:'Underground movement',company:'Multinational CEO'}[info.role]||'Career';
+      card.classList.remove('empty');
+      el('menuSaveTitle').textContent=info.title;
+      el('menuSaveMeta').textContent=`${roleLabel} · ${info.country} · ${monthNames[(info.month-1)%12]} ${info.year}`;
+      btn.disabled=false;
+    }else{
+      card.classList.add('empty');
+      el('menuSaveTitle').textContent='No saved game';
+      el('menuSaveMeta').textContent='Start a new career to create a local save.';
+      btn.disabled=true;
+    }
+  }
+  function showMainMenu(saveCurrent=false){
+    if(saveCurrent&&state)saveGame(false);
+    el('app').classList.add('hidden');
+    el('setup').classList.add('hidden');
+    el('mainMenu').classList.remove('hidden');
+    el('modalRoot').innerHTML='';
+    updateMainMenu();
+  }
+  function showNewGameSetup(){
+    el('mainMenu').classList.add('hidden');
+    el('app').classList.add('hidden');
+    el('setup').classList.remove('hidden');
+    window.scrollTo(0,0);
+  }
+  function continueSavedGame(){
+    if(!loadGame()){updateMainMenu();showToast('No valid saved game was found.');return;}
+    selectedCountry=state.countryId;
+    el('mainMenu').classList.add('hidden');
+    el('mainMenu').classList.add('hidden');
+    el('setup').classList.add('hidden');
+    el('app').classList.remove('hidden');
+    renderAll();
+  }
 
   function initCountryCards(){
     el('countryGrid').innerHTML = Object.entries(countries).map(([id,c])=>`
@@ -1229,6 +1343,7 @@
   }
 
   function start(){
+    if(storageGet('mandate-save')&&!confirm('Starting a new game will replace your current saved career. Continue?'))return;
     const name=el('leaderName').value.trim() || 'Alex Morgan';
     const options={role:selectedRole,...roleOptionsFromSetup()};
     state=newState(selectedCountry,name,options);
@@ -2719,13 +2834,13 @@
   }
 
   function saveGame(toast=true){
-    localStorage.setItem('mandate-save',JSON.stringify(state));
+    storageSet('mandate-save',JSON.stringify(state));
     if(toast)showToast('Game saved on this device.');
   }
   function loadGame(){
-    try{const raw=localStorage.getItem('mandate-save');if(!raw)return false;state=JSON.parse(raw);return !!state.countryId;}catch{return false;}
+    try{const raw=storageGet('mandate-save');if(!raw)return false;state=JSON.parse(raw);return !!state.countryId;}catch{return false;}
   }
-  function resetGame(){localStorage.removeItem('mandate-save');location.reload();}
+  function resetGame(){storageRemove('mandate-save');state=null;selectedCountry=null;showMainMenu(false);}
   function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.add('hidden'),2600);}
 
   /* MANDATE v0.14 — 142-sector economic engine */
@@ -2823,10 +2938,13 @@
 
   initCountryCards();
   initRoleCards();
+  el('menuNewGame').addEventListener('click',showNewGameSetup);
+  el('menuContinue').addEventListener('click',continueSavedGame);
+  el('setupBack').addEventListener('click',()=>showMainMenu(false));
   el('startGame').addEventListener('click',start);
   el('advanceBtn').addEventListener('click',advanceMonth);
   el('saveBtn').addEventListener('click',()=>saveGame(true));
-  el('resetBtn').addEventListener('click',()=>{if(confirm('Start a new world? Your current shared-world save will be deleted.'))resetGame();});
+  el('resetBtn').addEventListener('click',()=>showMainMenu(true));
   el('nav').addEventListener('click',e=>{
     const btn=e.target.closest('button[data-page]');if(!btn)return;
     currentPage=btn.dataset.page;
@@ -2836,10 +2954,8 @@
   el('entitySwitcher').addEventListener('change',e=>switchEntity(e.target.value));
   el('addEntityBtn').addEventListener('click',openAddEntityModal);
 
-  if(loadGame()){
-    selectedCountry=state.countryId;
-    el('setup').classList.add('hidden');el('app').classList.remove('hidden');renderAll();
-  }
+  updateMainMenu();
+  showMainMenu(false);
 })();
 </script>
 </body>
