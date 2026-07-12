@@ -1,0 +1,1563 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a2a66" />
+  <title>Mandate — A Living President Simulator</title>
+  <style>
+    :root {
+      --ink:#0a1733;
+      --muted:#64708a;
+      --line:#dce3ef;
+      --panel:#ffffff;
+      --soft:#f4f7fb;
+      --blue:#0a2a66;
+      --blue-2:#174a9c;
+      --blue-3:#eaf1ff;
+      --danger:#a52a3a;
+      --warn:#9a6400;
+      --good:#16734a;
+      --shadow:0 18px 45px rgba(11,32,71,.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:var(--soft);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+
+    .setup{
+      min-height:100vh;
+      padding:40px 22px 60px;
+      background:
+        radial-gradient(circle at 10% 0%, rgba(23,74,156,.13), transparent 32%),
+        linear-gradient(180deg,#fff 0%,#f4f7fb 68%);
+    }
+    .setup-wrap{max-width:1180px;margin:0 auto}
+    .brand-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:54px}
+    .brand{display:flex;align-items:center;gap:13px;font-weight:850;letter-spacing:-.02em}
+    .brand-mark{width:38px;height:38px;border:2px solid var(--blue);border-radius:11px;position:relative;background:#fff}
+    .brand-mark:before,.brand-mark:after{content:"";position:absolute;background:var(--blue);border-radius:10px}
+    .brand-mark:before{width:18px;height:3px;left:8px;top:10px;box-shadow:0 7px 0 var(--blue),0 14px 0 var(--blue)}
+    .brand-mark:after{width:3px;height:24px;right:7px;top:5px;opacity:.22}
+    .version{font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-3);border:1px solid #cbdcff;padding:7px 10px;border-radius:999px}
+    .hero{max-width:830px;margin-bottom:38px}
+    .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:850;color:var(--blue-2);margin-bottom:12px}
+    h1{font-size:clamp(42px,7vw,84px);line-height:.95;letter-spacing:-.065em;margin:0 0 22px;max-width:900px}
+    .hero p{font-size:18px;line-height:1.65;color:var(--muted);max-width:740px;margin:0}
+    .setup-grid{display:grid;grid-template-columns:1.4fr .75fr;gap:22px;align-items:start}
+    .country-panel,.principles{background:rgba(255,255,255,.88);border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow)}
+    .country-panel{padding:22px}
+    .panel-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:18px}
+    .panel-head h2{margin:0;font-size:20px;letter-spacing:-.03em}
+    .panel-head span{font-size:12px;color:var(--muted)}
+    .country-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .country-card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:16px;text-align:left;transition:.18s ease;min-height:142px;position:relative;overflow:hidden}
+    .country-card:hover{transform:translateY(-2px);border-color:#9cb9ea;box-shadow:0 12px 26px rgba(20,66,140,.10)}
+    .country-card.selected{border:2px solid var(--blue-2);padding:15px;background:linear-gradient(180deg,#fff,#f4f8ff)}
+    .country-card .code{font-size:11px;font-weight:900;color:var(--blue-2);letter-spacing:.14em}
+    .country-card h3{margin:8px 0 5px;font-size:18px}
+    .country-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
+    .country-card .mini{display:flex;gap:10px;margin-top:14px;font-size:11px;color:var(--ink);font-weight:750}
+    .country-card:after{content:"";position:absolute;width:90px;height:90px;border:18px solid var(--blue-3);border-radius:50%;right:-47px;bottom:-53px}
+    .setup-actions{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:16px}
+    .name-input{border:1px solid var(--line);border-radius:13px;padding:14px 15px;outline:none;background:#fff;color:var(--ink)}
+    .name-input:focus{border-color:#7ea6e6;box-shadow:0 0 0 4px rgba(23,74,156,.08)}
+    .primary{border:0;background:var(--blue);color:#fff;border-radius:13px;padding:14px 20px;font-weight:850;box-shadow:0 10px 24px rgba(10,42,102,.18)}
+    .primary:hover{background:#0d367e}
+    .primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
+    .principles{padding:24px;position:sticky;top:20px}
+    .principles h3{margin:0 0 18px;font-size:18px}
+    .principle{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+    .principle:first-of-type{border-top:0;padding-top:0}
+    .num{width:30px;height:30px;border:1px solid #b7caeb;border-radius:10px;display:grid;place-items:center;color:var(--blue-2);font-weight:900;font-size:12px}
+    .principle b{font-size:13px;display:block;margin-bottom:4px}
+    .principle p{font-size:12px;color:var(--muted);line-height:1.5;margin:0}
+    .disclaimer{font-size:11px;line-height:1.5;color:var(--muted);margin-top:18px;padding-top:16px;border-top:1px solid var(--line)}
+
+    .app{min-height:100vh;display:grid;grid-template-columns:226px minmax(0,1fr)}
+    .sidebar{background:var(--blue);color:#fff;padding:22px 14px;display:flex;flex-direction:column;position:sticky;top:0;height:100vh}
+    .side-brand{display:flex;align-items:center;gap:11px;padding:0 9px 22px;font-weight:900;letter-spacing:-.02em}
+    .side-brand .brand-mark{border-color:#fff;background:transparent;width:34px;height:34px}
+    .side-brand .brand-mark:before,.side-brand .brand-mark:after{background:#fff;box-shadow:0 7px 0 #fff,0 14px 0 #fff}
+    .side-brand .brand-mark:after{box-shadow:none}
+    .nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.17em;color:#aabce0;font-weight:900;padding:12px 11px 7px}
+    .nav{display:flex;flex-direction:column;gap:5px}
+    .nav button{display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;color:#cbd7ee;border-radius:12px;padding:12px;text-align:left;font-weight:760;font-size:13px}
+    .nav button:hover{background:rgba(255,255,255,.08);color:#fff}
+    .nav button.active{background:#fff;color:var(--blue)}
+    .nav-glyph{width:24px;height:24px;border:1px solid currentColor;border-radius:8px;display:grid;place-items:center;font-size:10px;font-weight:950;flex:0 0 auto}
+    .side-footer{margin-top:auto;padding:14px 10px 4px;color:#c4d1e9;font-size:11px;line-height:1.55}
+    .side-footer b{color:#fff}
+
+    .main{min-width:0}
+    .topbar{height:76px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:12}
+    .country-id{display:flex;align-items:center;gap:13px;min-width:0}
+    .seal{width:40px;height:40px;border-radius:14px;background:var(--blue-3);border:1px solid #bfd3f5;display:grid;place-items:center;font-size:11px;font-weight:950;color:var(--blue-2);letter-spacing:.08em}
+    .country-id b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .country-id span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+    .top-actions{display:flex;align-items:center;gap:8px}
+    .ghost{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 12px;font-size:12px;font-weight:800}
+    .ghost:hover{border-color:#b3c4df;background:#f9fbff}
+    .advance{border:0;background:var(--blue);color:#fff;border-radius:11px;padding:11px 15px;font-size:12px;font-weight:900;min-width:116px}
+    .advance:hover{background:#0d367e}
+
+    .content{padding:22px;max-width:1580px;margin:0 auto}
+    .metric-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}
+    .metric{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px;min-width:0}
+    .metric .label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .metric .value{font-size:21px;font-weight:900;letter-spacing:-.04em;margin:8px 0 7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .metric .delta{font-size:10px;color:var(--muted)}
+    .delta.good{color:var(--good)}.delta.bad{color:var(--danger)}.delta.warn{color:var(--warn)}
+    .content-grid{display:grid;grid-template-columns:minmax(0,1fr) 318px;gap:18px;align-items:start}
+    .workspace{min-width:0}
+    .briefing{background:#fff;border:1px solid var(--line);border-radius:18px;position:sticky;top:94px;overflow:hidden}
+    .briefing-head{padding:17px 17px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}
+    .briefing-head h3{font-size:14px;margin:0}
+    .live-dot{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px rgba(22,115,74,.10)}
+    .briefing-list{max-height:520px;overflow:auto}
+    .brief-item{padding:14px 17px;border-bottom:1px solid var(--line)}
+    .brief-item:last-child{border-bottom:0}
+    .brief-time{font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--blue-2);font-weight:900}
+    .brief-item p{margin:6px 0 0;font-size:12px;line-height:1.48;color:#35425c}
+    .brief-empty{padding:26px 17px;color:var(--muted);font-size:12px;line-height:1.55}
+
+    .page-title{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:2px 0 16px}
+    .page-title h2{margin:0;font-size:25px;letter-spacing:-.045em}
+    .page-title p{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.5;max-width:690px}
+    .status-pill{font-size:10px;font-weight:900;border:1px solid #bfd3f5;color:var(--blue-2);background:var(--blue-3);border-radius:999px;padding:7px 10px;white-space:nowrap}
+    .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:14px}
+    .panel h3{margin:0;font-size:14px}
+    .panel-sub{font-size:11px;color:var(--muted);margin-top:5px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .stat-list{display:grid;gap:12px;margin-top:16px}
+    .stat-row{display:grid;grid-template-columns:130px 1fr 44px;align-items:center;gap:10px;font-size:11px}
+    .stat-row b{font-size:11px}
+    .bar{height:8px;background:#edf1f7;border-radius:999px;overflow:hidden}
+    .bar i{display:block;height:100%;background:var(--blue-2);border-radius:999px;transition:width .35s ease}
+    .bar i.bad{background:var(--danger)}.bar i.good{background:var(--good)}.bar i.warn{background:var(--warn)}
+    .stat-row span{text-align:right;color:var(--muted);font-weight:850}
+    .economy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:15px}
+    .economy-cell{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fbfcff}
+    .economy-cell small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em;font-weight:850}
+    .economy-cell strong{display:block;margin-top:7px;font-size:17px;letter-spacing:-.03em}
+    .economy-cell em{font-style:normal;font-size:9px;color:var(--muted);display:block;margin-top:4px}
+    .spark{height:92px;margin-top:16px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(180deg,#fbfdff,#fff);position:relative;overflow:hidden}
+    .spark svg{width:100%;height:100%}
+    .spark-label{position:absolute;left:11px;top:9px;font-size:9px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.11em}
+
+    .card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .action-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;display:flex;flex-direction:column;min-height:220px}
+    .action-card.locked{opacity:.58}
+    .action-top{display:flex;justify-content:space-between;gap:12px}
+    .action-tag{font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:var(--blue-2)}
+    .action-level{font-size:9px;font-weight:900;background:var(--soft);border:1px solid var(--line);padding:5px 7px;border-radius:999px;white-space:nowrap}
+    .action-card h3{font-size:16px;margin:9px 0 7px;letter-spacing:-.025em}
+    .action-card p{font-size:11px;line-height:1.5;color:var(--muted);margin:0 0 14px}
+    .effect-list{display:grid;gap:6px;margin-bottom:15px}
+    .effect{display:flex;justify-content:space-between;gap:10px;font-size:10px;padding:7px 9px;border-radius:9px;background:var(--soft)}
+    .effect b{font-size:10px}
+    .card-actions{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px}
+    .cost{font-size:10px;color:var(--muted);line-height:1.4}
+    .small-btn{border:0;background:var(--blue);color:#fff;padding:10px 12px;border-radius:10px;font-size:10px;font-weight:900;white-space:nowrap}
+    .small-btn:hover{background:#0d367e}.small-btn:disabled{opacity:.4;cursor:not-allowed}
+    .small-btn.danger{background:var(--danger)}.small-btn.light{background:#edf3ff;color:var(--blue)}
+
+    .project-card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fff;margin-bottom:11px}
+    .project-head{display:flex;justify-content:space-between;gap:12px}
+    .project-head h3{font-size:15px;margin:0}
+    .project-head span{font-size:10px;color:var(--muted);font-weight:800}
+    .project-card p{font-size:11px;color:var(--muted);line-height:1.5;margin:8px 0 13px}
+    .progress{height:10px;background:#edf1f7;border-radius:999px;overflow:hidden;margin:12px 0 7px}
+    .progress i{display:block;height:100%;background:var(--blue-2);border-radius:999px}
+    .project-meta{display:flex;justify-content:space-between;gap:12px;font-size:9px;color:var(--muted)}
+
+    .opponent{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
+    .opponent:last-child{border-bottom:0}
+    .avatar{width:42px;height:42px;border-radius:14px;background:var(--blue-3);border:1px solid #bfd3f5;display:grid;place-items:center;font-size:11px;font-weight:950;color:var(--blue)}
+    .opponent b{font-size:12px}.opponent p{font-size:10px;color:var(--muted);margin:4px 0 0}
+    .threat{font-size:10px;font-weight:900;padding:7px 9px;border-radius:999px;background:#fff3e7;color:var(--warn);border:1px solid #f0d0a9}
+    .threat.high{background:#fff0f2;color:var(--danger);border-color:#efbdc4}.threat.low{background:#eaf8f1;color:var(--good);border-color:#bce2cf}
+
+    table{width:100%;border-collapse:collapse;font-size:11px}
+    th{text-align:left;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:10px;border-bottom:1px solid var(--line)}
+    td{padding:12px 10px;border-bottom:1px solid var(--line);font-weight:650}
+    tr:last-child td{border-bottom:0}
+    .rank-self{background:#f3f7ff}
+    .rank-num{font-weight:950;color:var(--blue-2)}
+
+    .timeline-item{display:grid;grid-template-columns:88px 1fr;gap:13px;padding:13px 0;border-bottom:1px solid var(--line)}
+    .timeline-item:last-child{border-bottom:0}
+    .timeline-item time{font-size:10px;font-weight:900;color:var(--blue-2)}
+    .timeline-item p{font-size:11px;line-height:1.5;margin:0;color:#35425c}
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(5,18,43,.63);backdrop-filter:blur(7px);z-index:50;display:grid;place-items:center;padding:18px}
+    .modal{width:min(640px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:23px;box-shadow:0 30px 80px rgba(0,0,0,.25);border:1px solid #cfd8e8}
+    .modal-band{height:8px;background:var(--blue)}
+    .modal-body{padding:24px}
+    .modal-kicker{font-size:10px;text-transform:uppercase;letter-spacing:.14em;color:var(--blue-2);font-weight:950}
+    .modal h2{font-size:27px;letter-spacing:-.045em;margin:10px 0 10px}
+    .modal-desc{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 18px}
+    .choice{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px;text-align:left;margin-top:9px;transition:.15s ease}
+    .choice:hover{border-color:#88a9df;background:#f7faff;transform:translateY(-1px)}
+    .choice b{display:block;font-size:12px;margin-bottom:5px}.choice span{font-size:10px;line-height:1.45;color:var(--muted)}
+    .outcome{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--soft);font-size:12px;line-height:1.6;color:#35425c;margin-top:16px}
+    .modal-footer{display:flex;justify-content:flex-end;margin-top:18px}
+
+    .toast{position:fixed;right:20px;bottom:20px;z-index:70;background:var(--ink);color:#fff;padding:12px 15px;border-radius:12px;box-shadow:var(--shadow);font-size:11px;font-weight:750;max-width:310px;animation:toastIn .2s ease}
+    @keyframes toastIn{from{transform:translateY(8px);opacity:0}to{transform:none;opacity:1}}
+
+
+    .daily-hero{background:linear-gradient(135deg,#081f4d,#174a9c);color:#fff;border-radius:20px;padding:22px;margin-bottom:14px;position:relative;overflow:hidden}
+    .daily-hero:after{content:"";position:absolute;width:190px;height:190px;border:34px solid rgba(255,255,255,.07);border-radius:50%;right:-90px;top:-95px}
+    .daily-hero small{font-size:10px;text-transform:uppercase;letter-spacing:.15em;font-weight:900;color:#bcd0f5}.daily-hero h3{font-size:25px;margin:8px 0 6px;letter-spacing:-.04em}.daily-hero p{font-size:12px;color:#dbe6fb;max-width:680px;line-height:1.55;margin:0}
+    .habit-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}.habit-chip{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 10px;font-size:10px;font-weight:850}
+    .decision-card{border:1px solid var(--line);border-radius:17px;padding:17px;background:#fff;margin-bottom:12px}.decision-card.resolved{background:#f7f9fd}.decision-head{display:flex;justify-content:space-between;gap:12px}.decision-head span{font-size:9px;color:var(--blue-2);font-weight:950;letter-spacing:.13em;text-transform:uppercase}.decision-card h3{font-size:17px;margin:8px 0}.decision-card>p{font-size:11px;line-height:1.55;color:var(--muted);margin:0 0 12px}.advice{border-left:3px solid var(--blue-2);background:var(--blue-3);border-radius:0 11px 11px 0;padding:10px 12px;font-size:10px;line-height:1.5;margin:11px 0}.decision-options{display:grid;gap:8px}.decision-option{border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;text-align:left}.decision-option:hover{border-color:#84a7df;background:#f8fbff}.decision-option b{display:block;font-size:11px}.decision-option span{display:block;font-size:9px;color:var(--muted);margin-top:4px;line-height:1.45}
+    .cabinet-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.minister{border:1px solid var(--line);border-radius:17px;padding:16px;background:#fff}.minister-head{display:grid;grid-template-columns:46px 1fr auto;gap:11px;align-items:center}.minister h3{font-size:14px;margin:0}.minister p{font-size:10px;color:var(--muted);margin:4px 0 0}.minister-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:13px}.tiny-btn{border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 9px;font-size:9px;font-weight:850}.tiny-btn:hover{border-color:#9db7df;background:#f7faff}.tiny-btn.danger{color:var(--danger)}
+    .trait-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:11px}.trait{font-size:8px;text-transform:uppercase;letter-spacing:.08em;font-weight:900;padding:5px 7px;background:var(--soft);border:1px solid var(--line);border-radius:999px}
+    .voter-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.voter-card{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.voter-top{display:flex;justify-content:space-between;gap:10px;align-items:center}.voter-top b{font-size:11px}.voter-top span{font-size:10px;font-weight:900}.voter-card p{font-size:9px;color:var(--muted);line-height:1.45;margin:7px 0 9px}
+    .newspaper{background:#fdfcf8;border:1px solid #d8d2c4;border-radius:4px;padding:24px;box-shadow:0 16px 35px rgba(27,32,43,.09);font-family:Georgia,serif}.paper-masthead{text-align:center;border-bottom:4px double #151515;padding-bottom:10px;margin-bottom:15px}.paper-masthead h2{font-size:34px;letter-spacing:-.04em;margin:0;color:#111}.paper-masthead span{font:10px Inter,sans-serif;text-transform:uppercase;letter-spacing:.19em}.paper-headline{font-size:clamp(30px,5vw,58px);line-height:.94;letter-spacing:-.055em;margin:16px 0 12px;color:#111}.paper-dek{font-size:15px;line-height:1.45;color:#343434;border-bottom:1px solid #555;padding-bottom:16px}.paper-columns{columns:2;column-gap:26px;font-size:12px;line-height:1.65;color:#292929;margin-top:16px}.paper-meta{font:9px Inter,sans-serif;text-transform:uppercase;letter-spacing:.11em;color:#555}
+    .sector-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:13px}.sector{border:1px solid var(--line);border-radius:12px;padding:11px;background:#fbfcff}.sector small{font-size:8px;color:var(--muted);font-weight:900;text-transform:uppercase;letter-spacing:.08em}.sector strong{display:block;font-size:14px;margin-top:5px}.sector em{font-size:8px;color:var(--muted);font-style:normal}
+    .faction-row{display:grid;grid-template-columns:1fr 90px 68px;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}.faction-row:last-child{border:0}.faction-row b{font-size:11px}.faction-row p{font-size:9px;color:var(--muted);margin:4px 0 0}.faction-score{font-size:10px;font-weight:900;text-align:right}
+    .queue-item{border-left:3px solid var(--warn);padding:9px 11px;margin:9px 0;background:#fff9ed;border-radius:0 10px 10px 0}.queue-item b{font-size:10px}.queue-item p{font-size:9px;color:var(--muted);margin:4px 0 0}
+    .profile-card{background:linear-gradient(145deg,#fff,#eef4ff);border:1px solid #c9d9f2;border-radius:18px;padding:19px}.profile-name{font-size:24px;font-weight:950;letter-spacing:-.04em}.profile-title{font-size:11px;color:var(--muted);margin-top:4px}.profile-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}.profile-stat{background:rgba(255,255,255,.78);border:1px solid var(--line);border-radius:11px;padding:10px}.profile-stat small{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;font-weight:900}.profile-stat b{display:block;font-size:16px;margin-top:5px}
+    .world-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.world-action{border:1px solid var(--line);border-radius:14px;padding:13px}.world-action h4{margin:0 0 6px;font-size:12px}.world-action p{font-size:9px;color:var(--muted);line-height:1.45;min-height:42px}.world-desk .faction-row{grid-template-columns:1fr 90px 230px}.world-desk .faction-row>div:last-child{display:flex;gap:5px;justify-content:flex-end}
+
+    @media(max-width:1180px){
+      .metric-grid{grid-template-columns:repeat(3,1fr)}
+      .content-grid{grid-template-columns:1fr}
+      .briefing{position:static}
+      .briefing-list{max-height:270px}
+    }
+    @media(max-width:880px){
+      .setup-grid{grid-template-columns:1fr}.principles{position:static}
+      .app{display:block;padding-bottom:72px}
+      .sidebar{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;height:68px;z-index:30;padding:8px;background:rgba(10,42,102,.97);backdrop-filter:blur(12px)}
+      .side-brand,.nav-label,.side-footer{display:none}
+      .nav{height:100%;display:flex;gap:4px;overflow-x:auto}
+      .nav button{padding:5px 8px;min-width:62px;display:flex;flex-direction:column;justify-content:center;gap:3px;font-size:8px;text-align:center}
+      .nav-glyph{width:22px;height:22px;border-radius:7px;font-size:8px}
+      .topbar{height:68px;padding:0 13px}.ghost.hide-mobile{display:none}.advance{min-width:101px;padding:10px 11px}
+      .content{padding:14px}.metric-grid{gap:8px}.metric{padding:11px}.metric .value{font-size:17px}
+      .content-grid{gap:12px}.two-col,.three-col,.card-grid{grid-template-columns:1fr}.economy-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:560px){
+      .setup{padding:25px 14px 45px}.brand-row{margin-bottom:35px}.country-panel{padding:14px}.country-grid{grid-template-columns:1fr}.setup-actions{grid-template-columns:1fr}.primary{width:100%}
+      h1{font-size:48px}.hero p{font-size:15px}.metric-grid{grid-template-columns:repeat(2,1fr)}
+      .country-id b{max-width:130px}.country-id span{max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.top-actions{gap:5px}
+      .page-title{align-items:start;flex-direction:column}.stat-row{grid-template-columns:105px 1fr 38px}
+      .modal-body{padding:19px}.modal h2{font-size:24px}.cabinet-grid,.voter-grid{grid-template-columns:1fr}.sector-grid{grid-template-columns:repeat(2,1fr)}.profile-stats{grid-template-columns:repeat(2,1fr)}.world-actions{grid-template-columns:1fr}.paper-columns{columns:1}.world-desk .faction-row{grid-template-columns:1fr}.world-desk .faction-row>div:last-child{justify-content:flex-start}
+    }
+  </style>
+</head>
+<body>
+  <section id="setup" class="setup">
+    <div class="setup-wrap">
+      <div class="brand-row">
+        <div class="brand"><span class="brand-mark"></span> MANDATE</div>
+        <div class="version">LIVING GOVERNMENT · v0.2</div>
+      </div>
+      <div class="hero">
+        <div class="eyebrow">A national leadership simulator</div>
+        <h1>Every promise creates a consequence.</h1>
+        <p>Run a real country through elections, debt, inflation, corruption, legislation, infrastructure, scandals, opposition attacks, and crises. You are not choosing good or bad. You are choosing which problem becomes worse.</p>
+      </div>
+      <div class="setup-grid">
+        <div class="country-panel">
+          <div class="panel-head"><div><h2>Choose your country</h2><span>Each system has different powers, risks, and term rules.</span></div></div>
+          <div id="countryGrid" class="country-grid"></div>
+          <div class="setup-actions">
+            <input id="leaderName" class="name-input" value="Salha Akmad" maxlength="30" aria-label="Leader name" />
+            <button id="startGame" class="primary" disabled>Take office</button>
+          </div>
+        </div>
+        <aside class="principles">
+          <h3>What makes it brutal</h3>
+          <div class="principle"><span class="num">01</span><div><b>No isolated statistics</b><p>Growth, jobs, prices, revenue, debt, trust, corruption, and stability affect one another every month.</p></div></div>
+          <div class="principle"><span class="num">02</span><div><b>Institutions fight back</b><p>Legislatures reject bills, courts and media expose abuse, party elites defect, and opponents weaponize failure.</p></div></div>
+          <div class="principle"><span class="num">03</span><div><b>Projects take years</b><p>Infrastructure costs money before it creates growth. Corruption causes leakage, delays, and deadly failures.</p></div></div>
+          <div class="principle"><span class="num">04</span><div><b>You can play dirty</b><p>Bribe lawmakers, protect allies, accept kickbacks, and manipulate institutions—but hidden risk accumulates.</p></div></div>
+          <div class="disclaimer">Game values are simplified starting baselines inspired by public World Bank and IMF indicators. This is a systems simulation, not a live economic forecast.</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="app" class="app hidden">
+    <aside class="sidebar">
+      <div class="side-brand"><span class="brand-mark"></span> MANDATE</div>
+      <div class="nav-label">Government</div>
+      <nav id="nav" class="nav">
+        <button class="active" data-page="dashboard"><span class="nav-glyph">D</span>Dashboard</button>
+        <button data-page="daily"><span class="nav-glyph">24</span>Daily</button>
+        <button data-page="cabinet"><span class="nav-glyph">C</span>Cabinet</button>
+        <button data-page="public"><span class="nav-glyph">V</span>Public</button>
+        <button data-page="bills"><span class="nav-glyph">B</span>Bills</button>
+        <button data-page="projects"><span class="nav-glyph">P</span>Projects</button>
+        <button data-page="opposition"><span class="nav-glyph">O</span>Politics</button>
+        <button data-page="world"><span class="nav-glyph">W</span>World</button>
+        <button data-page="press"><span class="nav-glyph">N</span>Press</button>
+        <button data-page="timeline"><span class="nav-glyph">R</span>Record</button>
+      </nav>
+      <div class="side-footer"><b>Rule:</b> there is no perfect decision. The state remembers every shortcut.</div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="country-id">
+          <div id="seal" class="seal">PH</div>
+          <div><b id="leaderTitle">President Salha Akmad</b><span id="countrySystem">Republic of the Philippines</span></div>
+        </div>
+        <div class="top-actions">
+          <button id="saveBtn" class="ghost hide-mobile">Save</button><button id="exportBtn" class="ghost hide-mobile">Export</button>
+          <button id="resetBtn" class="ghost hide-mobile">New game</button>
+          <button id="advanceBtn" class="advance">Next month</button>
+        </div>
+      </header>
+
+      <div class="content">
+        <div id="metricGrid" class="metric-grid"></div>
+        <div class="content-grid">
+          <section id="workspace" class="workspace"></section>
+          <aside class="briefing">
+            <div class="briefing-head"><h3>Executive briefing</h3><span class="live-dot"></span></div>
+            <div id="briefingList" class="briefing-list"></div>
+          </aside>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <div id="modalRoot"></div>
+  <input id="importFile" class="hidden" type="file" accept="application/json" />
+  <div id="toast" class="toast hidden"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  const clamp = (n, min = 0, max = 100) => Math.max(min, Math.min(max, n));
+  const round = (n, d = 1) => Number(n.toFixed(d));
+  const money = (n) => {
+    const a = Math.abs(n);
+    if (a >= 1000) return `${n < 0 ? '-' : ''}$${(a / 1000).toFixed(a >= 10000 ? 1 : 2)}T`;
+    return `${n < 0 ? '-' : ''}$${a.toFixed(a >= 100 ? 0 : 1)}B`;
+  };
+  const pct = (n, d = 1) => `${n.toFixed(d)}%`;
+  const random = (min, max) => Math.random() * (max - min) + min;
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+  const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  const countries = {
+    philippines: {
+      code:'PH', name:'Philippines', official:'Republic of the Philippines', office:'President', system:'Unitary presidential republic', power:'competitive', termMonths:72,
+      population:115.8, gdp:470, potentialGrowth:5.8, inflation:3.4, unemployment:4.1, debtRatio:60.7, taxRate:17.8, baseSpend:20.5,
+      infrastructure:45, health:47, education:51, security:53, inequality:58, environment:42, corruption:61, stability:58, democracy:61, legislature:48, elite:52,
+      approval:55, treasury:9.5, reserveMonths:2.2,
+      traits:['Fast growth, weak state capacity','Typhoon and food-price exposure','Single six-year presidential term']
+    },
+    unitedstates: {
+      code:'US', name:'United States', official:'United States of America', office:'President', system:'Federal presidential republic', power:'competitive', termMonths:48,
+      population:340.1, gdp:29180, potentialGrowth:2.1, inflation:3.0, unemployment:4.1, debtRatio:122.3, taxRate:27.0, baseSpend:31.0,
+      infrastructure:75, health:72, education:78, security:84, inequality:67, environment:58, corruption:28, stability:66, democracy:72, legislature:43, elite:58,
+      approval:50, treasury:260, reserveMonths:1.2,
+      traits:['Huge economy, expensive commitments','Powerful legislature and courts','Four-year election cycle']
+    },
+    china: {
+      code:'CN', name:'China', official:"People's Republic of China", office:'President / General Secretary', system:'One-party socialist state', power:'party', termMonths:60,
+      population:1409.0, gdp:18740, potentialGrowth:4.5, inflation:1.2, unemployment:5.2, debtRatio:88.0, taxRate:20.2, baseSpend:24.0,
+      infrastructure:82, health:69, education:74, security:88, inequality:63, environment:48, corruption:44, stability:78, democracy:16, legislature:88, elite:72,
+      approval:67, treasury:410, reserveMonths:3.5,
+      traits:['High execution capacity','Elite loyalty matters more than elections','Property and debt vulnerabilities']
+    },
+    france: {
+      code:'FR', name:'France', official:'French Republic', office:'President', system:'Semi-presidential republic', power:'competitive', termMonths:60,
+      population:68.4, gdp:3160, potentialGrowth:1.4, inflation:2.3, unemployment:7.4, debtRatio:112.0, taxRate:52.0, baseSpend:57.0,
+      infrastructure:84, health:86, education:81, security:73, inequality:39, environment:70, corruption:25, stability:63, democracy:82, legislature:46, elite:55,
+      approval:47, treasury:42, reserveMonths:1.8,
+      traits:['Strong welfare state, little fiscal room','Protest-sensitive politics','Five-year presidential term']
+    },
+    brazil: {
+      code:'BR', name:'Brazil', official:'Federative Republic of Brazil', office:'President', system:'Federal presidential republic', power:'competitive', termMonths:48,
+      population:211.9, gdp:2180, potentialGrowth:2.4, inflation:4.5, unemployment:7.2, debtRatio:87.0, taxRate:33.0, baseSpend:39.0,
+      infrastructure:55, health:60, education:56, security:46, inequality:72, environment:61, corruption:55, stability:54, democracy:70, legislature:38, elite:51,
+      approval:52, treasury:35, reserveMonths:2.1,
+      traits:['Fragmented coalition politics','Commodity upside and fiscal fragility','High inequality and security pressure']
+    },
+    indonesia: {
+      code:'ID', name:'Indonesia', official:'Republic of Indonesia', office:'President', system:'Unitary presidential republic', power:'competitive', termMonths:60,
+      population:283.5, gdp:1400, potentialGrowth:5.0, inflation:2.8, unemployment:4.9, debtRatio:40.5, taxRate:12.2, baseSpend:17.5,
+      infrastructure:59, health:54, education:58, security:63, inequality:52, environment:43, corruption:58, stability:66, democracy:64, legislature:53, elite:57,
+      approval:58, treasury:28, reserveMonths:3.0,
+      traits:['Young market with infrastructure needs','Coalition and regional bargaining','Commodity and climate exposure']
+    },
+    mexico: {
+      code:'MX', name:'Mexico', official:'United Mexican States', office:'President', system:'Federal presidential republic', power:'singleTerm', termMonths:72,
+      population:130.9, gdp:1850, potentialGrowth:2.0, inflation:4.2, unemployment:2.8, debtRatio:57.0, taxRate:17.0, baseSpend:24.5,
+      infrastructure:62, health:58, education:61, security:38, inequality:62, environment:50, corruption:65, stability:56, democracy:62, legislature:59, elite:54,
+      approval:58, treasury:31, reserveMonths:2.6,
+      traits:['Nearshoring potential','Severe organized-crime pressure','One six-year presidential term']
+    },
+    turkiye: {
+      code:'TR', name:'Türkiye', official:'Republic of Türkiye', office:'President', system:'Presidential republic', power:'managed', termMonths:60,
+      population:85.5, gdp:1340, potentialGrowth:3.2, inflation:35.0, unemployment:8.7, debtRatio:30.0, taxRate:23.0, baseSpend:26.0,
+      infrastructure:71, health:67, education:63, security:72, inequality:59, environment:48, corruption:57, stability:57, democracy:35, legislature:62, elite:64,
+      approval:51, treasury:19, reserveMonths:1.7,
+      traits:['High inflation and currency pressure','Concentrated executive power','Elite loyalty and urban opposition']
+    }
+  };
+
+  const billDefs = [
+    {id:'taxCut', tag:'Economy', title:'Middle-class tax cut', desc:'Raise disposable income now, but permanently narrow revenue unless growth compensates.', capital:10, controversy:9, max:3,
+      effects:['Approval +3','Tax rate −1.2 pts','Deficit pressure +'], apply:s=>{s.taxRate-=1.2;s.approval+=3;s.businessClimate+=1;s.inequality+=1.2;}},
+    {id:'wealthTax', tag:'Revenue', title:'High-income surtax', desc:'Create fiscal space and reduce inequality. Capital flight and business opposition are possible.', capital:13, controversy:15, max:3,
+      effects:['Tax rate +0.9 pts','Inequality −2','Elite support −4'], apply:s=>{s.taxRate+=.9;s.inequality-=2;s.elite-=4;s.approval+=1;s.businessClimate-=1;}},
+    {id:'health', tag:'Social', title:'Universal care expansion', desc:'Increase access and household security. Benefits arrive gradually; spending begins immediately.', capital:15, controversy:11, max:3,
+      effects:['Health +4','Approval +2','Spending +0.8% GDP'], apply:s=>{s.health+=4;s.approval+=2;s.baseSpend+=.8;s.inequality-=1;}},
+    {id:'education', tag:'Social', title:'National education compact', desc:'Fund teachers, technical schools, and research. Productivity gains take years.', capital:12, controversy:7, max:3,
+      effects:['Education +4','Long-run growth +','Spending +0.6% GDP'], apply:s=>{s.education+=4;s.baseSpend+=.6;s.potentialGrowth+=.12;s.approval+=1;}},
+    {id:'antiCorruption', tag:'Institutions', title:'Independent anti-graft authority', desc:'Give investigators procurement access and prosecutorial independence—even against your allies.', capital:18, controversy:18, max:3,
+      effects:['Corruption risk −7','Elite support −7','Trust +'], apply:s=>{s.corruption-=7;s.elite-=7;s.democracy+=3;s.approval+=2;s.hiddenRisk=Math.max(0,s.hiddenRisk-5);}},
+    {id:'publicWorks', tag:'Economy', title:'Emergency public works act', desc:'Fast construction and jobs, with elevated overpricing risk if institutions are weak.', capital:11, controversy:8, max:3,
+      effects:['Unemployment −0.5','Infrastructure +2','Spending +0.9% GDP'], apply:s=>{s.unemployment-=.5;s.infrastructure+=2;s.baseSpend+=.9;s.corruption+=1.2;s.approval+=2;}},
+    {id:'deregulation', tag:'Business', title:'Permitting and deregulation law', desc:'Speed private investment by removing permits. Weak enforcement can increase accidents and pollution.', capital:9, controversy:12, max:3,
+      effects:['Business climate +4','Growth +','Environment −2'], apply:s=>{s.businessClimate+=4;s.potentialGrowth+=.12;s.environment-=2;s.elite+=2;}},
+    {id:'labor', tag:'Labor', title:'Living wage and labor rights act', desc:'Raise household income and bargaining power. Small firms may cut hiring if productivity lags.', capital:14, controversy:16, max:3,
+      effects:['Inequality −3','Approval +2','Unemployment risk +'], apply:s=>{s.inequality-=3;s.approval+=2;s.unemployment+=.2;s.businessClimate-=1.3;}},
+    {id:'security', tag:'Security', title:'National security funding bill', desc:'Expand police, intelligence, and border capacity with new oversight requirements.', capital:12, controversy:13, max:3,
+      effects:['Security +5','Spending +0.5% GDP','Democracy −1'], apply:s=>{s.security+=5;s.baseSpend+=.5;s.democracy-=1;s.approval+=1;}},
+    {id:'green', tag:'Energy', title:'Clean energy transition act', desc:'Subsidize renewable power, grids, and storage. Upfront costs are high; fuel exposure falls later.', capital:14, controversy:12, max:3,
+      effects:['Environment +6','Inflation short-term +0.2','Growth long-term +'], apply:s=>{s.environment+=6;s.inflation+=.2;s.baseSpend+=.5;s.potentialGrowth+=.08;}},
+    {id:'media', tag:'Power', title:'National information standards act', desc:'Pressure platforms and broadcasters to remove destabilizing content. It also weakens independent scrutiny.', capital:7, controversy:20, max:3, dirty:true,
+      effects:['Stability +3','Democracy −6','Hidden scandal risk +'], apply:s=>{s.stability+=3;s.democracy-=6;s.approval+=1;s.hiddenRisk+=7;s.elite+=3;}},
+    {id:'centralBank', tag:'Inflation', title:'Central bank independence guarantee', desc:'Protect monetary policy from executive pressure. Inflation credibility improves, but you lose a powerful shortcut.', capital:10, controversy:8, max:1,
+      effects:['Inflation −1.2','Stability +2','Direct control −'], apply:s=>{s.inflation-=1.2;s.stability+=2;s.businessClimate+=2;s.approval-=1;}}
+  ];
+
+  const projectDefs = [
+    {id:'grid', title:'National power grid modernization', desc:'Transmission lines, storage, and grid controls that reduce outages and unlock industry.', duration:30, cost:3.8, effects:['Infrastructure +8','Growth potential +0.30','Inflation resilience +'], complete:s=>{s.infrastructure+=8;s.potentialGrowth+=.3;s.environment+=2;}},
+    {id:'rail', title:'Intercity rail and freight spine', desc:'A national transport corridor with stations, freight yards, and urban links.', duration:42, cost:5.6, effects:['Infrastructure +11','Growth potential +0.40','Approval +3'], complete:s=>{s.infrastructure+=11;s.potentialGrowth+=.4;s.approval+=3;s.environment+=1;}},
+    {id:'ports', title:'Ports and customs modernization', desc:'Expand ports, digitize customs, and reduce cargo dwell time.', duration:24, cost:2.5, effects:['Business climate +6','Growth potential +0.22','Corruption risk −2'], complete:s=>{s.businessClimate+=6;s.potentialGrowth+=.22;s.corruption-=2;}},
+    {id:'hospitals', title:'Regional hospital network', desc:'Build and staff hospitals outside major urban centers.', duration:28, cost:2.9, effects:['Health +10','Inequality −3','Approval +3'], complete:s=>{s.health+=10;s.inequality-=3;s.approval+=3;s.baseSpend+=.35;}},
+    {id:'schools', title:'Schools and technical institutes', desc:'Repair classrooms and create technical campuses aligned with industry needs.', duration:30, cost:2.7, effects:['Education +9','Growth potential +0.25','Unemployment −0.3'], complete:s=>{s.education+=9;s.potentialGrowth+=.25;s.unemployment-=.3;}},
+    {id:'housing', title:'Mass housing and water program', desc:'Build affordable housing, sewage, and reliable urban water systems.', duration:36, cost:4.4, effects:['Inequality −7','Infrastructure +5','Approval +5'], complete:s=>{s.inequality-=7;s.infrastructure+=5;s.approval+=5;s.baseSpend+=.25;}},
+    {id:'digital', title:'Digital state and procurement platform', desc:'Unified identity, benefits, permits, tax filing, and transparent public contracts.', duration:20, cost:1.4, effects:['Corruption risk −6','Revenue efficiency +','Stability +2'], complete:s=>{s.corruption-=6;s.collectionEfficiency+=.05;s.stability+=2;s.businessClimate+=3;}},
+    {id:'flood', title:'National flood and climate defense', desc:'Dikes, drainage, watershed repair, and disaster-warning systems.', duration:34, cost:3.3, effects:['Environment +8','Disaster losses −','Infrastructure +4'], complete:s=>{s.environment+=8;s.infrastructure+=4;s.disasterDefense+=.35;}}
+  ];
+
+  const opponentNames = {
+    philippines:['Mara Villanueva','Ramon de la Cruz','Victor Sarmiento'],
+    unitedstates:['Evelyn Brooks','Marcus Reed','Daniel Hale'],
+    china:['Liang Wen','Zhao Min','Chen Rui'],
+    france:['Claire Moreau','Julien Lambert','Antoine Girard'],
+    brazil:['Marina Costa','Rafael Nunes','Tiago Almeida'],
+    indonesia:['Arif Pranoto','Siti Mahendra','Bima Santoso'],
+    mexico:['Lucía Navarro','Alejandro Vega','Tomás Serrano'],
+    turkiye:['Selin Kaya','Kemal Arslan','Murat Demir']
+  };
+
+  const eventDefs = [
+    {
+      id:'fuelShock', title:'Global fuel-price shock', desc:'A geopolitical disruption pushes fuel and transport costs sharply higher. Food prices will follow within weeks.',
+      choices:[
+        {label:'Subsidize fuel for six months', hint:'Approval now; heavy fiscal cost and more demand.', effect:s=>{s.approval+=4;s.inflation-=1.4;s.temporarySpend+=1.1;s.debt+=s.gdp*.006;}, outcome:'Prices are contained, but the subsidy rapidly becomes politically difficult to remove.'},
+        {label:'Target aid only to poor households', hint:'Moderate cost; requires administrative capacity.', effect:s=>{s.approval+=1;s.inflation-=.4;s.baseSpend+=.15;s.inequality-=1;}, outcome:'The poorest households receive relief, while commuters and business groups still attack the government.'},
+        {label:'Let prices adjust', hint:'Protect the budget; absorb inflation and anger.', effect:s=>{s.inflation+=2.4;s.approval-=6;s.businessClimate-=1;}, outcome:'The treasury is protected. Public transport fares and food prices climb immediately.'}
+      ]
+    },
+    {
+      id:'bribe', title:'The infrastructure envelope', desc:'A construction consortium offers a private payment in exchange for favorable qualification rules on the next national project.',
+      choices:[
+        {label:'Accept the payment', hint:'Gain private wealth. Create hidden legal and political exposure.', dirty:true, effect:s=>{s.personalFunds+=random(12,32);s.corruption+=4;s.hiddenRisk+=18;s.elite+=3;}, outcome:'The money is routed through intermediaries. No document names you directly—for now.'},
+        {label:'Reject it quietly', hint:'No gain, no confrontation.', effect:s=>{s.corruption-=1;s.stability+=.5;}, outcome:'The consortium leaves. Your staff understands that the presidency is not for sale.'},
+        {label:'Order a sting operation', hint:'Reduce corruption; some allies fear they could be next.', effect:s=>{s.corruption-=5;s.approval+=2;s.elite-=4;s.politicalCapital+=2;}, outcome:'The arrests dominate the news and contractors begin reviewing their political exposure.'}
+      ]
+    },
+    {
+      id:'allyScandal', title:'Your minister is implicated', desc:'Leaked procurement files suggest one of your closest cabinet allies steered contracts to family-linked companies.',
+      choices:[
+        {label:'Fire the minister and open the files', hint:'Lose an ally; gain credibility.', effect:s=>{s.elite-=6;s.corruption-=4;s.approval+=4;s.politicalCapital-=2;}, outcome:'The minister resigns angrily and begins briefing reporters against your inner circle.'},
+        {label:'Defend the minister', hint:'Protect coalition loyalty; risk a wider scandal.', dirty:true, effect:s=>{s.elite+=5;s.approval-=3;s.hiddenRisk+=16;s.corruption+=3;}, outcome:'Your coalition closes ranks, but independent media continue tracing the money.'},
+        {label:'Reassign them without an inquiry', hint:'Temporary compromise; satisfies nobody.', effect:s=>{s.elite+=1;s.approval-=2;s.hiddenRisk+=7;s.corruption+=1;}, outcome:'The story fades slightly, but the opposition calls the transfer a cover-up.'}
+      ]
+    },
+    {
+      id:'storm', title:'A major natural disaster', desc:'A powerful storm and severe flooding hit densely populated regions, destroying homes and disabling roads and power.',
+      choices:[
+        {label:'Launch a full relief and reconstruction package', hint:'Large cost; stronger recovery and approval.', effect:s=>{const damage=1-s.disasterDefense;s.debt+=s.gdp*.008*damage;s.treasury-=s.gdp*.002;s.approval+=4;s.infrastructure-=3*damage;s.stability+=1;}, outcome:'Relief reaches most affected areas, though procurement costs immediately rise.'},
+        {label:'Use the military and emergency powers', hint:'Fast control; democratic and civil-liberty cost.', effect:s=>{s.security+=3;s.stability+=3;s.democracy-=4;s.approval+=1;s.hiddenRisk+=3;}, outcome:'Order is restored quickly, but rights groups document abuses at checkpoints and shelters.'},
+        {label:'Limit spending to existing disaster funds', hint:'Protect the balance sheet; slow recovery.', effect:s=>{const damage=1-s.disasterDefense;s.infrastructure-=7*damage;s.approval-=7;s.inequality+=3;s.stability-=4;}, outcome:'Local officials accuse the national government of abandoning devastated communities.'}
+      ]
+    },
+    {
+      id:'strike', title:'Nationwide labor strike', desc:'Transport, ports, schools, and government offices begin a coordinated strike over wages and working conditions.',
+      choices:[
+        {label:'Negotiate a national agreement', hint:'Costly, but reduces inequality and unrest.', effect:s=>{s.baseSpend+=.4;s.inequality-=2;s.approval+=2;s.stability+=3;s.businessClimate-=1;}, outcome:'The strike ends after a difficult settlement. Employers warn that costs are rising too quickly.'},
+        {label:'Order a return to work', hint:'Protect output; risk confrontation.', effect:s=>{s.security+=1;s.democracy-=3;s.stability-=2;s.approval-=4;s.hiddenRisk+=4;}, outcome:'Most workers return, while violent clashes create images the opposition will reuse for years.'},
+        {label:'Wait them out', hint:'No immediate fiscal concession; lost output accumulates.', effect:s=>{s.gdp*=.995;s.unemployment+=.3;s.approval-=3;s.stability-=3;}, outcome:'The strike weakens after weeks, but factories and ports report large losses.'}
+      ]
+    },
+    {
+      id:'factory', title:'A foreign megafactory proposal', desc:'A global manufacturer offers a major plant, but demands tax holidays, land acquisition, and guaranteed power prices.',
+      choices:[
+        {label:'Accept the full incentive package', hint:'Jobs and investment; revenue and displacement costs.', effect:s=>{s.businessClimate+=4;s.unemployment-=.6;s.taxRate-=.25;s.inequality+=1;s.approval+=2;}, outcome:'Construction begins. Local landowners and displaced residents organize protests.'},
+        {label:'Renegotiate for local hiring and taxes', hint:'Lower chance of success; more balanced result.', effect:s=>{if(Math.random()<.62){s.businessClimate+=3;s.unemployment-=.4;s.education+=1;s.approval+=2;}else{s.businessClimate-=1;s.approval-=1;}}, outcome:'The company accepts some terms but delays its final investment decision.'},
+        {label:'Reject corporate subsidies', hint:'Protect revenue and sovereignty; lose the headline investment.', effect:s=>{s.approval+=1;s.businessClimate-=2;s.elite-=2;}, outcome:'Supporters praise the decision. Regional leaders blame you for lost jobs.'}
+      ]
+    },
+    {
+      id:'bank', title:'Banking system under stress', desc:'Rapid withdrawals hit two large banks after rumors of hidden losses. The central bank requests emergency authority.',
+      choices:[
+        {label:'Guarantee deposits and recapitalize banks', hint:'Stop panic; socialize private losses.', effect:s=>{s.debt+=s.gdp*.018;s.stability+=5;s.approval-=2;s.corruption+=1;}, outcome:'The panic stops. Public anger grows over another rescue for wealthy bank owners.'},
+        {label:'Resolve banks and punish shareholders', hint:'More disruption now; stronger accountability.', effect:s=>{s.gdp*=.993;s.unemployment+=.4;s.stability-=2;s.corruption-=2;s.approval+=1;}, outcome:'Shareholders are wiped out. Credit remains tight for months.'},
+        {label:'Deny there is a crisis', hint:'No cost today; catastrophic tail risk.', dirty:true, effect:s=>{s.hiddenRisk+=22;s.stability-=4;s.approval+=1;}, outcome:'Markets calm briefly after your speech, while withdrawals continue outside camera view.'}
+      ]
+    },
+    {
+      id:'cyber', title:'National systems cyberattack', desc:'Hospitals, tax systems, and transport networks are disrupted by a coordinated ransomware campaign.',
+      choices:[
+        {label:'Pay secretly and restore systems', hint:'Fast recovery; incentivizes future attacks.', dirty:true, effect:s=>{s.treasury-=s.gdp*.0004;s.hiddenRisk+=6;s.security-=1;s.approval+=1;}, outcome:'Systems return online, but intelligence officials warn the attackers now know you will pay.'},
+        {label:'Refuse and rebuild', hint:'Weeks of disruption; stronger security later.', effect:s=>{s.gdp*=.997;s.approval-=3;s.security+=5;s.baseSpend+=.1;}, outcome:'The outage lasts longer than promised. New defenses are deployed across government.'},
+        {label:'Attribute the attack and retaliate', hint:'Deterrence and geopolitical escalation.', effect:s=>{s.security+=3;s.stability-=1;s.approval+=2;s.hiddenRisk+=3;}, outcome:'The retaliation is popular domestically, but foreign markets price in escalation risk.'}
+      ]
+    },
+    {
+      id:'protest', title:'Opposition fills the capital', desc:'A broad coalition of students, unions, religious groups, and opposition parties demands your resignation.',
+      choices:[
+        {label:'Allow the march and address the nation', hint:'Democratic legitimacy; no guarantee of calm.', effect:s=>{s.democracy+=3;s.approval+=1;s.stability+=1;s.politicalCapital-=2;}, outcome:'The protest remains mostly peaceful. Your speech reassures moderates but not movement leaders.'},
+        {label:'Offer a reform package', hint:'Spend political capital to divide the coalition.', effect:s=>{s.politicalCapital-=8;s.corruption-=2;s.approval+=3;s.stability+=4;s.elite-=2;}, outcome:'Moderate organizers accept talks, while radicals accuse them of betrayal.'},
+        {label:'Disperse the crowds', hint:'Rapid control; large rights and scandal risk.', dirty:true, effect:s=>{s.security+=2;s.stability+=2;s.democracy-=7;s.approval-=5;s.hiddenRisk+=12;}, outcome:'The square is cleared by nightfall. Graphic footage spreads internationally.'}
+      ]
+    },
+    {
+      id:'boom', title:'Unexpected export windfall', desc:'Commodity and manufacturing exports surge, creating a temporary revenue windfall and a stronger currency.',
+      choices:[
+        {label:'Save most of the windfall', hint:'Improve resilience; limited immediate popularity.', effect:s=>{s.treasury+=s.gdp*.009;s.debt-=s.gdp*.004;s.stability+=2;s.approval+=1;}, outcome:'Credit markets reward the discipline. Ministers complain that voters cannot see a reserve fund.'},
+        {label:'Fund household cash transfers', hint:'Strong approval; temporary inflation pressure.', effect:s=>{s.approval+=5;s.inflation+=.6;s.inequality-=2;s.treasury+=s.gdp*.002;}, outcome:'Households spend quickly, lifting retail sales and prices.'},
+        {label:'Accelerate strategic projects', hint:'Growth upside; high leakage risk.', effect:s=>{s.infrastructure+=2;s.businessClimate+=1;s.corruption+=2;s.approval+=2;}, outcome:'Construction accelerates, and contractors immediately expand their political donations.'}
+      ]
+    },
+    {
+      id:'collapse', title:'A public structure collapses', desc:'A recently repaired bridge collapses during rush hour. Early reports point to poor materials and falsified inspections.',
+      choices:[
+        {label:'Create an independent public inquiry', hint:'Expose allies and contractors; restore trust.', effect:s=>{s.approval+=2;s.corruption-=5;s.elite-=6;s.infrastructure-=2;s.hiddenRisk=Math.max(0,s.hiddenRisk-3);}, outcome:'The inquiry begins issuing subpoenas, including to donors close to your campaign.'},
+        {label:'Blame local officials', hint:'Protect the center; weak credibility.', dirty:true, effect:s=>{s.approval-=3;s.hiddenRisk+=8;s.stability-=2;s.elite+=2;}, outcome:'Local officials release documents showing that national agencies approved the materials.'},
+        {label:'Compensate victims and move on', hint:'Human relief without structural reform.', effect:s=>{s.treasury-=s.gdp*.0003;s.approval-=1;s.corruption+=1;s.infrastructure-=3;}, outcome:'Families receive support, but engineers warn that similar structures remain at risk.'}
+      ]
+    },
+    {
+      id:'outbreak', title:'A fast-moving health outbreak', desc:'Hospitals report a contagious respiratory disease spreading in several cities. Information remains incomplete.',
+      choices:[
+        {label:'Act early with testing and targeted restrictions', hint:'Economic cost now; lower health risk.', effect:s=>{s.gdp*=.997;s.health+=2;s.approval+=1;s.stability+=1;s.treasury-=s.gdp*.0008;}, outcome:'The outbreak slows, though affected businesses demand compensation.'},
+        {label:'Keep the economy fully open', hint:'Protect output unless hospitals become overwhelmed.', effect:s=>{if(Math.random()<.55){s.health-=6;s.approval-=6;s.unemployment+=.4;}else{s.approval+=2;s.businessClimate+=1;}}, outcome:'Your gamble becomes the defining story of the month.'},
+        {label:'Suppress reporting to avoid panic', hint:'Temporary calm; severe hidden risk.', dirty:true, effect:s=>{s.approval+=1;s.democracy-=3;s.hiddenRisk+=18;s.health-=2;}, outcome:'Official numbers remain low while doctors circulate anonymous warnings.'}
+      ]
+    }
+  ];
+
+
+  const cabinetNames = {
+    philippines:['Isabel Reyes','Andres Lim','Leila Mendoza','Rafael Santos','Mina Bautista','Gabriel Flores','Teresa Aquino','Nico Valdez'],
+    unitedstates:['Helen Ward','James Porter','Amelia Stone','Victor Brooks','Naomi Reed','Peter Hayes','Diana Cole','Samuel Wright'],
+    china:['Wang Mei','Liu Qiang','Sun Lan','Zhou Jie','Lin Tao','He Fang','Gao Wei','Tang Min'],
+    france:['Élise Bernard','Mathieu Laurent','Camille Petit','Louis Roux','Sophie Garnier','Hugo Fontaine','Chloé Mercier','Paul Chevalier'],
+    brazil:['Ana Ribeiro','João Carvalho','Beatriz Lima','Mateus Rocha','Camila Martins','Lucas Barros','Renata Alves','Diego Moreira'],
+    indonesia:['Dewi Lestari','Fajar Wibowo','Nadia Putri','Rizky Hidayat','Maya Santoso','Arman Pratama','Sari Nugroho','Budi Halim'],
+    mexico:['Sofía Castillo','Diego Herrera','Valeria Rojas','Emilio Cruz','Mariana Luna','Javier Ortega','Elena Salazar','Carlos Ibarra'],
+    turkiye:['Aylin Yılmaz','Emre Şahin','Zeynep Acar','Kerem Koç','Elif Çelik','Burak Özdemir','Derya Arslan','Can Demir']
+  };
+
+  const cabinetRoles = [
+    {id:'finance',role:'Finance Minister',sector:'fiscal policy',ideologies:['Fiscal hawk','Developmentalist','Market liberal']},
+    {id:'interior',role:'Interior Minister',sector:'security and local government',ideologies:['Law and order','Institutionalist','Political operator']},
+    {id:'foreign',role:'Foreign Affairs Minister',sector:'diplomacy',ideologies:['Atlanticist','Non-aligned','Economic diplomat']},
+    {id:'health',role:'Health Minister',sector:'public health',ideologies:['Technocrat','Universalist','Budget realist']},
+    {id:'infrastructure',role:'Infrastructure Minister',sector:'national projects',ideologies:['Builder','Regional broker','Procurement reformer']},
+    {id:'education',role:'Education Minister',sector:'schools and skills',ideologies:['Reformer','Traditionalist','Industry-aligned']},
+    {id:'justice',role:'Justice Minister',sector:'law and anti-corruption',ideologies:['Civil libertarian','Anti-graft crusader','Executive loyalist']},
+    {id:'chief',role:'Chief of Staff',sector:'coalition management',ideologies:['Party loyalist','Pragmatist','Power broker']}
+  ];
+
+  const voterDefs = [
+    {id:'workers',name:'Workers and wage earners',size:23,priority:'Jobs, wages, and prices'},
+    {id:'middle',name:'Urban middle class',size:20,priority:'Inflation, services, and stability'},
+    {id:'business',name:'Business and investors',size:10,priority:'Taxes, regulation, and confidence'},
+    {id:'rural',name:'Rural communities and farmers',size:15,priority:'Food prices, roads, and subsidies'},
+    {id:'youth',name:'Students and young voters',size:13,priority:'Education, jobs, and rights'},
+    {id:'public',name:'Public employees',size:8,priority:'Pay, institutions, and budgets'},
+    {id:'security',name:'Security-minded voters',size:6,priority:'Crime, order, and borders'},
+    {id:'green',name:'Climate and reform voters',size:5,priority:'Environment and clean government'}
+  ];
+
+  const factionDefs = [
+    {id:'party',name:'Presidential party',seats:32,demand:'Protect party officials and deliver visible wins'},
+    {id:'regional',name:'Regional governors bloc',seats:20,demand:'Infrastructure and transfers outside the capital'},
+    {id:'labor',name:'Labor and social caucus',seats:16,demand:'Wages, welfare, and public services'},
+    {id:'business',name:'Business and conservative bloc',seats:18,demand:'Lower costs, permits, and fiscal restraint'},
+    {id:'reform',name:'Independent reform caucus',seats:14,demand:'Transparency, courts, and anti-corruption'}
+  ];
+
+  const dailyDefs = [
+    {id:'power',category:'Energy',title:'The grid is close to emergency rationing',desc:'Utilities warn that reserve power is nearly exhausted. The public has not yet been told.',adviser:'infrastructure',choices:[
+      {label:'Approve a temporary price increase',hint:'Finance officials expect lower fiscal risk, but households may revolt.',outcome:'Regulators approve higher tariffs while the opposition calls it an assault on families.',now:{inflation:.35,approval:-1,businessClimate:1},later:{infrastructure:2,stability:1},delay:3,groups:{middle:-2,workers:-1,business:2}},
+      {label:'Subsidize electricity bills',hint:'Popular immediately; the true fiscal cost depends on fuel prices.',outcome:'Bills remain stable, but the subsidy becomes an entitlement overnight.',now:{approval:3,temporarySpend:.7},later:{debtRatio:1.5,inflation:.3},delay:4,groups:{workers:3,rural:2,business:1}},
+      {label:'Order emergency blackouts',hint:'Protect the treasury and grid, with severe economic disruption.',outcome:'Rotating outages begin in major cities and factories cut shifts.',now:{approval:-4,businessClimate:-3,stability:-2},later:{infrastructure:1},delay:2,groups:{business:-4,middle:-3}}
+    ]},
+    {id:'food',category:'Cost of living',title:'Rice and staple food prices are accelerating',desc:'Importers blame weather and currency pressure. Farmers say cheap imports will ruin them.',adviser:'finance',choices:[
+      {label:'Cut import tariffs immediately',hint:'Could lower prices quickly but anger domestic producers.',outcome:'Imports surge and urban prices soften while farm groups mobilize.',now:{inflation:-.7,approval:2},later:{businessClimate:1,inequality:1},delay:2,groups:{middle:3,workers:2,rural:-5}},
+      {label:'Buy and distribute emergency stocks',hint:'Administrative capacity will determine whether aid reaches households.',outcome:'Government warehouses release supplies under intense media scrutiny.',now:{approval:2,temporarySpend:.35,corruption:1},later:{inflation:-.35},delay:2,groups:{workers:2,rural:1}},
+      {label:'Protect local farmers',hint:'Stronger rural support; consumers may absorb higher prices.',outcome:'Farm groups celebrate the protection package as urban markets raise prices.',now:{approval:0,inflation:.55},later:{inequality:-1,businessClimate:-1},delay:3,groups:{rural:5,middle:-3,workers:-2}}
+    ]},
+    {id:'leak',category:'Integrity',title:'A journalist has partial evidence against a senior ally',desc:'The documents are incomplete but appear to show procurement favors and undeclared assets.',adviser:'justice',choices:[
+      {label:'Release all records and invite investigators',hint:'Your ally may fall. The administration could gain credibility.',outcome:'The government publishes the files and prosecutors open a formal inquiry.',now:{elite:-5,approval:3,corruption:-2,hiddenRisk:-4},later:{democracy:2},delay:2,groups:{green:5,youth:3,business:1}},
+      {label:'Ask the ally to resign quietly',hint:'Contain the story without admitting systemic wrongdoing.',outcome:'The resignation is announced as a personal decision, convincing almost nobody.',now:{elite:-2,approval:1,hiddenRisk:2},later:{corruption:-1},delay:2,groups:{green:1}},
+      {label:'Pressure the publisher to hold the story',hint:'May work temporarily. Exposure becomes much more dangerous.',outcome:'The article is delayed after a private legal warning.',now:{elite:3,approval:1,democracy:-3,hiddenRisk:11},later:{approval:-4,stability:-2},delay:4,groups:{green:-6,youth:-4}}
+    ]},
+    {id:'wage',category:'Labor',title:'Unions demand an emergency national wage increase',desc:'Real wages have lagged prices. Small businesses warn that layoffs will follow a large mandate.',adviser:'finance',choices:[
+      {label:'Approve the full increase',hint:'Strong household relief with employment and inflation risk.',outcome:'Workers celebrate as business associations warn of closures.',now:{approval:3,inequality:-2,inflation:.35,businessClimate:-2},later:{unemployment:.35},delay:3,groups:{workers:6,business:-5}},
+      {label:'Phase it in over two years',hint:'A compromise that may satisfy neither side.',outcome:'The phased settlement narrowly prevents a strike.',now:{approval:1,inequality:-1,businessClimate:-.5},later:{unemployment:.1},delay:4,groups:{workers:2,business:-1}},
+      {label:'Reject the mandate and offer tax credits',hint:'Protect hiring while shifting cost to the treasury.',outcome:'Employers accept the credit; unions call it a corporate subsidy.',now:{temporarySpend:.25,businessClimate:2,approval:-1},later:{debtRatio:.5},delay:3,groups:{business:4,workers:-4}}
+    ]},
+    {id:'border',category:'Security',title:'Security chiefs request emergency surveillance powers',desc:'They cite a credible threat but refuse to reveal sources outside a classified briefing.',adviser:'interior',choices:[
+      {label:'Grant the full request',hint:'Potential security gain with serious abuse and legitimacy risks.',outcome:'Emergency monitoring begins before parliament can review the order.',now:{security:4,democracy:-4,hiddenRisk:5,stability:1},later:{approval:-2},delay:3,groups:{security:5,youth:-5,green:-4}},
+      {label:'Authorize narrow powers with judicial review',hint:'Slower and less flexible, but institutionally safer.',outcome:'Judges receive oversight authority and the security agencies complain about delays.',now:{security:2,democracy:1,politicalCapital:-2},later:{stability:1},delay:2,groups:{security:1,green:2}},
+      {label:'Reject the request',hint:'Protect civil liberties while accepting operational risk.',outcome:'The agencies comply publicly and begin leaking warnings privately.',now:{democracy:3,security:-2,elite:-2},later:{stability:-1},delay:2,groups:{youth:3,green:4,security:-5}}
+    ]},
+    {id:'hospital',category:'Public services',title:'Hospitals report a nationwide medicine shortage',desc:'Suppliers blame unpaid invoices and currency weakness. Several regions have only days of stock.',adviser:'health',choices:[
+      {label:'Emergency public procurement',hint:'Fastest relief; weak controls increase overpricing risk.',outcome:'Emergency purchasing begins and deliveries are prioritized to major hospitals.',now:{health:2,approval:2,temporarySpend:.3,corruption:1.5},later:{health:1},delay:2,groups:{workers:2,middle:2,public:1}},
+      {label:'Negotiate payment and import guarantees',hint:'More disciplined but slower than direct purchasing.',outcome:'Suppliers restart shipments after the treasury guarantees payment.',now:{health:1,treasury:-.15},later:{businessClimate:1},delay:2,groups:{middle:1,business:1}},
+      {label:'Deny a national shortage exists',hint:'Avoid panic today; severe risk if hospitals publish evidence.',outcome:'Officials describe the problem as isolated despite increasingly public warnings.',now:{approval:1,hiddenRisk:10,health:-2},later:{approval:-5,stability:-2},delay:3,groups:{public:-4,middle:-3}}
+    ]},
+    {id:'currency',category:'Markets',title:'The currency is falling rapidly in offshore trading',desc:'The central bank wants higher interest rates. Your economic team fears recession.',adviser:'finance',choices:[
+      {label:'Support a major rate increase',hint:'Defend the currency and prices; weaken jobs and growth.',outcome:'The central bank delivers a shock increase and markets stabilize.',now:{interestRate:2,inflation:-.45,businessClimate:-1},later:{growth:-.5,unemployment:.3},delay:3,groups:{middle:1,business:-1,workers:-2}},
+      {label:'Use foreign reserves instead',hint:'Avoid immediate recession while consuming national insurance.',outcome:'The central bank sells reserves heavily to support the currency.',now:{foreignReserves:-5,exchangeRateIndex:3,approval:1},later:{inflation:.15},delay:3,groups:{business:1,middle:1}},
+      {label:'Publicly reject orthodox policy',hint:'Short-term political strength with a dangerous market gamble.',outcome:'You accuse speculators of attacking the country. The currency briefly rallies, then turns volatile.',now:{approval:2,elite:2,hiddenRisk:3},later:{inflation:.9,businessClimate:-3,exchangeRateIndex:-5},delay:2,groups:{workers:1,business:-5}}
+    ]},
+    {id:'governors',category:'Coalition',title:'Regional governors threaten to block your legislative agenda',desc:'They demand a larger share of national infrastructure and revenue transfers.',adviser:'chief',choices:[
+      {label:'Offer a transparent regional investment formula',hint:'Costs money but strengthens institutions and coalition support.',outcome:'Governors accept a rules-based allocation after difficult negotiations.',now:{legislature:5,baseSpend:.2,corruption:-1},later:{infrastructure:1},delay:4,groups:{rural:3,green:1}},
+      {label:'Trade projects for votes privately',hint:'Fast coalition gain with patronage and procurement exposure.',outcome:'A private agreement secures the votes and assigns projects to key provinces.',now:{legislature:9,elite:4,corruption:3,hiddenRisk:7},later:{infrastructure:.5},delay:3,groups:{rural:2,green:-3}},
+      {label:'Refuse and attack political dynasties',hint:'May energize reformers while destroying your coalition.',outcome:'Your speech goes viral as governors begin voting against the administration.',now:{approval:2,legislature:-7,elite:-4,democracy:1},later:{politicalCapital:-3},delay:2,groups:{youth:3,green:4,rural:-2}}
+    ]}
+  ];
+
+  const countryIssue = {
+    philippines:'Dynasties, remittances, typhoons, food prices, and regional inequality define the state.',
+    unitedstates:'Congress, federal courts, polarized states, lobbying, and the central bank constrain executive power.',
+    china:'Party factions, provincial debt, property markets, industrial policy, and elite loyalty determine survival.',
+    france:'Parliament, unions, strikes, European rules, and welfare commitments narrow the room for reform.',
+    brazil:'Coalition bargaining, commodity cycles, inequality, security, and federal politics shape every reform.',
+    indonesia:'Regional bargaining, commodity revenue, infrastructure, demographic growth, and climate exposure dominate.',
+    mexico:'Nearshoring, organized crime, federal-state conflict, and a single-term presidency define the mandate.',
+    turkiye:'Currency confidence, inflation, concentrated power, urban opposition, and elite loyalty drive the system.'
+  };
+
+  let selectedCountry = null;
+  let state = null;
+  let currentPage = 'dashboard';
+  let pendingEvent = null;
+
+  const el = id => document.getElementById(id);
+
+  function initCountryCards(){
+    el('countryGrid').innerHTML = Object.entries(countries).map(([id,c])=>`
+      <button class="country-card" data-country="${id}">
+        <span class="code">${c.code} · ${c.office.toUpperCase()}</span>
+        <h3>${c.name}</h3>
+        <p>${c.traits[0]}. ${c.traits[1]}.</p>
+        <div class="mini"><span>${money(c.gdp)}</span><span>${c.termMonths/12}-year term</span></div>
+      </button>`).join('');
+    document.querySelectorAll('.country-card').forEach(card=>card.addEventListener('click',()=>{
+      selectedCountry=card.dataset.country;
+      document.querySelectorAll('.country-card').forEach(x=>x.classList.toggle('selected',x===card));
+      el('startGame').disabled=false;
+    }));
+  }
+
+
+  function makeCabinet(countryId){
+    const names=cabinetNames[countryId];
+    return cabinetRoles.map((r,i)=>({id:r.id,role:r.role,sector:r.sector,name:names[i],competence:round(random(48,84),0),loyalty:round(random(42,78),0),ambition:round(random(25,82),0),integrity:round(random(35,90),0),ideology:pick(r.ideologies),status:'Serving',lastActionTurn:-99}));
+  }
+
+  function migrateState(s){
+    const c=countries[s.countryId];
+    s.interestRate ??= Math.max(2,s.inflation+1.5); s.exchangeRateIndex ??=100; s.foreignReserves ??=Math.max(15,(c.reserveMonths||2)*18); s.influence ??=45;
+    s.sectors ??={agriculture:50,manufacturing:55,services:58,technology:48,energy:52,tourism:50,construction:54};
+    s.voters ??=Object.fromEntries(voterDefs.map(v=>[v.id,clamp(s.approval+random(-5,5))])); s.voterMemory ??=[];
+    s.factions ??=factionDefs.map((f,i)=>({...f,relation:clamp(s.legislature+random(-7,7)+(i===0?8:0))}));
+    s.cabinet ??=makeCabinet(s.countryId); s.delayed ??=[]; s.news ??=[];
+    s.daily ??={date:'',ids:[],resolved:{},completed:false}; s.habit ??={lastDate:'',streak:0,best:0,total:0};
+    s.profile ??={terms:1,electionsWon:0,electionsLost:0,billsPassed:0,projectsCompleted:0,dirtyActions:0};
+    s.worldRelations ??=Object.fromEntries(Object.keys(countries).filter(id=>id!==s.countryId).map(id=>[id,round(random(38,68),0)])); s.promises ??=[]; s.lastDebateTurn ??=-99; s.countryPulse ??='';
+    s.profile.billsPassed ??=Object.values(s.laws||{}).reduce((a,b)=>a+b,0); s.profile.projectsCompleted ??=(s.completedProjects||[]).length; s.profile.dirtyActions ??=0;
+    return s;
+  }
+
+  function realDateKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;}
+  function ensureDailyBriefing(){
+    const today=realDateKey();
+    if(state.daily.date!==today){
+      const pool=[...dailyDefs]; const ids=[];
+      while(ids.length<3&&pool.length){ids.push(pool.splice(Math.floor(Math.random()*pool.length),1)[0].id);}
+      state.daily={date:today,ids,resolved:{},completed:false};
+    }
+  }
+
+  function applyDelta(delta={}){
+    Object.entries(delta).forEach(([k,v])=>{
+      if(k==='debtRatio'){state.debt+=state.gdp*(v/100);return;}
+      if(k==='growth'){state.potentialGrowth+=v;return;}
+      if(k==='foreignReserves'||k==='exchangeRateIndex'||k==='interestRate'){state[k]=(state[k]||0)+v;return;}
+      if(typeof state[k]==='number')state[k]+=v;
+    });
+  }
+
+  function applyGroupDelta(groups={}){
+    Object.entries(groups).forEach(([id,v])=>{if(state.voters[id]!=null)state.voters[id]=clamp(state.voters[id]+v);});
+  }
+
+  function scheduleConsequence(source,months,delta,text){
+    if(!delta||!Object.keys(delta).length)return;
+    state.delayed.push({source,months:months||2,delta,text});
+  }
+
+  function processDelayed(){
+    state.delayed.forEach(d=>d.months--);
+    const due=state.delayed.filter(d=>d.months<=0);
+    due.forEach(d=>{applyDelta(d.delta);addBrief(`CONSEQUENCE: ${d.text}`);addTimeline(`${d.source} produced a delayed consequence: ${d.text}`);publishNews(`THE BILL COMES DUE`,`A decision made earlier now reshapes the government: ${d.text}`,'analysis');});
+    state.delayed=state.delayed.filter(d=>d.months>0);
+  }
+
+  function weightedVoterApproval(){
+    return voterDefs.reduce((sum,v)=>sum+(state.voters[v.id]||50)*v.size,0)/voterDefs.reduce((a,v)=>a+v.size,0);
+  }
+
+  function updateVoters(){
+    const d={
+      workers:(state.growth-2)*.07-Math.max(0,state.inflation-3)*.08-Math.max(0,state.unemployment-5)*.1-(state.inequality-50)*.012,
+      middle:(state.growth-2)*.05-Math.max(0,state.inflation-3)*.11+(state.stability-55)*.015,
+      business:(state.businessClimate-55)*.025-(state.taxRate-25)*.018-(state.hiddenRisk)*.006,
+      rural:(state.infrastructure-50)*.012-Math.max(0,state.inflation-4)*.07-(state.inequality-50)*.009,
+      youth:(state.education-55)*.016+(state.democracy-55)*.018-Math.max(0,state.unemployment-6)*.1,
+      public:(state.baseSpend-22)*.02+(state.stability-55)*.015-(state.corruption-45)*.018,
+      security:(state.security-55)*.025+(state.stability-55)*.02,
+      green:(state.environment-50)*.02+(state.democracy-55)*.014-(state.corruption-40)*.02
+    };
+    Object.entries(d).forEach(([id,v])=>state.voters[id]=clamp(state.voters[id]+v+random(-.55,.55)));
+    state.approval=state.approval*.72+weightedVoterApproval()*.28;
+  }
+
+  function updateSectors(){
+    const s=state.sectors;
+    s.agriculture=clamp(s.agriculture+(state.infrastructure-50)*.008-(state.environment<35?.25:0)+random(-.4,.4));
+    s.manufacturing=clamp(s.manufacturing+(state.businessClimate-50)*.012+(state.infrastructure-55)*.009-Math.max(0,state.interestRate-8)*.025+random(-.45,.45));
+    s.services=clamp(s.services+(state.growth-2)*.05+(state.education-55)*.008+random(-.35,.35));
+    s.technology=clamp(s.technology+(state.education-55)*.015+(state.businessClimate-55)*.01+random(-.3,.3));
+    s.energy=clamp(s.energy+(state.infrastructure-55)*.012+(state.environment-50)*.006+random(-.35,.35));
+    s.tourism=clamp(s.tourism+(state.stability-55)*.015+(state.environment-50)*.008+random(-.45,.45));
+    s.construction=clamp(s.construction+state.activeProjects.length*.18+(state.interestRate<7?.12:-.1)+random(-.35,.35));
+    state.interestRate=clamp(state.interestRate+(state.inflation-state.interestRate*.65)*.035+random(-.12,.12),0,45);
+    state.exchangeRateIndex=clamp(state.exchangeRateIndex+(state.growth-2)*.08-(state.inflation-4)*.09+(state.foreignReserves-35)*.008+random(-.5,.5),35,180);
+    state.foreignReserves=clamp(state.foreignReserves+(state.businessClimate-50)*.006-(state.inflation>10?.2:0)+random(-.2,.2),0,100);
+  }
+
+  function cabinetBy(id){return state.cabinet.find(m=>m.id===id);}
+  function updateCabinet(){
+    state.cabinet.forEach(m=>{
+      m.loyalty=clamp(m.loyalty+(state.approval-50)*.006+(state.elite-50)*.004-(m.ambition>72?.12:0)+random(-.45,.45));
+      if(m.id==='finance'){state.collectionEfficiency=clamp(state.collectionEfficiency+(m.competence-60)/40000,.82,1.08);}
+      if(m.id==='justice'){state.hiddenRisk=Math.max(0,state.hiddenRisk-(m.integrity+m.competence-110)/900);}
+      if(m.id==='chief'){state.politicalCapital+=(m.competence+m.loyalty-115)/900;}
+      if(m.id==='health')state.health+=(m.competence-60)/3000;
+      if(m.id==='education')state.education+=(m.competence-60)/3500;
+      if(m.loyalty<18&&Math.random()<.06){m.status='Resigned';state.elite-=3;state.approval-=1;addBrief(`${m.name}, the ${m.role}, resigns and accuses the palace of ignoring professional advice.`);addTimeline(`${m.name} resigned from the cabinet.`);replaceMinister(m.id,true);}
+      else if(m.integrity<45&&Math.random()<(state.corruption/3000)){state.hiddenRisk+=4;addBrief(`Internal auditors flag suspicious activity connected to ${m.role.toLowerCase()} procurement.`);}
+    });
+  }
+
+  function replaceMinister(id,quiet=false){
+    const idx=state.cabinet.findIndex(m=>m.id===id);const role=cabinetRoles.find(r=>r.id===id);const used=state.cabinet.map(m=>m.name);let name=pick(cabinetNames[state.countryId]);
+    if(used.includes(name))name=`${name.split(' ')[0]} ${pick(['Navarro','Rahman','Mercer','Delacroix','Santos','Kaya'])}`;
+    state.cabinet[idx]={id,role:role.role,sector:role.sector,name,competence:round(random(48,82),0),loyalty:round(random(52,75),0),ambition:round(random(25,78),0),integrity:round(random(42,91),0),ideology:pick(role.ideologies),status:'Serving',lastActionTurn:state.turn};
+    if(!quiet)addBrief(`${name} is appointed ${role.role}.`);
+  }
+
+  function updateFactions(){
+    state.factions.forEach(f=>{
+      let drift=(state.approval-50)*.006+random(-.45,.45);
+      if(f.id==='business')drift+=(state.businessClimate-55)*.02-(state.taxRate-25)*.01;
+      if(f.id==='labor')drift+=(55-state.inequality)*.012-(state.unemployment-5)*.02;
+      if(f.id==='reform')drift+=(55-state.corruption)*.015+(state.democracy-55)*.01;
+      if(f.id==='regional')drift+=(state.infrastructure-50)*.008;
+      f.relation=clamp(f.relation+drift);
+    });
+    state.legislature=clamp(state.factions.reduce((sum,f)=>sum+f.relation*f.seats,0)/100);
+  }
+
+
+  function applyCountryMechanic(){
+    let note='';
+    if(state.countryId==='philippines'){
+      state.growth+=.08;state.approval+=.03;
+      if(state.environment<45&&Math.random()<.035){state.infrastructure-=1.2;state.treasury-=state.gdp*.0005;note='Typhoon damage exposes drainage and local-government weaknesses.';}
+    }else if(state.countryId==='unitedstates'){
+      state.interestRate+=Math.max(0,state.debtRatio-110)*.002;state.legislature+=random(-.35,.35);note=state.turn%8===0?'Federal-state conflict delays part of the administration’s agenda.':'';
+    }else if(state.countryId==='china'){
+      if(state.businessClimate<55){state.growth-=.12;state.elite-=.08;}else state.infrastructure+=.03;
+      if(state.debtRatio>95)state.stability-=.08;note=state.turn%9===0?'Provincial debt and property weakness pressure local finances.':'';
+    }else if(state.countryId==='france'){
+      if(state.baseSpend<50||state.taxRate>53){state.stability-=.16;state.approval-=.1;}
+      note=state.turn%7===0?'Unions prepare another national mobilization over the government’s reform agenda.':'';
+    }else if(state.countryId==='brazil'){
+      const commodity=Math.sin(state.turn*.42)*.18;state.growth+=commodity;state.foreignReserves+=commodity*.4;note=Math.abs(commodity)>.15?'Commodity prices sharply alter export revenue this month.':'';
+    }else if(state.countryId==='indonesia'){
+      state.growth+=(state.infrastructure-55)*.002;state.environment-=.015;note=state.turn%10===0?'Regional leaders demand a larger share of commodity and infrastructure revenue.':'';
+    }else if(state.countryId==='mexico'){
+      if(state.security<45){state.businessClimate-=.1;state.stability-=.08;}else if(state.businessClimate>60)state.growth+=.08;
+      note=state.turn%8===0?'Nearshoring investment competes with security and electricity constraints.':'';
+    }else if(state.countryId==='turkiye'){
+      state.exchangeRateIndex-=Math.max(0,state.inflation-12)*.025;state.inflation+=Math.max(0,100-state.exchangeRateIndex)*.0015;note=state.inflation>20?'Currency weakness continues feeding domestic prices.':'';
+    }
+    state.countryPulse=note||countryIssue[state.countryId];
+    if(note)addBrief(`COUNTRY PULSE: ${note}`);
+  }
+
+  function promisePenalty(){
+    return (state.promises||[]).reduce((pen,p)=>{
+      if(p.type==='prices'&&state.inflation>p.baseline*.9)return pen+3;
+      if(p.type==='jobs'&&state.unemployment>p.baseline-.3)return pen+3;
+      if(p.type==='clean'&&state.corruption>p.baseline-3)return pen+4;
+      return pen;
+    },0);
+  }
+
+  function publishNews(headline,dek,tone='neutral'){
+    state.news.unshift({date:dateLabel(),headline,dek,tone});if(state.news.length>30)state.news.pop();
+  }
+
+  function generateMonthlyNews(){
+    const risks=[
+      {v:Math.max(0,state.inflation-4)*8,h:'PRICES DEFINE THE PRESIDENCY',d:`Inflation reaches ${pct(state.inflation)} as households demand immediate relief.`},
+      {v:Math.max(0,45-state.approval)*2,h:'MANDATE IN DANGER',d:`Approval falls to ${Math.round(state.approval)}% while rivals sense an opening.`},
+      {v:state.hiddenRisk,h:'QUESTIONS GROW INSIDE THE PALACE',d:'Investigators and reporters pursue unexplained contracts and private meetings.'},
+      {v:Math.max(0,state.growth-3)*8,h:'ECONOMY OUTRUNS EXPECTATIONS',d:`Growth reaches ${pct(state.growth)} as investment and consumption strengthen.`},
+      {v:Math.max(0,state.unemployment-6)*8,h:'JOBS CRISIS SPREADS',d:`Unemployment reaches ${pct(state.unemployment)} and labor anger grows.`}
+    ].sort((a,b)=>b.v-a.v)[0];
+    publishNews(risks.h,risks.d,risks.v>45?'critical':'neutral');
+  }
+
+  function newState(countryId, leader){
+    const c = countries[countryId];
+    const debt = c.gdp * c.debtRatio / 100;
+    return {
+      countryId, code:c.code, country:c.name, official:c.official, office:c.office, system:c.system, power:c.power, termMonths:c.termMonths,
+      leader:leader || 'Alex Morgan', month:1, year:2026, turn:0,
+      population:c.population, gdp:c.gdp, previousGdp:c.gdp, potentialGrowth:c.potentialGrowth, growth:c.potentialGrowth,
+      inflation:c.inflation, unemployment:c.unemployment, debt, debtRatio:c.debtRatio, taxRate:c.taxRate, baseSpend:c.baseSpend,
+      infrastructure:c.infrastructure, health:c.health, education:c.education, security:c.security, inequality:c.inequality,
+      environment:c.environment, corruption:c.corruption, stability:c.stability, democracy:c.democracy, legislature:c.legislature, elite:c.elite,
+      approval:c.approval, politicalCapital:55, treasury:c.treasury, reserveMonths:c.reserveMonths,
+      collectionEfficiency:.98, businessClimate:58, disasterDefense:0, temporarySpend:0,
+      personalFunds:0, hiddenRisk:0, scandals:0, laws:{}, activeProjects:[], completedProjects:[],
+      history:[c.gdp], approvalHistory:[c.approval], inflationHistory:[c.inflation],
+      briefings:[], timeline:[], electionHeld:false, gameOver:false,
+      opponents:opponentNames[countryId].map((name,i)=>({name,party:['Reform Alliance','National Bloc','People’s Coalition'][i],support:round(28-i*5+random(-2,3),1),momentum:round(random(-1,1),1)})),
+      interestRate:Math.max(2,c.inflation+1.5), exchangeRateIndex:100, foreignReserves:Math.max(15,c.reserveMonths*18), influence:45,
+      sectors:{agriculture:50,manufacturing:55,services:58,technology:48,energy:52,tourism:50,construction:54},
+      voters:Object.fromEntries(voterDefs.map((v,i)=>[v.id,clamp(c.approval+random(-6,6)+(i===2?3:0))])),
+      voterMemory:[], factions:factionDefs.map((f,i)=>({...f,relation:clamp(c.legislature+random(-8,8)+(i===0?8:0))})),
+      cabinet:makeCabinet(countryId), delayed:[], news:[],
+      daily:{date:'',ids:[],resolved:{},completed:false}, habit:{lastDate:'',streak:0,best:0,total:0},
+      profile:{terms:1,electionsWon:0,electionsLost:0,billsPassed:0,projectsCompleted:0,dirtyActions:0},
+      worldRelations:Object.fromEntries(Object.keys(countries).filter(id=>id!==countryId).map(id=>[id,round(random(38,68),0)])), promises:[], lastDebateTurn:-99, countryPulse:''
+    };
+  }
+
+  function start(){
+    const name=el('leaderName').value.trim() || 'Alex Morgan';
+    state=newState(selectedCountry,name);
+    addBrief(`You have taken office as ${state.office} of ${state.country}. The public expects visible results before patience runs out.`);
+    addTimeline(`Inaugurated as ${state.office} of ${state.country}.`);
+    publishNews(`A NEW PRESIDENCY BEGINS`,`${state.leader} takes office promising to govern ${state.country} through economic pressure, political resistance, and national crisis.`);
+    el('setup').classList.add('hidden');
+    el('app').classList.remove('hidden');
+    renderAll();
+    saveGame(false);
+  }
+
+  function renderAll(){
+    normalize();
+    renderHeader();
+    renderMetrics();
+    renderWorkspace();
+    renderBriefings();
+  }
+
+  function normalize(){
+    const scoreKeys=['infrastructure','health','education','security','inequality','environment','corruption','stability','democracy','legislature','elite','approval','politicalCapital','businessClimate','influence','foreignReserves','exchangeRateIndex'];
+    scoreKeys.forEach(k=>state[k]=clamp(state[k]));
+    state.inflation=Math.max(-3,state.inflation);
+    state.unemployment=clamp(state.unemployment,1,40);
+    state.taxRate=clamp(state.taxRate,5,55);
+    state.baseSpend=clamp(state.baseSpend,8,70);
+    state.gdp=Math.max(20,state.gdp);
+    state.population=Math.max(1,state.population);
+    state.debt=Math.max(0,state.debt);
+    state.debtRatio=state.debt/state.gdp*100;
+    state.treasury=Math.max(-state.gdp*.08,state.treasury);
+    state.interestRate=clamp(state.interestRate||0,0,50);
+    ensureDailyBriefing();
+  }
+
+  function renderHeader(){
+    el('seal').textContent=state.code;
+    el('leaderTitle').textContent=`${state.office} ${state.leader}`;
+    el('countrySystem').textContent=`${state.official} · ${dateLabel()}`;
+    el('advanceBtn').textContent=state.gameOver?'Term ended':'Next month';
+    el('advanceBtn').disabled=state.gameOver;
+  }
+
+  function renderMetrics(){
+    const gdpPc=state.gdp*1000/state.population;
+    const monthsLeft=Math.max(0,state.termMonths-state.turn);
+    const metrics=[
+      ['Approval',`${round(state.approval,0)}%`,state.approval>=50?'governing mandate':'political danger',state.approval>=50?'good':'bad'],
+      ['GDP',money(state.gdp),`${pct(state.growth)} annual growth`,state.growth>=2?'good':state.growth<0?'bad':'warn'],
+      ['GDP per capita',`$${Math.round(gdpPc).toLocaleString()}`,'nominal game estimate',''],
+      ['Inflation',pct(state.inflation),state.inflation>8?'cost-of-living crisis':'consumer prices',state.inflation>8?'bad':state.inflation>4?'warn':'good'],
+      ['Debt / GDP',pct(state.debtRatio),money(state.debt),state.debtRatio>100?'bad':state.debtRatio>70?'warn':''],
+      ['Term remaining',`${Math.floor(monthsLeft/12)}y ${monthsLeft%12}m`,state.power==='party'?'until party congress':'until national verdict','']
+    ];
+    el('metricGrid').innerHTML=metrics.map(m=>`<div class="metric"><div class="label">${m[0]}</div><div class="value">${m[1]}</div><div class="delta ${m[3]}">${m[2]}</div></div>`).join('');
+  }
+
+  function renderWorkspace(){
+    const renderers={dashboard:renderDashboard,daily:renderDaily,cabinet:renderCabinet,public:renderPublic,bills:renderBills,projects:renderProjects,opposition:renderOpposition,world:renderWorld,press:renderPress,timeline:renderTimeline};
+    renderers[currentPage]();
+  }
+
+  function titleBlock(title,desc,pill='LIVE SIMULATION'){
+    return `<div class="page-title"><div><h2>${title}</h2><p>${desc}</p></div><span class="status-pill">${pill}</span></div>`;
+  }
+
+  function renderDashboard(){
+    const revenue=monthlyRevenue();
+    const spending=monthlySpending();
+    const balance=revenue-spending;
+    const gdpPc=state.gdp*1000/state.population;
+    el('workspace').innerHTML = titleBlock('Executive dashboard','The country moves every month, even when you do nothing. Delayed decisions become decisions of their own.') + `
+      <div class="two-col">
+        <div class="panel">
+          <h3>Economic engine</h3><div class="panel-sub">Annualized model output at the current policy mix.</div>
+          <div class="economy-grid">
+            <div class="economy-cell"><small>Growth</small><strong>${pct(state.growth)}</strong><em>${state.growth<0?'Recession':'Real output trend'}</em></div>
+            <div class="economy-cell"><small>Unemployment</small><strong>${pct(state.unemployment)}</strong><em>Labor market</em></div>
+            <div class="economy-cell"><small>GDP / capita</small><strong>$${Math.round(gdpPc).toLocaleString()}</strong><em>Nominal estimate</em></div>
+            <div class="economy-cell"><small>Business climate</small><strong>${round(state.businessClimate,0)}/100</strong><em>Investment confidence</em></div>
+          </div>
+          ${sparkline(state.history,'GDP path')}
+        </div>
+        <div class="panel">
+          <h3>Monthly fiscal position</h3><div class="panel-sub">Revenue and obligations scale with the size of your economy.</div>
+          <div class="economy-grid">
+            <div class="economy-cell"><small>Revenue</small><strong>${money(revenue)}</strong><em>${pct(state.taxRate)} tax burden</em></div>
+            <div class="economy-cell"><small>Spending</small><strong>${money(spending)}</strong><em>${pct(state.baseSpend)} base spending</em></div>
+            <div class="economy-cell"><small>Balance</small><strong>${money(balance)}</strong><em>${balance<0?'Borrowing required':'Monthly surplus'}</em></div>
+            <div class="economy-cell"><small>Cash reserve</small><strong>${money(state.treasury)}</strong><em>Immediate liquidity</em></div>
+          </div>
+          ${sparkline(state.approvalHistory,'Approval path')}
+        </div>
+      </div>
+      <div class="panel"><h3>Monetary and external position</h3><div class="panel-sub">Interest rates, currency confidence, and reserves transmit policy into prices, investment, and debt service.</div><div class="economy-grid"><div class="economy-cell"><small>Policy rate</small><strong>${pct(state.interestRate)}</strong><em>${state.interestRate>10?'restrictive credit':'financial conditions'}</em></div><div class="economy-cell"><small>Currency index</small><strong>${Math.round(state.exchangeRateIndex)}</strong><em>100 at inauguration</em></div><div class="economy-cell"><small>Foreign reserves</small><strong>${Math.round(state.foreignReserves)}/100</strong><em>external shock buffer</em></div><div class="economy-cell"><small>Global influence</small><strong>${Math.round(state.influence)}/100</strong><em>diplomatic leverage</em></div></div></div>
+      <div class="two-col">
+        <div class="panel">
+          <h3>State capacity</h3><div class="panel-sub">Weak institutions make every policy more expensive and less reliable.</div>
+          <div class="stat-list">
+            ${barRow('Infrastructure',state.infrastructure)}
+            ${barRow('Health system',state.health)}
+            ${barRow('Education',state.education)}
+            ${barRow('Security',state.security)}
+            ${barRow('Environment',state.environment)}
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Political survival</h3><div class="panel-sub">Popularity is not enough. You also need institutions and insiders.</div>
+          <div class="stat-list">
+            ${barRow('Political capital',state.politicalCapital)}
+            ${barRow('Legislative support',state.legislature)}
+            ${barRow('Elite loyalty',state.elite)}
+            ${barRow('Stability',state.stability)}
+            ${barRow('Democratic integrity',state.democracy)}
+            ${barRow('Corruption risk',state.corruption,true)}
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>The country you actually govern</h3><div class="panel-sub">${state.countryPulse||countryIssue[state.countryId]}</div>
+        <div class="sector-grid">${Object.entries(state.sectors).map(([k,v])=>`<div class="sector"><small>${k}</small><strong>${Math.round(v)}/100</strong><em>${v>62?'expanding':v<45?'under pressure':'stable capacity'}</em></div>`).join('')}</div>
+      </div>
+      <div class="panel">
+        <h3>Presidential pressure points</h3><div class="panel-sub">The three most dangerous weaknesses in your government right now.</div>
+        <div class="three-col" style="margin-top:14px">${pressureCards()}</div>
+      </div>`;
+  }
+
+  function pressureCards(){
+    const risks=[
+      {name:'Inflation',score:clamp(state.inflation*6),text:`Prices are rising ${pct(state.inflation)} annually.`},
+      {name:'Debt burden',score:clamp((state.debtRatio-35)*1.15),text:`Public debt is ${pct(state.debtRatio)} of GDP.`},
+      {name:'Corruption',score:state.corruption,text:`Leakage and bribery risk is ${round(state.corruption,0)}/100.`},
+      {name:'Unemployment',score:clamp((state.unemployment-2)*8),text:`Unemployment is ${pct(state.unemployment)}.`},
+      {name:'Instability',score:100-state.stability,text:`National stability is ${round(state.stability,0)}/100.`},
+      {name:'Opposition',score:clamp(Math.max(...state.opponents.map(o=>o.support))*2),text:`Strongest opponent polls at ${pct(Math.max(...state.opponents.map(o=>o.support)))}.`},
+      {name:'Hidden exposure',score:state.hiddenRisk,text:`Unresolved legal and scandal exposure is accumulating.`}
+    ].sort((a,b)=>b.score-a.score).slice(0,3);
+    return risks.map(r=>`<div class="economy-cell"><small>${r.name}</small><strong>${Math.round(r.score)}/100</strong><em>${r.text}</em></div>`).join('');
+  }
+
+  function barRow(label,value,invert=false){
+    const cls=invert?(value>65?'bad':value>40?'warn':'good'):(value<35?'bad':value<55?'warn':'good');
+    return `<div class="stat-row"><b>${label}</b><div class="bar"><i class="${cls}" style="width:${clamp(value)}%"></i></div><span>${round(value,0)}</span></div>`;
+  }
+
+  function sparkline(values,label){
+    const vals=values.slice(-18);
+    const min=Math.min(...vals), max=Math.max(...vals), span=max-min||1;
+    const points=vals.map((v,i)=>`${(i/(Math.max(1,vals.length-1))*100).toFixed(2)},${(82-((v-min)/span)*55).toFixed(2)}`).join(' ');
+    return `<div class="spark"><span class="spark-label">${label}</span><svg viewBox="0 0 100 92" preserveAspectRatio="none" aria-hidden="true"><polyline points="${points}" fill="none" stroke="#174a9c" stroke-width="2" vector-effect="non-scaling-stroke"/><line x1="0" y1="82" x2="100" y2="82" stroke="#dce3ef" stroke-width="1"/></svg></div>`;
+  }
+
+
+  function renderDaily(){
+    ensureDailyBriefing();
+    const defs=state.daily.ids.map(id=>dailyDefs.find(d=>d.id===id)).filter(Boolean);
+    const done=Object.keys(state.daily.resolved).length;
+    el('workspace').innerHTML=titleBlock('Daily Presidential Briefing','A short real-world daily session. Advice is incomplete, consequences are delayed, and every choice is remembered.',done===defs.length?'BRIEFING COMPLETE':`${done}/${defs.length} DECIDED`) + `
+      <div class="daily-hero"><small>${state.daily.date} · Eyes only</small><h3>Good morning, ${state.office} ${state.leader}.</h3><p>Three decisions require your authority. Your advisers have estimates, not certainty. Some effects will not become visible for months.</p><div class="habit-row"><span class="habit-chip">Current streak ${state.habit.streak} days</span><span class="habit-chip">Best ${state.habit.best} days</span><span class="habit-chip">${state.delayed.length} unresolved consequences</span></div></div>
+      ${defs.map(d=>dailyCard(d)).join('')}
+      <div class="panel"><h3>Unresolved consequences</h3><div class="panel-sub">The state remembers choices even after the headlines move on.</div>${state.delayed.length?state.delayed.slice(0,8).map(d=>`<div class="queue-item"><b>${d.source} · expected in about ${d.months} month${d.months===1?'':'s'}</b><p>Officials are still assessing the eventual result.</p></div>`).join(''):'<div class="brief-empty">No delayed consequences are currently pending.</div>'}</div>`;
+    document.querySelectorAll('[data-daily]').forEach(btn=>btn.addEventListener('click',()=>resolveDaily(btn.dataset.daily,Number(btn.dataset.choice))));
+  }
+
+  function dailyCard(d){
+    const resolved=state.daily.resolved[d.id]; const adviser=cabinetBy(d.adviser);
+    if(resolved)return `<div class="decision-card resolved"><div class="decision-head"><span>${d.category} · Decision recorded</span><span>${adviser?.role||'Cabinet'}</span></div><h3>${d.title}</h3><div class="outcome"><b>${resolved.label}</b><br>${resolved.outcome}<br><br>Some consequences remain classified or unresolved.</div></div>`;
+    return `<div class="decision-card"><div class="decision-head"><span>${d.category} · Requires decision</span><span>${adviser?.role||'Cabinet'}</span></div><h3>${d.title}</h3><p>${d.desc}</p><div class="advice"><b>${adviser?.name||'Your adviser'}:</b> ${cabinetAdvice(adviser,d)}</div><div class="decision-options">${d.choices.map((c,i)=>`<button class="decision-option" data-daily="${d.id}" data-choice="${i}"><b>${c.label}</b><span>${c.hint}</span></button>`).join('')}</div></div>`;
+  }
+
+  function cabinetAdvice(m,d){
+    if(!m)return 'The cabinet has not produced a reliable recommendation.';
+    const confidence=m.competence>72?'high confidence':m.competence>55?'moderate confidence':'limited confidence';
+    const loyalty=m.loyalty<35?'Their political loyalty is uncertain.':m.ambition>72?'They may be considering how this affects their own future.':'They appear aligned with the administration.';
+    return `This assessment is delivered with ${confidence}. ${loyalty}`;
+  }
+
+  function resolveDaily(id,index){
+    const d=dailyDefs.find(x=>x.id===id);if(!d||state.daily.resolved[id])return;const c=d.choices[index];
+    applyDelta(c.now);applyGroupDelta(c.groups);scheduleConsequence(d.title,c.delay,c.later,c.outcome);
+    state.daily.resolved[id]={label:c.label,outcome:c.outcome};state.habit.total++;
+    addBrief(`DAILY DECISION: ${d.title} — ${c.label}.`);addTimeline(`${d.title}: chose “${c.label}”.`);publishNews(d.title.toUpperCase(),c.outcome,'breaking');
+    const adviser=cabinetBy(d.adviser);if(adviser){adviser.loyalty=clamp(adviser.loyalty+random(-2,2));}
+    if(Object.keys(state.daily.resolved).length===state.daily.ids.length){
+      state.daily.completed=true;state.politicalCapital+=4;
+      const today=new Date(state.daily.date+'T00:00:00Z');const prev=state.habit.lastDate?new Date(state.habit.lastDate+'T00:00:00Z'):null;
+      const days=prev?Math.round((today-prev)/86400000):99;state.habit.streak=days===1?state.habit.streak+1:1;state.habit.best=Math.max(state.habit.best,state.habit.streak);state.habit.lastDate=state.daily.date;
+      addBrief('Daily command briefing completed. Cabinet coordination improves and political capital rises.');
+    }
+    normalize();renderDaily();renderMetrics();renderBriefings();saveGame(false);
+  }
+
+  function renderCabinet(){
+    const avg=state.cabinet.reduce((a,m)=>a+m.competence,0)/state.cabinet.length;
+    el('workspace').innerHTML=titleBlock('The Cabinet','Ministers are not stat bonuses. They have competence, loyalty, ambition, integrity, ideology, and careers of their own.',`AVG COMPETENCE ${Math.round(avg)}`)+`<div class="cabinet-grid">${state.cabinet.map(ministerCard).join('')}</div>`;
+    document.querySelectorAll('[data-minister-action]').forEach(b=>b.addEventListener('click',()=>cabinetAction(b.dataset.minister,b.dataset.ministerAction)));
+  }
+
+  function ministerCard(m){
+    return `<div class="minister"><div class="minister-head"><div class="avatar">${m.name.split(' ').map(x=>x[0]).join('').slice(0,2)}</div><div><h3>${m.name}</h3><p>${m.role} · ${m.ideology}</p></div><span class="threat ${m.loyalty<35?'high':m.loyalty>65?'low':''}">${Math.round(m.loyalty)} loyal</span></div><div class="trait-row"><span class="trait">Competence ${m.competence}</span><span class="trait">Integrity ${m.integrity}</span><span class="trait">Ambition ${m.ambition}</span></div><div class="minister-actions"><button class="tiny-btn" data-minister="${m.id}" data-minister-action="consult">Consult</button><button class="tiny-btn" data-minister="${m.id}" data-minister-action="support">Back publicly</button><button class="tiny-btn" data-minister="${m.id}" data-minister-action="investigate">Investigate</button><button class="tiny-btn danger" data-minister="${m.id}" data-minister-action="dismiss">Dismiss</button></div></div>`;
+  }
+
+  function cabinetAction(id,action){
+    const m=cabinetBy(id);if(!m||state.turn-m.lastActionTurn<1){showToast('You already intervened with this minister this month.');return;}m.lastActionTurn=state.turn;
+    if(action==='consult'){state.politicalCapital+=1;addBrief(`${m.name} delivers a private assessment of ${m.sector}. Their confidence is ${m.competence>70?'high':'limited'}.`);showModalResult(`Private consultation: ${m.name}`,`The ${m.role.toLowerCase()} explains the institutional risks in ${m.sector}.`,m.loyalty<35?'Their language is careful and politically distant.':m.ambition>70?'The advice is useful, but they repeatedly emphasize their own role.':'The advice appears professionally grounded.');}
+    if(action==='support'){if(state.politicalCapital<3){m.lastActionTurn=-99;showToast('Not enough political capital.');return;}state.politicalCapital-=3;m.loyalty+=8;m.ambition+=2;state.approval+=.5;addBrief(`You publicly defend ${m.name}, strengthening their position and personal loyalty.`);}
+    if(action==='investigate'){if(state.politicalCapital<4){m.lastActionTurn=-99;showToast('Not enough political capital.');return;}state.politicalCapital-=4;if(Math.random()*100>m.integrity){state.hiddenRisk=Math.max(0,state.hiddenRisk-4);m.loyalty-=12;addBrief(`A confidential investigation finds irregularities around ${m.name}. The file is now in your possession.`);showModalResult('Confidential file opened',`Investigators find unexplained contacts and procurement anomalies linked to ${m.name}.`,'You can use the information later, but the minister may learn who authorized the inquiry.');}else{m.loyalty-=8;state.elite-=1;addBrief(`The investigation into ${m.name} finds no misconduct. Word of the inquiry leaks inside the cabinet.`);}}
+    if(action==='dismiss'){if(state.politicalCapital<5){m.lastActionTurn=-99;showToast('Not enough political capital.');return;}state.politicalCapital-=5;state.elite-=2;state.approval+=m.integrity<50?1:-1;addTimeline(`Dismissed ${m.name} as ${m.role}.`);replaceMinister(id);}
+    normalize();renderAll();saveGame(false);
+  }
+
+  function renderPublic(){
+    const weighted=weightedVoterApproval();
+    el('workspace').innerHTML=titleBlock('The Public','One approval number hides the real electorate. Every group has different interests and remembers different betrayals.',`WEIGHTED SUPPORT ${Math.round(weighted)}%`)+`<div class="voter-grid">${voterDefs.map(v=>{const n=state.voters[v.id];return `<div class="voter-card"><div class="voter-top"><b>${v.name}</b><span>${Math.round(n)}%</span></div><p>${v.size}% of modeled electorate · ${v.priority}</p><div class="bar"><i class="${n<35?'bad':n<52?'warn':'good'}" style="width:${n}%"></i></div></div>`}).join('')}</div><div class="panel" style="margin-top:14px"><h3>What voters currently feel</h3><div class="panel-sub">Economic pain is filtered through identity, institutions, and whether people believe the government is fair.</div><div class="three-col" style="margin-top:14px">${pressureCards()}</div></div>`;
+  }
+
+  function renderBills(){
+    el('workspace').innerHTML=titleBlock('Legislation','Bills change the structure of the simulation. Passage depends on political capital, legislative support, controversy, and your governing system.','POLITICAL CAPITAL '+Math.round(state.politicalCapital)) + `
+      <div class="card-grid">${billDefs.map(b=>billCard(b)).join('')}</div>`;
+    document.querySelectorAll('[data-bill]').forEach(btn=>btn.addEventListener('click',()=>attemptBill(btn.dataset.bill)));
+  }
+
+  function billCard(b){
+    const level=state.laws[b.id]||0;
+    const maxed=level>=b.max;
+    const chance=billChance(b);
+    return `<article class="action-card ${maxed?'locked':''}">
+      <div class="action-top"><span class="action-tag">${b.tag}${b.dirty?' · EXECUTIVE ABUSE RISK':''}</span><span class="action-level">LEVEL ${level}/${b.max}</span></div>
+      <h3>${b.title}</h3><p>${b.desc}</p>
+      <div class="effect-list">${b.effects.map((e,i)=>`<div class="effect"><span>${e}</span><b>${i===0?'PRIMARY':'EFFECT'}</b></div>`).join('')}</div>
+      <div class="card-actions"><div class="cost">Costs ${b.capital} capital<br>${Math.round(chance)}% passage estimate</div><button class="small-btn" data-bill="${b.id}" ${maxed||state.politicalCapital<b.capital?'disabled':''}>${maxed?'Enacted':'Introduce bill'}</button></div>
+    </article>`;
+  }
+
+  function billChance(b){
+    const systemBoost=state.power==='party'?18:state.power==='managed'?8:0;
+    const coalition=state.factions?state.factions.reduce((sum,f)=>sum+f.relation*f.seats,0)/100:state.legislature;
+    return clamp(coalition*.55+state.politicalCapital*.25+state.approval*.10+state.legislature*.12+systemBoost-b.controversy,8,94);
+  }
+
+  function attemptBill(id){
+    const b=billDefs.find(x=>x.id===id); if(!b)return;
+    const chance=billChance(b);
+    state.politicalCapital-=b.capital;
+    if(Math.random()*100<chance){
+      state.laws[id]=(state.laws[id]||0)+1;
+      b.apply(state);
+      state.profile.billsPassed++;
+      applyBillGroups(id);
+      state.legislature+=random(-1,2);
+      addBrief(`PASSED: ${b.title}. The law is now affecting the country.`);
+      addTimeline(`Signed ${b.title} into law.`);
+      showToast(`${b.title} passed with ${Math.round(chance)}% estimated odds.`);
+    }else{
+      state.legislature-=3; state.approval-=1;
+      addBrief(`DEFEAT: ${b.title} failed. Your coalition appears weaker and opponents are celebrating.`);
+      addTimeline(`${b.title} failed in the legislature.`);
+      showToast('The bill failed. Political capital was still spent.');
+    }
+    renderAll(); saveGame(false);
+  }
+
+
+  function applyBillGroups(id){
+    const map={taxCut:{middle:3,business:3,public:-1},wealthTax:{workers:2,green:2,business:-5},health:{workers:3,middle:2,public:2},education:{youth:5,middle:1},antiCorruption:{green:6,youth:3,business:1},publicWorks:{workers:3,rural:3,business:1},deregulation:{business:5,green:-3,workers:-1},labor:{workers:6,business:-5},security:{security:6,youth:-2},green:{green:7,business:-1},media:{security:2,youth:-6,green:-7},centralBank:{middle:2,workers:-2,business:1}};
+    applyGroupDelta(map[id]||{});
+  }
+
+  function renderProjects(){
+    const active=state.activeProjects;
+    const available=projectDefs.filter(p=>!active.some(a=>a.id===p.id)&&!state.completedProjects.includes(p.id));
+    el('workspace').innerHTML=titleBlock('National projects','Construction generates jobs now, but the full payoff only arrives at completion. Corruption creates overruns, delays, and failures.',`${active.length} ACTIVE`) + `
+      ${active.length?`<div class="panel"><h3>Under construction</h3><div class="panel-sub">Monthly payments are already included in government spending.</div><div style="margin-top:14px">${active.map(projectActiveCard).join('')}</div></div>`:''}
+      <div class="card-grid">${available.map(projectAvailableCard).join('')}</div>
+      ${!available.length&&!active.length?'<div class="panel">All national projects have been completed.</div>':''}`;
+    document.querySelectorAll('[data-project]').forEach(btn=>btn.addEventListener('click',()=>startProject(btn.dataset.project)));
+  }
+
+  function projectAvailableCard(p){
+    const total=state.gdp*p.cost/100;
+    return `<article class="action-card">
+      <div class="action-top"><span class="action-tag">CAPITAL PROJECT</span><span class="action-level">${p.duration} MONTHS</span></div>
+      <h3>${p.title}</h3><p>${p.desc}</p>
+      <div class="effect-list">${p.effects.map(e=>`<div class="effect"><span>${e}</span><b>ON COMPLETION</b></div>`).join('')}</div>
+      <div class="card-actions"><div class="cost">Base cost ${money(total)}<br>Corruption-adjusted during construction</div><button class="small-btn" data-project="${p.id}" ${state.activeProjects.length>=3?'disabled':''}>Authorize</button></div>
+    </article>`;
+  }
+
+  function projectActiveCard(a){
+    const p=projectDefs.find(x=>x.id===a.id);
+    const progress=clamp(a.progress/a.duration*100);
+    return `<div class="project-card"><div class="project-head"><h3>${p.title}</h3><span>${Math.max(0,a.duration-a.progress)} months remaining</span></div><p>${p.desc}</p><div class="progress"><i style="width:${progress}%"></i></div><div class="project-meta"><span>${Math.round(progress)}% completed</span><span>Paid ${money(a.spent)} · Overrun ${pct(a.overrun*100,0)}</span></div></div>`;
+  }
+
+  function startProject(id){
+    const p=projectDefs.find(x=>x.id===id); if(!p||state.activeProjects.length>=3)return;
+    state.activeProjects.push({id,progress:0,duration:p.duration,spent:0,overrun:0});
+    state.politicalCapital-=3; state.approval+=1;
+    addBrief(`AUTHORIZED: ${p.title}. Costs begin this month; final benefits arrive after completion.`);
+    addTimeline(`Authorized ${p.title}.`);
+    renderAll();saveGame(false);
+  }
+
+  function renderOpposition(){
+    const strongest=Math.max(...state.opponents.map(o=>o.support));
+    const electionLabel=state.power==='party'?'party congress':state.power==='singleTerm'?'succession election':'national election';
+    el('workspace').innerHTML=titleBlock('Opposition and survival',`Rivals gain support from inflation, scandals, recession, weak security, and failed bills. Your next ${electionLabel} is in ${Math.max(0,state.termMonths-state.turn)} months.`,'INCUMBENT '+Math.round(state.approval)+'%') + `
+      <div class="two-col">
+        <div class="panel"><h3>Political field</h3><div class="panel-sub">Support is not zero-sum in this early polling model; undecided and minor factions remain.</div>${state.opponents.map(opponentRow).join('')}</div>
+        <div class="panel"><h3>Methods of power</h3><div class="panel-sub">Dirty tactics can create immediate advantages while increasing hidden exposure.</div>
+          <div class="action-card" style="min-height:0;margin-top:14px"><h3>Buy legislative votes</h3><p>Route patronage and procurement promises through coalition brokers.</p><div class="card-actions"><div class="cost">+8 legislature<br>+10 hidden risk, +4 corruption</div><button id="buyVotes" class="small-btn danger">Authorize</button></div></div>
+          <div class="action-card" style="min-height:0;margin-top:10px"><h3>Launch opposition audit</h3><p>Order tax and procurement agencies to investigate the strongest rival.</p><div class="card-actions"><div class="cost">Opponent −4 support<br>Democracy −4, scandal risk +7</div><button id="auditRival" class="small-btn danger">Order audit</button></div></div>
+          <div class="action-card" style="min-height:0;margin-top:10px"><h3>National town-hall tour</h3><p>Spend time and political capital defending your record directly.</p><div class="card-actions"><div class="cost">Costs 8 capital<br>Approval +2 to +5</div><button id="townHall" class="small-btn light" ${state.politicalCapital<8?'disabled':''}>Campaign</button></div></div>
+        </div>
+      </div>
+      <div class="panel"><h3>Campaign and promises</h3><div class="panel-sub">Promises produce support now and a credibility penalty at the final verdict if the result never arrives.</div><div class="world-actions" style="margin-top:12px"><div class="world-action"><h4>Promise lower prices</h4><p>Commit publicly to materially reduce inflation before the election.</p><button class="tiny-btn" data-promise="prices">Make promise</button></div><div class="world-action"><h4>Promise more jobs</h4><p>Commit to a visible fall in unemployment before voters return.</p><button class="tiny-btn" data-promise="jobs">Make promise</button></div><div class="world-action"><h4>Promise clean government</h4><p>Put your credibility behind a major reduction in corruption.</p><button class="tiny-btn" data-promise="clean">Make promise</button></div></div><div class="card-actions" style="margin-top:12px"><div class="cost">${state.promises.length} active promise${state.promises.length===1?'':'s'} · failed promises reduce election performance</div><button id="debateBtn" class="small-btn light" ${state.turn-state.lastDebateTurn<6||state.politicalCapital<5?'disabled':''}>National debate</button></div></div>
+      <div class="panel"><h3>Parliamentary and coalition blocs</h3><div class="panel-sub">Legislation depends on actual political relationships, not only a single support percentage.</div>${state.factions.map(f=>`<div class="faction-row"><div><b>${f.name} · ${f.seats}% weight</b><p>${f.demand}</p></div><div class="bar"><i class="${f.relation<35?'bad':f.relation<55?'warn':'good'}" style="width:${f.relation}%"></i></div><button class="tiny-btn" data-faction="${f.id}">Negotiate</button></div>`).join('')}</div>
+      <div class="panel"><h3>Removal risk</h3><div class="panel-sub">A leader can lose power before the scheduled verdict.</div><div class="stat-list">
+        ${barRow('Public rejection',100-state.approval,true)}
+        ${barRow('Elite defection',100-state.elite,true)}
+        ${barRow('Institutional crisis',100-state.stability,true)}
+        ${barRow('Scandal exposure',state.hiddenRisk,true)}
+      </div></div>`;
+    el('buyVotes').addEventListener('click',()=>dirtyAction('buyVotes'));
+    el('auditRival').addEventListener('click',()=>dirtyAction('auditRival'));
+    el('townHall').addEventListener('click',()=>dirtyAction('townHall'));
+    document.querySelectorAll('[data-faction]').forEach(b=>b.addEventListener('click',()=>negotiateFaction(b.dataset.faction)));
+    document.querySelectorAll('[data-promise]').forEach(b=>b.addEventListener('click',()=>makePromise(b.dataset.promise)));
+    el('debateBtn').addEventListener('click',campaignDebate); 
+  }
+
+
+
+  function makePromise(type){
+    if(state.promises.some(p=>p.type===type)){showToast('You already made that promise.');return;}
+    const label={prices:'lower prices',jobs:'more jobs',clean:'clean government'}[type];const baseline=type==='prices'?state.inflation:type==='jobs'?state.unemployment:state.corruption;
+    state.promises.push({type,label,baseline,date:dateLabel()});state.approval+=2;state.politicalCapital+=1;addBrief(`CAMPAIGN PROMISE: ${state.leader} promises ${label}.`);addTimeline(`Promised voters ${label}.`);renderAll();saveGame(false);
+  }
+
+  function campaignDebate(){
+    if(state.turn-state.lastDebateTurn<6||state.politicalCapital<5)return;state.lastDebateTurn=state.turn;state.politicalCapital-=5;
+    const rival=[...state.opponents].sort((a,b)=>b.support-a.support)[0];const performance=state.approval*.35+state.politicalCapital*.2+cabinetBy('chief').competence*.25+random(-18,18);
+    if(performance>48){const gain=random(2,5);state.approval+=gain;rival.support-=gain*.45;publishNews('PRESIDENT SEIZES THE DEBATE',`${state.leader} lands the strongest exchanges of the night and places the opposition on the defensive.`);addBrief(`You outperform ${rival.name} in the national debate and gain ${round(gain,1)} approval points.`);}else{const loss=random(2,5);state.approval-=loss;rival.support+=loss*.5;publishNews('OPPOSITION WINS BRUTAL DEBATE',`${rival.name} exposes weak answers on prices, corruption, and the government’s record.`);addBrief(`${rival.name} wins the national debate and your approval falls ${round(loss,1)} points.`);}
+    addTimeline(`Faced ${rival.name} in a national debate.`);renderAll();saveGame(false);
+  }
+
+  function negotiateFaction(id){
+    const f=state.factions.find(x=>x.id===id);if(!f)return;if(state.politicalCapital<5){showToast('You need 5 political capital to negotiate.');return;}
+    state.politicalCapital-=5;let gain=random(5,10);f.relation+=gain;
+    if(id==='regional'){state.baseSpend+=.15;state.infrastructure+=.4;}
+    if(id==='labor'){state.baseSpend+=.12;state.inequality-=.5;}
+    if(id==='business'){state.taxRate-=.12;state.businessClimate+=1;}
+    if(id==='reform'){state.corruption-=1;state.elite-=1;}
+    if(id==='party'){state.elite+=2;state.hiddenRisk+=1;}
+    addBrief(`Coalition talks with the ${f.name} improve relations by ${round(gain,1)} points, but the agreement includes policy concessions.`);addTimeline(`Negotiated a legislative agreement with the ${f.name}.`);updateFactions();renderAll();saveGame(false);
+  }
+
+  function opponentRow(o){
+    const level=o.support>38?'high':o.support<25?'low':'';
+    return `<div class="opponent"><div class="avatar">${o.name.split(' ').map(x=>x[0]).join('').slice(0,2)}</div><div><b>${o.name}</b><p>${o.party} · momentum ${o.momentum>=0?'+':''}${o.momentum}</p></div><span class="threat ${level}">${pct(o.support)}</span></div>`;
+  }
+
+  function dirtyAction(type){
+    if(type==='buyVotes'){state.profile.dirtyActions++;
+      state.legislature+=8;state.corruption+=4;state.hiddenRisk+=10;state.elite+=2;state.treasury-=state.gdp*.0003;
+      addBrief('Covert patronage secures several legislative votes. Procurement intermediaries now expect repayment.');
+      addTimeline('Used covert patronage to secure legislative support.');
+    } else if(type==='auditRival'){state.profile.dirtyActions++;
+      const target=state.opponents.sort((a,b)=>b.support-a.support)[0];
+      target.support-=4;state.democracy-=4;state.hiddenRisk+=7;state.elite+=1;
+      addBrief(`State agencies opened investigations into ${target.name}. The opposition calls it political persecution.`);
+      addTimeline(`Ordered a state investigation into opposition leader ${target.name}.`);
+    } else {
+      state.politicalCapital-=8;const gain=random(2,5);state.approval+=gain;state.opponents.forEach(o=>o.support-=gain*.25);
+      addBrief(`The national town-hall tour lifts approval by ${round(gain,1)} points, but governing work slows.`);
+      addTimeline('Completed a national town-hall campaign tour.');
+    }
+    renderAll();saveGame(false);
+  }
+
+
+  function renderWorld(){
+    renderRankings(true);
+  }
+
+  function worldAction(type,target){
+    const relation=state.worldRelations[target];const name=countries[target].name;
+    if(type==='trade'){if(state.politicalCapital<6){showToast('Not enough political capital.');return;}state.politicalCapital-=6;state.worldRelations[target]=clamp(relation+7);state.businessClimate+=1;scheduleConsequence(`Trade mission to ${name}`,3,{potentialGrowth:.08,foreignReserves:1.5},`New orders and investment begin arriving from ${name}.`);addBrief(`A trade mission to ${name} produces a framework agreement.`);}
+    if(type==='aid'){const cost=state.gdp*.0005;if(state.treasury<cost){showToast('Treasury liquidity is too low.');return;}state.treasury-=cost;state.worldRelations[target]=clamp(relation+10);state.influence+=3;addBrief(`Emergency assistance is sent to ${name}, increasing diplomatic influence.`);}
+    if(type==='sanction'){state.worldRelations[target]=clamp(relation-14);state.influence+=1;state.businessClimate-=1;state.hiddenRisk+=2;addBrief(`Your government imposes sanctions on ${name}. Trade and diplomatic retaliation are possible.`);}
+    addTimeline(`${type==='trade'?'Opened trade talks with':type==='aid'?'Sent assistance to':'Imposed sanctions on'} ${name}.`);renderWorld();saveGame(false);
+  }
+
+  function renderPress(){
+    if(!state.news.length)generateMonthlyNews();const n=state.news[0];
+    el('workspace').innerHTML=titleBlock('The National Press','Different outlets frame the same presidency differently. Headlines are designed to become shareable records of your term.',`${state.news.length} EDITIONS`)+`<div class="newspaper"><div class="paper-masthead"><span>${n.date} · Independent national edition</span><h2>The Mandate</h2></div><div class="paper-meta">Politics · Economy · National Affairs</div><h1 class="paper-headline">${n.headline}</h1><div class="paper-dek">${n.dek}</div><div class="paper-columns">The government enters the new month facing competing demands from households, investors, legislators, regional leaders, and its own cabinet. Officials insist the administration has a coherent plan, while opposition parties argue that delayed consequences are beginning to expose earlier compromises. Economic data show growth at ${pct(state.growth)}, inflation at ${pct(state.inflation)}, and unemployment at ${pct(state.unemployment)}. Public approval stands at ${Math.round(state.approval)} percent. The decisive question is no longer whether the president can announce policy, but whether the state can execute it without leakage, resistance, or political betrayal.</div></div><div class="panel" style="margin-top:14px"><button id="sharePaper" class="primary">Copy shareable headline</button></div><div class="panel"><h3>Recent editions</h3>${state.news.slice(1,8).map(x=>`<div class="timeline-item"><time>${x.date}</time><p><b>${x.headline}</b><br>${x.dek}</p></div>`).join('')||'<div class="brief-empty">No older editions yet.</div>'}</div>`;
+    el('sharePaper').addEventListener('click',()=>{const text=`MANDATE — ${n.headline}\n${n.dek}\n${state.country}, ${n.date} · Approval ${Math.round(state.approval)}% · Growth ${pct(state.growth)} · Inflation ${pct(state.inflation)}`;navigator.clipboard?.writeText(text);showToast('Shareable presidential headline copied.');});
+  }
+
+  function renderRankings(asWorld=false){
+    const peers=Object.entries(countries).map(([id,c])=>{
+      if(id===state.countryId)return {id,name:state.country,gdp:state.gdp,gdpPc:state.gdp*1000/state.population,growth:state.growth,infrastructure:state.infrastructure,corruption:state.corruption,approval:state.approval};
+      const seed=[...id].reduce((n,ch)=>n+ch.charCodeAt(0),0);
+      const cycle=Math.sin((state.turn+seed)*0.31);
+      const drift=(state.turn/12)*(cycle*.12+.06);
+      return {id,name:c.name,gdp:c.gdp*(1+(c.potentialGrowth+drift)/100*(state.turn/12)),gdpPc:c.gdp*1000/c.population,growth:c.potentialGrowth+drift,infrastructure:c.infrastructure+drift,corruption:c.corruption+cycle*.7,approval:50+cycle*7};
+    });
+    const rankBy=(key,ascending=false)=>[...peers].sort((a,b)=>ascending?a[key]-b[key]:b[key]-a[key]);
+    const economy=rankBy('gdp');
+    const quality=rankBy('gdpPc');
+    const infra=rankBy('infrastructure');
+    const clean=rankBy('corruption',true);
+    const relations=Object.entries(state.worldRelations).sort((a,b)=>b[1]-a[1]);
+    el('workspace').innerHTML=titleBlock(asWorld?'World affairs':'World rankings',asWorld?'Trade, aid, sanctions, and diplomatic credibility now feed back into growth and national influence.':'Your policies alter your position against the other playable countries. Peer economies continue moving while you govern.','INFLUENCE '+Math.round(state.influence)) + `${asWorld?`<div class="panel world-desk"><h3>Diplomatic desk</h3><div class="panel-sub">Choose a target country, then pursue a limited foreign-policy action.</div>${relations.slice(0,5).map(([id,r])=>`<div class="faction-row"><div><b>${countries[id].name}</b><p>Relationship ${Math.round(r)}/100</p></div><div class="bar"><i class="${r<35?'bad':r<55?'warn':'good'}" style="width:${r}%"></i></div><div><button class="tiny-btn" data-world="trade" data-target="${id}">Trade</button> <button class="tiny-btn" data-world="aid" data-target="${id}">Aid</button> <button class="tiny-btn danger" data-world="sanction" data-target="${id}">Sanction</button></div></div>`).join('')}</div>`:''}
+      <div class="two-col">
+        ${rankTable('Largest economies',economy,'gdp',x=>money(x))}
+        ${rankTable('GDP per capita',quality,'gdpPc',x=>'$'+Math.round(x).toLocaleString())}
+        ${rankTable('Infrastructure',infra,'infrastructure',x=>Math.round(x)+'/100')}
+        ${rankTable('Clean government',clean,'corruption',x=>Math.round(x)+'/100 risk')}
+      </div>`;
+    if(asWorld)document.querySelectorAll('[data-world]').forEach(b=>b.addEventListener('click',()=>worldAction(b.dataset.world,b.dataset.target)));
+  }
+
+  function rankTable(title,rows,key,format){
+    return `<div class="panel"><h3>${title}</h3><div style="overflow:auto;margin-top:10px"><table><thead><tr><th>#</th><th>Country</th><th>Score</th></tr></thead><tbody>${rows.map((r,i)=>`<tr class="${r.id===state.countryId?'rank-self':''}"><td class="rank-num">${i+1}</td><td>${r.name}</td><td>${format(r[key])}</td></tr>`).join('')}</tbody></table></div></div>`;
+  }
+
+  function renderTimeline(){
+    const score=legacyScore();const style=state.corruption<35?'Clean reformer':state.democracy<35?'Authoritarian operator':state.growth>4?'Growth president':state.approval>60?'Popular coalition-builder':'Embattled pragmatist';
+    el('workspace').innerHTML=titleBlock('Presidential record','Every law, failure, shortcut, and crisis becomes part of a permanent, exportable political identity.',`${state.timeline.length} ENTRIES`) + `<div class="profile-card"><div class="profile-name">${state.leader}</div><div class="profile-title">${state.office} of ${state.country} · ${style}</div><div class="profile-stats"><div class="profile-stat"><small>Legacy</small><b>${score}/100</b></div><div class="profile-stat"><small>Bills passed</small><b>${state.profile.billsPassed}</b></div><div class="profile-stat"><small>Projects</small><b>${state.profile.projectsCompleted}</b></div><div class="profile-stat"><small>Dirty actions</small><b>${state.profile.dirtyActions}</b></div></div><div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button id="copyProfile" class="primary">Copy president card</button><button id="exportRecord" class="ghost">Export save</button><button id="importRecord" class="ghost">Import save</button></div></div><div class="panel" style="margin-top:14px">${state.timeline.length?state.timeline.map(t=>`<div class="timeline-item"><time>${t.date}</time><p>${t.text}</p></div>`).join(''):'<div class="brief-empty">No major decisions recorded yet.</div>'}</div>`;
+    el('copyProfile').addEventListener('click',()=>{navigator.clipboard?.writeText(`${state.leader} — ${style}
+${state.office} of ${state.country}
+Legacy ${score}/100 · GDP ${money(state.gdp)} · Approval ${Math.round(state.approval)}% · Bills ${state.profile.billsPassed} · Projects ${state.profile.projectsCompleted}`);showToast('President card copied.');});el('exportRecord').addEventListener('click',exportSave);el('importRecord').addEventListener('click',()=>el('importFile').click());
+  }
+
+  function renderBriefings(){
+    const list=state.briefings.slice(0,12);
+    el('briefingList').innerHTML=list.length?list.map(b=>`<div class="brief-item"><div class="brief-time">${b.date}</div><p>${b.text}</p></div>`).join(''):'<div class="brief-empty">Advance the calendar to receive economic, political, and security briefings.</div>';
+  }
+
+  function addBrief(text){ state.briefings.unshift({date:dateLabel(),text}); if(state.briefings.length>60)state.briefings.pop(); }
+  function addTimeline(text){ state.timeline.unshift({date:dateLabel(),text}); }
+  function dateLabel(){return `${monthNames[state.month-1]} ${state.year}`;}
+
+  function monthlyRevenue(){
+    const corruptionLoss=1-state.corruption/2000;
+    return state.gdp*(state.taxRate/100)*state.collectionEfficiency*corruptionLoss/12;
+  }
+
+  function projectMonthlyCost(){
+    return state.activeProjects.reduce((sum,a)=>{
+      const p=projectDefs.find(x=>x.id===a.id);
+      const base=state.gdp*(p.cost/100)/p.duration;
+      return sum+base*(1+a.overrun);
+    },0);
+  }
+
+  function monthlySpending(){
+    const interest=state.debt*Math.max(.018, .018+Math.max(0,state.inflation-3)*.0025+Math.max(0,state.debtRatio-80)*.00025)/12;
+    return state.gdp*((state.baseSpend+state.temporarySpend)/100)/12+interest+projectMonthlyCost();
+  }
+
+  function computeGrowth(){
+    let g=state.potentialGrowth;
+    g+=(state.infrastructure-55)*.018;
+    g+=(state.education-55)*.012;
+    g+=(state.businessClimate-55)*.022;
+    g-=(state.corruption-35)*.018;
+    g-=(state.inequality-50)*.006;
+    g-=(Math.max(0,state.inflation-4))*.12;
+    g-=(Math.max(0,state.debtRatio-90))*.018;
+    g+=(state.baseSpend-state.taxRate-3)*.025;
+    g+=(state.stability-55)*.012;
+    return clamp(g,-12,12);
+  }
+
+  function advanceMonth(){
+    if(state.gameOver)return;
+    state.turn++;
+    state.previousGdp=state.gdp;
+
+    processDelayed();
+    updateProjects();
+    updateCabinet();
+    updateFactions();
+    updateSectors();
+
+    state.growth=computeGrowth()+random(-.35,.35);
+    applyCountryMechanic();
+    state.gdp*=1+state.growth/1200;
+    state.population*=1+(state.countryId==='china'?-0.08:0.55)/1200;
+
+    const revenue=monthlyRevenue();
+    const spending=monthlySpending();
+    const balance=revenue-spending;
+    if(balance>=0){state.treasury+=balance*.55;state.debt=Math.max(0,state.debt-balance*.25);}else{state.debt+=-balance;state.treasury-=Math.min(Math.max(0,state.treasury),-balance*.08);}
+
+    const demand=(state.baseSpend-state.taxRate-2)*.035;
+    state.inflation+=demand/12+(state.growth-state.potentialGrowth)*.025+random(-.18,.18);
+    state.inflation-=Math.max(0,state.inflation-8)*.025;
+    state.unemployment+=-(state.growth-state.potentialGrowth)*.045+random(-.08,.08);
+
+    let costOfLiving=Math.max(0,state.inflation-3)*.075;
+    if(state.power==='party')costOfLiving*=.45;
+    if(state.power==='managed')costOfLiving*=.35;
+    const jobsPain=Math.max(0,state.unemployment-5)*.09;
+    const corruptionPain=Math.max(0,state.corruption-45)*.018;
+    const growthBoost=(state.growth-2)*.065;
+    state.approval+=growthBoost-costOfLiving-jobsPain-corruptionPain+random(-.6,.6);
+    state.politicalCapital+=state.approval>55?.8:state.approval<35?-1.1:.1;
+    state.legislature+=(state.approval-50)*.006+random(-.45,.45);
+    state.elite+=(state.growth-2)*.02-(state.hiddenRisk*.002)+random(-.35,.35);
+    state.stability+=(state.approval-45)*.012-(state.inflation>10?.3:0)+random(-.25,.25);
+    state.businessClimate+=(state.growth>3?.15:-.05)-(state.hiddenRisk*.0015)+random(-.2,.2);
+
+    state.temporarySpend=Math.max(0,state.temporarySpend-.12);
+    state.hiddenRisk=Math.max(0,state.hiddenRisk-.35);
+
+    updateVoters();
+    updateOpposition();
+    const scandalBroke=checkScandal();
+
+    state.history.push(state.gdp); state.approvalHistory.push(state.approval); state.inflationHistory.push(state.inflation);
+    [state.history,state.approvalHistory,state.inflationHistory].forEach(a=>{if(a.length>40)a.shift();});
+
+    state.month++;
+    if(state.month>12){state.month=1;state.year++;}
+
+    const summary=`Monthly report: growth ${pct(state.growth)}, inflation ${pct(state.inflation)}, unemployment ${pct(state.unemployment)}, approval ${Math.round(state.approval)}%.`;
+    addBrief(summary);
+    generateMonthlyNews();
+
+    normalize();
+    if(checkRemoval()) return;
+    if(state.turn>=state.termMonths){holdElection();return;}
+
+    if(!scandalBroke && (Math.random()<.30 || state.turn%4===0)){triggerRandomEvent();}
+    renderAll();saveGame(false);
+  }
+
+  function updateProjects(){
+    state.activeProjects.forEach(a=>{
+      const p=projectDefs.find(x=>x.id===a.id);
+      const monthlyBase=state.gdp*(p.cost/100)/p.duration;
+      const newOverrun=Math.max(0,(state.corruption-35)/5000+random(-.002,.006));
+      a.overrun=clamp(a.overrun+newOverrun,0,.75);
+      a.spent+=monthlyBase*(1+a.overrun);
+      let progressGain=1;
+      if(Math.random()<state.corruption/850) progressGain=0;
+      if(Math.random()<state.infrastructure/1000) progressGain=2;
+      a.progress+=progressGain;
+    });
+    const done=state.activeProjects.filter(a=>a.progress>=a.duration);
+    done.forEach(a=>{
+      const p=projectDefs.find(x=>x.id===a.id); p.complete(state); state.completedProjects.push(a.id); state.profile.projectsCompleted++;
+      addBrief(`COMPLETED: ${p.title}. Its full economic and social effects are now active.`); addTimeline(`Completed ${p.title} after ${a.progress} months.`);
+    });
+    state.activeProjects=state.activeProjects.filter(a=>a.progress<a.duration);
+  }
+
+  function updateOpposition(){
+    state.opponents.forEach((o,i)=>{
+      let move=(50-state.approval)*.025+Math.max(0,state.inflation-5)*.025+Math.max(0,state.hiddenRisk-20)*.012+random(-.55,.55);
+      if(i===0)move*=1.15;
+      o.momentum=round(move,1);o.support=clamp(o.support+move,8,58);
+    });
+  }
+
+  function checkScandal(){
+    const chance=state.hiddenRisk/420;
+    if(Math.random()<chance){
+      const severity=random(5,12)+state.hiddenRisk*.08;
+      state.approval-=severity;state.elite-=severity*.4;state.legislature-=severity*.35;state.stability-=severity*.25;state.scandals++;
+      state.hiddenRisk*=.45;
+      addBrief(`SCANDAL: Investigators linked your administration to concealed misconduct. Approval falls ${round(severity,1)} points.`);
+      addTimeline(`A major government scandal became public, causing a ${round(severity,1)}-point approval collapse.`);
+      showModalResult('A scandal breaks',`Documents, testimony, and financial records connect your administration to concealed misconduct. Your coalition is fracturing, prosecutors are circling, and the opposition demands removal.`,'The presidency survives—for now.');
+      return true;
+    }
+    return false;
+  }
+
+  function checkRemoval(){
+    let reason='';
+    if(state.approval<11&&state.stability<30)reason='Mass unrest and coalition defections force you from office.';
+    else if(state.elite<12&&state.power!=='competitive')reason='Party and security elites remove you in an internal leadership challenge.';
+    else if(state.hiddenRisk>88&&state.legislature<35)reason='A combined corruption investigation and legislative revolt ends your presidency.';
+    else if(state.debtRatio>190&&state.inflation>28)reason='A sovereign debt and currency collapse destroys the government.';
+    if(reason){
+      state.gameOver=true;addTimeline(reason);showEnd('Removed from office',reason,legacyScore());renderAll();saveGame(false);return true;
+    }
+    return false;
+  }
+
+  function holdElection(){
+    const strongest=[...state.opponents].sort((a,b)=>b.support-a.support)[0];
+    let incumbent=state.approval*.62+state.stability*.12+(100-state.corruption)*.08+Math.max(-8,Math.min(8,state.growth))*1.2-state.scandals*4-promisePenalty()+random(-6,6);
+    let challenger=strongest.support*.85+(100-state.approval)*.22+state.hiddenRisk*.08+random(-4,4);
+    let won=incumbent>challenger;
+    let title='Election night';
+    let text='';
+    if(state.power==='party'){
+      won=state.elite*.55+state.stability*.25+state.approval*.2-state.hiddenRisk*.2+random(-8,8)>50;
+      title='Party congress verdict';
+      text=won?'The central committee renews your leadership mandate after a tense internal vote.':'Party elites unite behind a replacement and remove you from leadership.';
+    }else if(state.power==='singleTerm'){
+      won=incumbent>challenger;
+      title='Succession election';
+      text=won?'Your endorsed successor wins, preserving your program and political legacy.':'The opposition wins the succession election and promises to investigate your administration.';
+    }else{
+      text=won?`You defeat ${strongest.name} and win another mandate.`:`${strongest.name} defeats you after a punishing campaign.`;
+    }
+    state.gameOver=true;state.electionHeld=true;if(won)state.profile.electionsWon++;else state.profile.electionsLost++;addTimeline(text);showEnd(title,text,legacyScore());renderAll();saveGame(false);
+  }
+
+  function legacyScore(){
+    const score=state.approval*.18+state.stability*.16+(100-state.corruption)*.14+state.infrastructure*.12+state.health*.08+state.education*.08+state.growth*2.5-state.inflation*.8-Math.max(0,state.debtRatio-60)*.08-state.scandals*4+state.democracy*.08;
+    return Math.round(clamp(score,0,100));
+  }
+
+  function triggerRandomEvent(){
+    pendingEvent=pick(eventDefs);
+    el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">National security briefing · ${dateLabel()}</div><h2>${pendingEvent.title}</h2><p class="modal-desc">${pendingEvent.desc}</p>${pendingEvent.choices.map((c,i)=>`<button class="choice" data-choice="${i}"><b>${c.label}${c.dirty?' · DIRTY':''}</b><span>${c.hint}</span></button>`).join('')}</div></div></div>`;
+    document.querySelectorAll('[data-choice]').forEach(btn=>btn.addEventListener('click',()=>resolveEvent(Number(btn.dataset.choice))));
+  }
+
+  function resolveEvent(index){
+    const c=pendingEvent.choices[index];c.effect(state);normalize();
+    addBrief(`${pendingEvent.title}: ${c.outcome}`);addTimeline(`${pendingEvent.title} — chose: ${c.label}.`);publishNews(pendingEvent.title.toUpperCase(),c.outcome,'breaking');
+    el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">Decision recorded</div><h2>${c.label}</h2><div class="outcome">${c.outcome}</div><div class="modal-footer"><button id="closeOutcome" class="primary">Return to government</button></div></div></div></div>`;
+    el('closeOutcome').addEventListener('click',()=>{el('modalRoot').innerHTML='';pendingEvent=null;renderAll();saveGame(false);});
+  }
+
+  function showModalResult(title,desc,outcome){
+    el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">Breaking development</div><h2>${title}</h2><p class="modal-desc">${desc}</p><div class="outcome">${outcome}</div><div class="modal-footer"><button id="closeResult" class="primary">Continue</button></div></div></div></div>`;
+    el('closeResult').addEventListener('click',()=>{el('modalRoot').innerHTML='';renderAll();});
+  }
+
+  function showEnd(title,desc,score){
+    const grade=score>=80?'Transformational':score>=65?'Strong':score>=50?'Mixed':score>=35?'Failed promises':'National disaster';
+    el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">Final verdict</div><h2>${title}</h2><p class="modal-desc">${desc}</p><div class="outcome"><b>Legacy score: ${score}/100 — ${grade}</b><br><br>Final GDP: ${money(state.gdp)} · Growth: ${pct(state.growth)} · Approval: ${Math.round(state.approval)}% · Debt: ${pct(state.debtRatio)} of GDP · Scandals: ${state.scandals}.</div><div class="modal-footer"><button id="endNew" class="primary">Start a new presidency</button></div></div></div></div>`;
+    el('endNew').addEventListener('click',resetGame);
+  }
+
+  function saveGame(toast=true){
+    try{localStorage.setItem('mandate-save',JSON.stringify(state));if(toast)showToast('Game saved on this device.');}
+    catch{if(toast)showToast('Browser storage is unavailable. Use Export to keep this presidency.');}
+  }
+  function loadGame(){
+    try{const raw=localStorage.getItem('mandate-save');if(!raw)return false;state=migrateState(JSON.parse(raw));return !!state.countryId;}catch{return false;}
+  }
+
+  function exportSave(){
+    const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`mandate-${state.countryId}-${state.leader.toLowerCase().replace(/[^a-z0-9]+/g,'-')}.json`;a.click();URL.revokeObjectURL(url);showToast('Save exported.');
+  }
+  function importSave(file){
+    const reader=new FileReader();reader.onload=()=>{try{const data=migrateState(JSON.parse(reader.result));if(!data.countryId||!countries[data.countryId])throw new Error('Invalid country');state=data;saveGame(false);renderAll();showToast('Save imported successfully.');}catch(e){showToast('That file is not a valid MANDATE save.');}};reader.readAsText(file);
+  }
+
+  function resetGame(){localStorage.removeItem('mandate-save');location.reload();}
+  function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.add('hidden'),2600);}
+
+  initCountryCards();
+  el('startGame').addEventListener('click',start);
+  el('advanceBtn').addEventListener('click',advanceMonth);
+  el('saveBtn').addEventListener('click',()=>saveGame(true));
+  el('exportBtn').addEventListener('click',exportSave);
+  el('importFile').addEventListener('change',e=>{if(e.target.files[0])importSave(e.target.files[0]);e.target.value='';});
+  el('resetBtn').addEventListener('click',()=>{if(confirm('Start a new presidency? Your current save will be deleted.'))resetGame();});
+  el('nav').addEventListener('click',e=>{
+    const btn=e.target.closest('button[data-page]');if(!btn)return;
+    currentPage=btn.dataset.page;
+    document.querySelectorAll('#nav button').forEach(x=>x.classList.toggle('active',x===btn));
+    renderWorkspace();
+  });
+
+  if(loadGame()){
+    selectedCountry=state.countryId;
+    el('setup').classList.add('hidden');el('app').classList.remove('hidden');renderAll();
+  }
+})();
+</script>
+</body>
+</html>
