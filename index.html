@@ -3,22 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#0a2a66" />
-  <title>MANDATE v0.8 — Global Power Simulator</title>
+  <meta name="theme-color" content="#9f1026" />
+  <title>MANDATE v0.14 — 142-Sector Economic Engine</title>
   <style>
     :root {
-      --ink:#0a1733;
-      --muted:#64708a;
-      --line:#dce3ef;
+      --ink:#271116;
+      --muted:#77666a;
+      --line:#ead8dc;
       --panel:#ffffff;
-      --soft:#f4f7fb;
-      --blue:#0a2a66;
-      --blue-2:#174a9c;
-      --blue-3:#eaf1ff;
-      --danger:#a52a3a;
-      --warn:#9a6400;
-      --good:#16734a;
-      --shadow:0 18px 45px rgba(11,32,71,.10);
+      --soft:#fff6f7;
+      --blue:#9f1026;
+      --blue-2:#d2213e;
+      --blue-3:#fff0f3;
+      --danger:#7e0c1d;
+      --warn:#a35b00;
+      --good:#17724b;
+      --shadow:0 18px 45px rgba(111,10,30,.11);
       --radius:18px;
     }
     *{box-sizing:border-box}
@@ -31,8 +31,8 @@
       min-height:100vh;
       padding:40px 22px 60px;
       background:
-        radial-gradient(circle at 10% 0%, rgba(23,74,156,.13), transparent 32%),
-        linear-gradient(180deg,#fff 0%,#f4f7fb 68%);
+        radial-gradient(circle at 10% 0%, rgba(210,33,62,.15), transparent 32%),
+        linear-gradient(180deg,#fff 0%,#fbf5f6 68%);
     }
     .setup-wrap{max-width:1180px;margin:0 auto}
     .brand-row{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:54px}
@@ -41,7 +41,7 @@
     .brand-mark:before,.brand-mark:after{content:"";position:absolute;background:var(--blue);border-radius:10px}
     .brand-mark:before{width:18px;height:3px;left:8px;top:10px;box-shadow:0 7px 0 var(--blue),0 14px 0 var(--blue)}
     .brand-mark:after{width:3px;height:24px;right:7px;top:5px;opacity:.22}
-    .version{font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-3);border:1px solid #cbdcff;padding:7px 10px;border-radius:999px}
+    .version{font-size:12px;font-weight:800;color:var(--blue);background:var(--blue-3);border:1px solid #f3bcc7;padding:7px 10px;border-radius:999px}
     .hero{max-width:830px;margin-bottom:38px}
     .eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.16em;font-weight:850;color:var(--blue-2);margin-bottom:12px}
     h1{font-size:clamp(42px,7vw,84px);line-height:.95;letter-spacing:-.065em;margin:0 0 22px;max-width:900px}
@@ -54,8 +54,8 @@
     .panel-head span{font-size:12px;color:var(--muted)}
     .country-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
     .country-card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:16px;text-align:left;transition:.18s ease;min-height:142px;position:relative;overflow:hidden}
-    .country-card:hover{transform:translateY(-2px);border-color:#9cb9ea;box-shadow:0 12px 26px rgba(20,66,140,.10)}
-    .country-card.selected{border:2px solid var(--blue-2);padding:15px;background:linear-gradient(180deg,#fff,#f4f8ff)}
+    .country-card:hover{transform:translateY(-2px);border-color:#e9b0bc;box-shadow:0 12px 26px rgba(20,66,140,.10)}
+    .country-card.selected{border:2px solid var(--blue-2);padding:15px;background:linear-gradient(180deg,#fff,#fff8f9)}
     .country-card .code{font-size:11px;font-weight:900;color:var(--blue-2);letter-spacing:.14em}
     .country-card h3{margin:8px 0 5px;font-size:18px}
     .country-card p{margin:0;color:var(--muted);font-size:12px;line-height:1.45}
@@ -63,9 +63,9 @@
     .country-card:after{content:"";position:absolute;width:90px;height:90px;border:18px solid var(--blue-3);border-radius:50%;right:-47px;bottom:-53px}
     .setup-actions{display:grid;grid-template-columns:1fr auto;gap:10px;margin-top:16px}
     .name-input{border:1px solid var(--line);border-radius:13px;padding:14px 15px;outline:none;background:#fff;color:var(--ink)}
-    .name-input:focus{border-color:#7ea6e6;box-shadow:0 0 0 4px rgba(23,74,156,.08)}
+    .name-input:focus{border-color:#d85b73;box-shadow:0 0 0 4px rgba(23,74,156,.08)}
     .primary{border:0;background:var(--blue);color:#fff;border-radius:13px;padding:14px 20px;font-weight:850;box-shadow:0 10px 24px rgba(10,42,102,.18)}
-    .primary:hover{background:#0d367e}
+    .primary:hover{background:#7f0c20}
     .primary:disabled{opacity:.45;cursor:not-allowed;box-shadow:none}
     .principles{padding:24px;position:sticky;top:20px}
     .principles h3{margin:0 0 18px;font-size:18px}
@@ -84,24 +84,24 @@
     .side-brand .brand-mark:after{box-shadow:none}
     .nav-label{font-size:10px;text-transform:uppercase;letter-spacing:.17em;color:#aabce0;font-weight:900;padding:12px 11px 7px}
     .nav{display:flex;flex-direction:column;gap:5px}
-    .nav button{display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;color:#cbd7ee;border-radius:12px;padding:12px;text-align:left;font-weight:760;font-size:13px}
+    .nav button{display:flex;align-items:center;gap:11px;width:100%;border:0;background:transparent;color:#efd3d9;border-radius:12px;padding:12px;text-align:left;font-weight:760;font-size:13px}
     .nav button:hover{background:rgba(255,255,255,.08);color:#fff}
     .nav button.active{background:#fff;color:var(--blue)}
     .nav-glyph{width:24px;height:24px;border:1px solid currentColor;border-radius:8px;display:grid;place-items:center;font-size:10px;font-weight:950;flex:0 0 auto}
-    .side-footer{margin-top:auto;padding:14px 10px 4px;color:#c4d1e9;font-size:11px;line-height:1.55}
+    .side-footer{margin-top:auto;padding:14px 10px 4px;color:#ead0d5;font-size:11px;line-height:1.55}
     .side-footer b{color:#fff}
 
     .main{min-width:0}
     .topbar{height:76px;background:rgba(255,255,255,.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:12}
     .country-id{display:flex;align-items:center;gap:13px;min-width:0}
-    .seal{width:40px;height:40px;border-radius:14px;background:var(--blue-3);border:1px solid #bfd3f5;display:grid;place-items:center;font-size:11px;font-weight:950;color:var(--blue-2);letter-spacing:.08em}
+    .seal{width:40px;height:40px;border-radius:14px;background:var(--blue-3);border:1px solid #efb5c1;display:grid;place-items:center;font-size:11px;font-weight:950;color:var(--blue-2);letter-spacing:.08em}
     .country-id b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
     .country-id span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
     .top-actions{display:flex;align-items:center;gap:8px}
     .ghost{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 12px;font-size:12px;font-weight:800}
     .ghost:hover{border-color:#b3c4df;background:#f9fbff}
     .advance{border:0;background:var(--blue);color:#fff;border-radius:11px;padding:11px 15px;font-size:12px;font-weight:900;min-width:116px}
-    .advance:hover{background:#0d367e}
+    .advance:hover{background:#7f0c20}
 
     .content{padding:22px;max-width:1580px;margin:0 auto}
     .metric-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-bottom:18px}
@@ -120,13 +120,13 @@
     .brief-item{padding:14px 17px;border-bottom:1px solid var(--line)}
     .brief-item:last-child{border-bottom:0}
     .brief-time{font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--blue-2);font-weight:900}
-    .brief-item p{margin:6px 0 0;font-size:12px;line-height:1.48;color:#35425c}
+    .brief-item p{margin:6px 0 0;font-size:12px;line-height:1.48;color:#4b3339}
     .brief-empty{padding:26px 17px;color:var(--muted);font-size:12px;line-height:1.55}
 
     .page-title{display:flex;justify-content:space-between;align-items:end;gap:14px;margin:2px 0 16px}
     .page-title h2{margin:0;font-size:25px;letter-spacing:-.045em}
     .page-title p{margin:6px 0 0;color:var(--muted);font-size:12px;line-height:1.5;max-width:690px}
-    .status-pill{font-size:10px;font-weight:900;border:1px solid #bfd3f5;color:var(--blue-2);background:var(--blue-3);border-radius:999px;padding:7px 10px;white-space:nowrap}
+    .status-pill{font-size:10px;font-weight:900;border:1px solid #efb5c1;color:var(--blue-2);background:var(--blue-3);border-radius:999px;padding:7px 10px;white-space:nowrap}
     .panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:17px;margin-bottom:14px}
     .panel h3{margin:0;font-size:14px}
     .panel-sub{font-size:11px;color:var(--muted);margin-top:5px}
@@ -135,7 +135,7 @@
     .stat-list{display:grid;gap:12px;margin-top:16px}
     .stat-row{display:grid;grid-template-columns:130px 1fr 44px;align-items:center;gap:10px;font-size:11px}
     .stat-row b{font-size:11px}
-    .bar{height:8px;background:#edf1f7;border-radius:999px;overflow:hidden}
+    .bar{height:8px;background:#f5eaec;border-radius:999px;overflow:hidden}
     .bar i{display:block;height:100%;background:var(--blue-2);border-radius:999px;transition:width .35s ease}
     .bar i.bad{background:var(--danger)}.bar i.good{background:var(--good)}.bar i.warn{background:var(--warn)}
     .stat-row span{text-align:right;color:var(--muted);font-weight:850}
@@ -162,8 +162,8 @@
     .card-actions{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px}
     .cost{font-size:10px;color:var(--muted);line-height:1.4}
     .small-btn{border:0;background:var(--blue);color:#fff;padding:10px 12px;border-radius:10px;font-size:10px;font-weight:900;white-space:nowrap}
-    .small-btn:hover{background:#0d367e}.small-btn:disabled{opacity:.4;cursor:not-allowed}
-    .small-btn.danger{background:var(--danger)}.small-btn.light{background:#edf3ff;color:var(--blue)}
+    .small-btn:hover{background:#7f0c20}.small-btn:disabled{opacity:.4;cursor:not-allowed}
+    .small-btn.danger{background:var(--danger)}.small-btn.light{background:#fff4f6;color:var(--blue)}
 
 
     .legislation-toolbar{display:flex;gap:9px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
@@ -184,15 +184,15 @@
     .law-meta{font-size:9px;line-height:1.5;color:var(--muted);padding:9px;border-radius:10px;background:var(--soft);margin-bottom:12px}
     .law-actions{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:10px}
     .vote-option{width:100%;border:1px solid var(--line);border-radius:13px;background:#fff;padding:13px;text-align:left;margin-top:9px}
-    .vote-option:hover{border-color:#8ba9dc;background:#f7faff}.vote-option:disabled{opacity:.42;cursor:not-allowed}
+    .vote-option:hover{border-color:#8ba9dc;background:#fff8f9}.vote-option:disabled{opacity:.42;cursor:not-allowed}
     .vote-option b{display:flex;justify-content:space-between;gap:12px;font-size:12px}.vote-option span{display:block;color:var(--muted);font-size:10px;line-height:1.45;margin-top:5px}
 
     .rate-stage{display:grid;grid-template-columns:1.08fr .92fr;gap:14px;margin-bottom:14px}
     .rate-hero{background:linear-gradient(145deg,#0a2a66,#174a9c);color:#fff;border-radius:20px;padding:22px;min-height:245px;position:relative;overflow:hidden}
     .rate-hero:after{content:"";position:absolute;width:220px;height:220px;border:38px solid rgba(255,255,255,.08);border-radius:50%;right:-105px;bottom:-118px}
-    .rate-kicker{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:#c9d9f6}
+    .rate-kicker{font-size:10px;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:#efc7cf}
     .rate-number{font-size:clamp(52px,8vw,86px);font-weight:950;letter-spacing:-.07em;line-height:.95;margin:18px 0 8px}
-    .rate-sub{font-size:12px;color:#d7e2f6;line-height:1.55;max-width:540px}
+    .rate-sub{font-size:12px;color:#f0d7dc;line-height:1.55;max-width:540px}
     .rate-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:20px;position:relative;z-index:1}
     .rate-btn{border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.10);color:#fff;border-radius:11px;padding:11px 7px;font-size:10px;font-weight:900}
     .rate-btn:hover{background:rgba(255,255,255,.2)}.rate-btn:disabled{opacity:.38;cursor:not-allowed}
@@ -204,7 +204,7 @@
     .transmission-item{padding:12px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:80px 1fr auto;gap:12px;align-items:center}
     .transmission-item:first-child{border-top:0}.transmission-item b{font-size:12px}.transmission-item p{margin:3px 0 0;color:var(--muted);font-size:10px;line-height:1.4}.transmission-item span{font-size:10px;font-weight:900;color:var(--blue-2)}
     .plan-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:16px;min-height:260px;display:flex;flex-direction:column}
-    .plan-card.active{border-color:#9cb9ea;background:linear-gradient(180deg,#fff,#f6f9ff)}
+    .plan-card.active{border-color:#e9b0bc;background:linear-gradient(180deg,#fff,#f6f9ff)}
     .plan-card h3{margin:9px 0 7px;font-size:16px}.plan-card p{margin:0;color:var(--muted);font-size:11px;line-height:1.5}
     .plan-meta{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:13px 0}.plan-meta div{background:var(--soft);border-radius:10px;padding:9px}.plan-meta small{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;font-weight:850}.plan-meta b{display:block;font-size:11px;margin-top:4px}
     .plan-footer{margin-top:auto;display:flex;justify-content:space-between;align-items:end;gap:10px}.plan-effects{font-size:9px;color:var(--muted);line-height:1.45}
@@ -217,14 +217,14 @@
     .project-head h3{font-size:15px;margin:0}
     .project-head span{font-size:10px;color:var(--muted);font-weight:800}
     .project-card p{font-size:11px;color:var(--muted);line-height:1.5;margin:8px 0 13px}
-    .progress{height:10px;background:#edf1f7;border-radius:999px;overflow:hidden;margin:12px 0 7px}
+    .progress{height:10px;background:#f5eaec;border-radius:999px;overflow:hidden;margin:12px 0 7px}
     .progress i{display:block;height:100%;background:var(--blue-2);border-radius:999px}
     .project-meta{display:flex;justify-content:space-between;gap:12px;font-size:9px;color:var(--muted)}
     .project-hub{display:grid;gap:14px}
     .project-tabs{display:flex;gap:7px;overflow-x:auto;padding:3px 0 5px;scrollbar-width:none}
     .project-tabs::-webkit-scrollbar{display:none}
     .project-tab{border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:10px 13px;font-size:10px;font-weight:900;white-space:nowrap}
-    .project-tab:hover{border-color:#9cb9ea;color:var(--blue)}
+    .project-tab:hover{border-color:#e9b0bc;color:var(--blue)}
     .project-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
     .project-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
     .project-summary-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px}
@@ -241,13 +241,13 @@
     .project-category b{display:block;margin-top:12px;font-size:10px;color:var(--blue-2)}
     .project-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
     .project-toolbar input{flex:1;min-width:190px;border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px 12px;font-size:11px;color:var(--ink);outline:none}
-    .project-toolbar input:focus{border-color:#7ea6e6;box-shadow:0 0 0 4px rgba(23,74,156,.07)}
+    .project-toolbar input:focus{border-color:#d85b73;box-shadow:0 0 0 4px rgba(23,74,156,.07)}
     .project-list{display:grid;gap:10px}
     .project-build-card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:15px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:center}
     .project-build-card:hover{border-color:#adc1e2}
     .project-build-main{min-width:0}
     .project-build-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
-    .project-code{display:inline-grid;place-items:center;min-width:32px;height:28px;padding:0 7px;border:1px solid #bfd3f5;background:var(--blue-3);color:var(--blue-2);border-radius:9px;font-size:9px;font-weight:950;letter-spacing:.08em}
+    .project-code{display:inline-grid;place-items:center;min-width:32px;height:28px;padding:0 7px;border:1px solid #efb5c1;background:var(--blue-3);color:var(--blue-2);border-radius:9px;font-size:9px;font-weight:950;letter-spacing:.08em}
     .project-build-head h3{margin:0;font-size:15px;letter-spacing:-.02em}
     .project-build-card p{margin:7px 0 11px;color:var(--muted);font-size:10px;line-height:1.5;max-width:760px}
     .project-facts{display:flex;gap:7px;flex-wrap:wrap}
@@ -274,7 +274,7 @@
 
     .opponent{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line)}
     .opponent:last-child{border-bottom:0}
-    .avatar{width:42px;height:42px;border-radius:14px;background:var(--blue-3);border:1px solid #bfd3f5;display:grid;place-items:center;font-size:11px;font-weight:950;color:var(--blue)}
+    .avatar{width:42px;height:42px;border-radius:14px;background:var(--blue-3);border:1px solid #efb5c1;display:grid;place-items:center;font-size:11px;font-weight:950;color:var(--blue)}
     .opponent b{font-size:12px}.opponent p{font-size:10px;color:var(--muted);margin:4px 0 0}
     .threat{font-size:10px;font-weight:900;padding:7px 9px;border-radius:999px;background:#fff3e7;color:var(--warn);border:1px solid #f0d0a9}
     .threat.high{background:#fff0f2;color:var(--danger);border-color:#efbdc4}.threat.low{background:#eaf8f1;color:var(--good);border-color:#bce2cf}
@@ -283,13 +283,13 @@
     th{text-align:left;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.1em;padding:10px;border-bottom:1px solid var(--line)}
     td{padding:12px 10px;border-bottom:1px solid var(--line);font-weight:650}
     tr:last-child td{border-bottom:0}
-    .rank-self{background:#f3f7ff}
+    .rank-self{background:#fff7f8}
     .rank-num{font-weight:950;color:var(--blue-2)}
 
     .timeline-item{display:grid;grid-template-columns:88px 1fr;gap:13px;padding:13px 0;border-bottom:1px solid var(--line)}
     .timeline-item:last-child{border-bottom:0}
     .timeline-item time{font-size:10px;font-weight:900;color:var(--blue-2)}
-    .timeline-item p{font-size:11px;line-height:1.5;margin:0;color:#35425c}
+    .timeline-item p{font-size:11px;line-height:1.5;margin:0;color:#4b3339}
 
     .modal-backdrop{position:fixed;inset:0;background:rgba(5,18,43,.63);backdrop-filter:blur(7px);z-index:50;display:grid;place-items:center;padding:18px}
     .modal{width:min(640px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:23px;box-shadow:0 30px 80px rgba(0,0,0,.25);border:1px solid #cfd8e8}
@@ -299,9 +299,9 @@
     .modal h2{font-size:27px;letter-spacing:-.045em;margin:10px 0 10px}
     .modal-desc{font-size:13px;color:var(--muted);line-height:1.65;margin:0 0 18px}
     .choice{width:100%;border:1px solid var(--line);background:#fff;border-radius:14px;padding:14px;text-align:left;margin-top:9px;transition:.15s ease}
-    .choice:hover{border-color:#88a9df;background:#f7faff;transform:translateY(-1px)}
+    .choice:hover{border-color:#88a9df;background:#fff8f9;transform:translateY(-1px)}
     .choice b{display:block;font-size:12px;margin-bottom:5px}.choice span{font-size:10px;line-height:1.45;color:var(--muted)}
-    .outcome{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--soft);font-size:12px;line-height:1.6;color:#35425c;margin-top:16px}
+    .outcome{padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--soft);font-size:12px;line-height:1.6;color:#4b3339;margin-top:16px}
     .modal-footer{display:flex;justify-content:flex-end;margin-top:18px}
 
     .toast{position:fixed;right:20px;bottom:20px;z-index:70;background:var(--ink);color:#fff;padding:12px 15px;border-radius:12px;box-shadow:var(--shadow);font-size:11px;font-weight:750;max-width:310px;animation:toastIn .2s ease}
@@ -361,7 +361,7 @@
     @media(max-width:560px){.domain-grid,.content-meter{grid-template-columns:1fr 1fr}.intel-score strong{font-size:38px}}
 
     .gov-tabs{display:flex;gap:8px;overflow:auto;padding:4px 0 13px;scrollbar-width:thin}.gov-tab{white-space:nowrap;border:1px solid var(--line);background:#fff;color:var(--muted);padding:10px 13px;border-radius:11px;font-weight:850;font-size:11px}.gov-tab.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-    .gov-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-bottom:14px}.gov-command{background:linear-gradient(145deg,#102746,#174a7d);color:#fff;border-radius:18px;padding:21px;position:relative;overflow:hidden}.gov-command:after{content:"";position:absolute;width:180px;height:180px;border:34px solid rgba(255,255,255,.06);border-radius:50%;right:-70px;bottom:-95px}.gov-command small{display:block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#b9d2ed;font-weight:900}.gov-command h3{font-size:25px;margin:8px 0 7px;letter-spacing:-.04em}.gov-command p{font-size:11px;line-height:1.55;color:#dce8f5;max-width:650px;margin:0}.gov-command .command-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px;position:relative;z-index:1}.command-chip{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);padding:8px 10px;border-radius:10px;font-size:10px;font-weight:850}.command-chip b{font-size:13px;margin-left:4px}
+    .gov-hero{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-bottom:14px}.gov-command{background:linear-gradient(145deg,#102746,#174a7d);color:#fff;border-radius:18px;padding:21px;position:relative;overflow:hidden}.gov-command:after{content:"";position:absolute;width:180px;height:180px;border:34px solid rgba(255,255,255,.06);border-radius:50%;right:-70px;bottom:-95px}.gov-command small{display:block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#e9b7c1;font-weight:900}.gov-command h3{font-size:25px;margin:8px 0 7px;letter-spacing:-.04em}.gov-command p{font-size:11px;line-height:1.55;color:#f2dce1;max-width:650px;margin:0}.gov-command .command-stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:15px;position:relative;z-index:1}.command-chip{border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.09);padding:8px 10px;border-radius:10px;font-size:10px;font-weight:850}.command-chip b{font-size:13px;margin-left:4px}
     .cabinet-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.minister-card{border:1px solid var(--line);background:#fff;border-radius:16px;padding:15px;display:flex;flex-direction:column;min-height:238px}.minister-card.vacant{border-style:dashed;background:#fbfcfe}.minister-head{display:flex;justify-content:space-between;gap:12px}.minister-office{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue-2);font-weight:950}.minister-status{font-size:8px;font-weight:950;border-radius:999px;padding:5px 7px;background:var(--soft);color:var(--muted)}.minister-card h3{margin:8px 0 3px;font-size:15px}.minister-card .bio{font-size:10px;color:var(--muted);line-height:1.45;margin-bottom:10px}.minister-bars{display:grid;gap:7px;margin-bottom:12px}.minister-mini{display:grid;grid-template-columns:78px 1fr 30px;gap:7px;align-items:center;font-size:9px}.minister-mini b{font-size:9px}.minister-mini span{text-align:right;color:var(--muted);font-weight:850}.minister-actions{display:flex;gap:7px;margin-top:auto;flex-wrap:wrap}
     .budget-list,.workforce-list,.crisis-list{display:grid;gap:10px}.budget-row,.worker-row,.crisis-card{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff}.budget-row{display:grid;grid-template-columns:minmax(180px,1.25fr) minmax(150px,1fr) auto;gap:14px;align-items:center}.budget-row h3,.worker-row h3,.crisis-card h3{margin:0;font-size:13px}.budget-row p,.worker-row p,.crisis-card p{margin:4px 0 0;color:var(--muted);font-size:10px;line-height:1.45}.budget-number{text-align:right}.budget-number strong{display:block;font-size:20px}.budget-number small{color:var(--muted);font-size:9px}.stepper{display:flex;gap:6px;align-items:center}.stepper button{width:34px;height:34px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--blue);font-weight:950}.stepper button:hover{background:var(--blue-3)}.stepper button:disabled{opacity:.35;cursor:not-allowed}.budget-reserve{border:1px solid #b8cae9;background:var(--blue-3);border-radius:15px;padding:14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:14px}.budget-reserve strong{font-size:22px}.priority-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.priority-card{border:1px solid var(--line);border-radius:13px;background:#fff;padding:12px;text-align:left}.priority-card.active{border-color:var(--blue-2);background:var(--blue-3)}.priority-card b{display:block;font-size:11px}.priority-card span{display:block;font-size:9px;color:var(--muted);line-height:1.4;margin-top:4px}
     .worker-row{display:grid;grid-template-columns:minmax(170px,1.1fr) repeat(2,minmax(160px,.9fr));gap:12px;align-items:center}.worker-control{background:var(--soft);border-radius:12px;padding:10px}.worker-control small{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-weight:900}.worker-control strong{font-size:16px;display:block;margin:5px 0 7px}.worker-buttons{display:flex;gap:5px}.worker-buttons button{flex:1;border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px;font-size:9px;font-weight:900;color:var(--blue)}
@@ -369,14 +369,84 @@
     .crisis-card{border-left:4px solid var(--warn)}.crisis-card.severe{border-left-color:var(--danger)}.crisis-head{display:flex;justify-content:space-between;gap:12px}.crisis-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}.crisis-actions button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 10px;font-size:9px;font-weight:900;color:var(--blue)}.crisis-actions button:hover{background:var(--blue-3)}.history-note{padding:10px 0;border-top:1px solid var(--line);font-size:10px;color:var(--muted);line-height:1.45}.history-note:first-child{border-top:0}.composition-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:12px}.composition-grid div{border:1px solid var(--line);border-radius:12px;background:var(--soft);padding:10px}.composition-grid small{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;font-weight:900}.composition-grid b{display:block;font-size:17px;margin-top:4px}
     @media(max-width:920px){.gov-hero{grid-template-columns:1fr}.cabinet-grid{grid-template-columns:1fr}.budget-row,.worker-row{grid-template-columns:1fr}.budget-number{text-align:left}.security-grid{grid-template-columns:1fr 1fr}.priority-grid{grid-template-columns:1fr 1fr}.risk-strip{grid-template-columns:1fr 1fr}}
     @media(max-width:560px){.security-grid,.priority-grid,.composition-grid{grid-template-columns:1fr}.risk-strip{grid-template-columns:1fr 1fr}.minister-card{min-height:0}}
+
+    /* v0.12 taxation and state-finance center */
+    .finance-tabs{display:flex;gap:8px;overflow:auto;padding:3px 0 13px;margin-bottom:14px;scrollbar-width:none}
+    .finance-tabs::-webkit-scrollbar{display:none}
+    .finance-tabs button{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:9px 13px;font-size:11px;font-weight:850}
+    .finance-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 8px 18px rgba(159,16,38,.18)}
+    .fiscal-hero{display:grid;grid-template-columns:1.4fr repeat(4,minmax(0,.72fr));gap:10px;align-items:stretch;margin-bottom:14px}
+    .fiscal-score{background:linear-gradient(145deg,var(--blue),#6f091a);color:#fff;border-radius:18px;padding:18px;min-height:126px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 14px 30px rgba(111,10,30,.18)}
+    .fiscal-score small,.fiscal-score span{color:#f4cbd3;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:850}
+    .fiscal-score strong{font-size:34px;letter-spacing:-.055em;line-height:1}
+    .fiscal-kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;min-width:0}
+    .fiscal-kpi small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.12em;font-weight:850}
+    .fiscal-kpi strong{display:block;font-size:20px;letter-spacing:-.04em;margin:9px 0 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .fiscal-kpi span{font-size:10px;color:var(--muted);line-height:1.4}
+    .tax-group{margin-bottom:14px}
+    .tax-group-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 9px;padding:0 3px}
+    .tax-group-title h3{font-size:13px;margin:0}
+    .tax-group-title span{font-size:10px;color:var(--muted);font-weight:750}
+    .tax-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+    .tax-row{background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+    .tax-row h4{margin:0 0 4px;font-size:12px}
+    .tax-row p{margin:0;color:var(--muted);font-size:10px;line-height:1.45}
+    .tax-control{text-align:right;min-width:112px}
+    .tax-control strong{display:block;font-size:17px;margin-bottom:7px;color:var(--blue)}
+    .tax-control small{display:block;color:var(--muted);font-size:9px;margin-top:5px}
+    .mini-stepper{display:flex;justify-content:flex-end;gap:5px}
+    .mini-stepper button{width:31px;height:29px;border:1px solid #e5bcc5;border-radius:9px;background:#fff7f8;color:var(--blue);font-weight:950}
+    .mini-stepper button:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .budget-summary{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;margin-bottom:14px}
+    .allocation-list{display:grid;gap:9px}
+    .allocation-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(160px,.85fr) 120px;gap:14px;align-items:center;background:#fff;border:1px solid var(--line);border-radius:15px;padding:13px}
+    .allocation-row h4{margin:0 0 4px;font-size:12px}.allocation-row p{margin:0;color:var(--muted);font-size:10px;line-height:1.4}
+    .allocation-value{text-align:right}.allocation-value strong{font-size:16px;color:var(--blue)}.allocation-value small{display:block;color:var(--muted);font-size:9px;margin:4px 0 7px}
+    .fiscal-risk{border-left:4px solid var(--good)}.fiscal-risk.warn{border-left-color:var(--warn)}.fiscal-risk.bad{border-left-color:var(--danger)}
+    .debt-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+    .debt-action{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px;text-align:left;color:var(--ink)}
+    .debt-action:hover{border-color:#d77b8e;transform:translateY(-1px)}
+    .debt-action b{display:block;font-size:12px;margin-bottom:5px}.debt-action span{display:block;font-size:10px;color:var(--muted);line-height:1.45}
+    .revenue-bars{display:grid;gap:9px;margin-top:12px}.revenue-bar{display:grid;grid-template-columns:110px 1fr 72px;gap:10px;align-items:center;font-size:10px}.revenue-bar b{text-align:right}
+    @media(max-width:1050px){.fiscal-hero{grid-template-columns:repeat(2,minmax(0,1fr))}.fiscal-score{grid-column:span 2}.budget-summary{grid-template-columns:1fr}.tax-list{grid-template-columns:1fr}}
+    @media(max-width:680px){.fiscal-hero{grid-template-columns:1fr 1fr}.fiscal-score{grid-column:span 2}.allocation-row{grid-template-columns:1fr}.allocation-value{text-align:left}.mini-stepper{justify-content:flex-start}.debt-actions{grid-template-columns:1fr}.revenue-bar{grid-template-columns:86px 1fr 58px}.tax-control{min-width:102px}}
+
+
+    /* v0.13 monetary, currency, markets, and international lending */
+    .monetary-tabs{display:flex;gap:8px;overflow:auto;padding:3px 0 13px;margin-bottom:14px;scrollbar-width:none}.monetary-tabs::-webkit-scrollbar{display:none}
+    .monetary-tabs button{flex:0 0 auto;border:1px solid var(--line);background:#fff;color:var(--muted);border-radius:999px;padding:9px 13px;font-size:11px;font-weight:850}
+    .monetary-tabs button.active{background:var(--blue);border-color:var(--blue);color:#fff;box-shadow:0 8px 18px rgba(159,16,38,.18)}
+    .money-hero{display:grid;grid-template-columns:1.25fr repeat(4,minmax(0,.72fr));gap:10px;margin-bottom:14px}
+    .currency-command{background:linear-gradient(145deg,var(--blue),#5c0716);color:#fff;border-radius:18px;padding:18px;min-height:132px;position:relative;overflow:hidden;box-shadow:0 14px 30px rgba(111,10,30,.18)}
+    .currency-command:after{content:'';position:absolute;width:180px;height:180px;border:34px solid rgba(255,255,255,.055);border-radius:50%;right:-72px;bottom:-98px}.currency-command>*{position:relative;z-index:1}
+    .currency-command small{display:block;color:#f4cbd3;font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:900}.currency-command strong{display:block;font-size:34px;letter-spacing:-.055em;margin:8px 0 4px}.currency-command p{font-size:10px;line-height:1.45;color:#f5dde2;margin:0;max-width:520px}
+    .money-kpi{background:#fff;border:1px solid var(--line);border-radius:18px;padding:15px;min-width:0}.money-kpi small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.11em;font-weight:850}.money-kpi strong{display:block;font-size:20px;letter-spacing:-.04em;margin:9px 0 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.money-kpi span{font-size:10px;color:var(--muted);line-height:1.4}
+    .policy-mix-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.policy-mix{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.policy-mix small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;font-weight:900}.policy-mix b{display:block;font-size:18px;margin:7px 0 4px}.policy-mix span{font-size:10px;color:var(--muted);line-height:1.4}
+    .regime-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}.regime-card{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px;text-align:left;color:var(--ink)}.regime-card.active{border-color:var(--blue);background:#fff5f7;box-shadow:0 8px 18px rgba(159,16,38,.09)}.regime-card b{display:block;font-size:11px;margin-bottom:5px}.regime-card span{display:block;font-size:9px;color:var(--muted);line-height:1.4}.regime-card:disabled{opacity:.45;cursor:not-allowed}
+    .currency-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:12px}.currency-action{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px;text-align:left;color:var(--ink)}.currency-action:hover{border-color:#d77b8e;transform:translateY(-1px)}.currency-action:disabled{opacity:.45;cursor:not-allowed;transform:none}.currency-action b{display:block;font-size:11px;margin-bottom:5px}.currency-action span{font-size:9px;color:var(--muted);line-height:1.4;display:block}
+    .market-board{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.market-tape{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:12px}.market-tile{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.market-tile small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;font-weight:900}.market-tile strong{display:block;font-size:22px;margin:7px 0 3px}.market-tile em{font-style:normal;font-size:9px;color:var(--muted)}.market-tile.good strong{color:#13764a}.market-tile.bad strong{color:#b42318}
+    .agency-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.agency-card{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff}.agency-card small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;font-weight:900}.agency-card strong{display:block;font-size:24px;margin:7px 0 3px}.agency-card span{font-size:10px;color:var(--muted)}
+    .loan-list{display:grid;gap:9px}.loan-row{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) repeat(3,minmax(90px,.42fr));gap:12px;align-items:center}.loan-row h4{margin:0 0 4px;font-size:12px}.loan-row p{margin:0;color:var(--muted);font-size:9px;line-height:1.4}.loan-stat small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;font-weight:900}.loan-stat b{display:block;font-size:13px;margin-top:4px}
+    .lender-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.lender-card{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}.lender-card .action-top{margin-bottom:7px}.lender-card h3{font-size:14px;margin:0 0 6px}.lender-card p{font-size:10px;color:var(--muted);line-height:1.5;min-height:46px}.lender-terms{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:11px 0}.lender-terms div{background:var(--soft);border-radius:10px;padding:8px}.lender-terms small{display:block;font-size:8px;text-transform:uppercase;color:var(--muted);font-weight:900}.lender-terms b{font-size:11px;display:block;margin-top:4px}
+    .finance-link{border:1px solid #e5bcc5;background:#fff7f8;border-radius:14px;padding:12px;font-size:10px;line-height:1.5;color:var(--muted)}.finance-link b{color:var(--ink)}
+    @media(max-width:1050px){.money-hero{grid-template-columns:repeat(2,minmax(0,1fr))}.currency-command{grid-column:span 2}.policy-mix-grid,.regime-grid{grid-template-columns:repeat(2,1fr)}.market-board{grid-template-columns:1fr}}
+    @media(max-width:700px){.money-hero{grid-template-columns:1fr 1fr}.currency-command{grid-column:span 2}.currency-actions,.market-tape,.agency-grid,.lender-grid{grid-template-columns:1fr}.loan-row{grid-template-columns:1fr 1fr}.loan-row>div:first-child{grid-column:1/-1}.policy-mix-grid,.regime-grid{grid-template-columns:1fr 1fr}}
+
   </style>
+  <style id="sector-engine-v014">
+.sector-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.sector-toolbar input,.sector-toolbar select{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 12px;font-size:11px;outline:none}.sector-toolbar input{flex:1;min-width:190px}.sector-toolbar select{min-width:150px}.sector-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:14px}.sector-kpi{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;min-width:0}.sector-kpi small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.11em;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector-kpi strong{display:block;font-size:19px;letter-spacing:-.035em;margin:7px 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector-kpi em{display:block;font-style:normal;color:var(--muted);font-size:9px;line-height:1.35}.sector-group-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:14px}.sector-group-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px;text-align:left;transition:.16s ease}.sector-group-card:hover{border-color:#e3a3b0;transform:translateY(-1px)}.sector-group-card b{display:block;font-size:13px}.sector-group-card small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.group-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}.group-stats span{background:var(--soft);border-radius:9px;padding:8px;font-size:9px;color:var(--muted)}.group-stats strong{font-size:11px;color:var(--ink);margin-top:3px}.sector-table{min-width:1080px}.sector-table td{vertical-align:middle}.sector-name{display:flex;flex-direction:column;gap:3px}.sector-name small{color:var(--muted);font-size:9px;font-weight:500}.sector-status{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:900;white-space:nowrap}.sector-status.shortage{background:#fff0f2;color:var(--danger)}.sector-status.surplus{background:#edf9f3;color:var(--good)}.sector-status.balanced{background:#fff8e9;color:var(--warn)}.sector-detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px 0}.sector-detail-grid div{background:var(--soft);border-radius:11px;padding:10px}.sector-detail-grid small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;font-weight:850}.sector-detail-grid b{display:block;font-size:13px;margin-top:5px}.sector-policy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:13px}.sector-policy-card{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff}.sector-policy-card h4{font-size:11px;margin:0 0 5px}.sector-policy-card p{font-size:9px;color:var(--muted);line-height:1.45;margin:0 0 9px}.supply-chain-list{display:grid;gap:10px}.supply-chain-item{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px;display:grid;grid-template-columns:minmax(160px,1fr) 2fr auto;gap:12px;align-items:center}.supply-chain-item h3{margin:0;font-size:12px}.supply-chain-item p{margin:4px 0 0;font-size:9px;color:var(--muted);line-height:1.4}.supply-chain-item .risk{font-size:11px;font-weight:900;color:var(--danger)}.sector-badge{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 8px;font-size:9px;font-weight:850;color:var(--muted)}
+@media(max-width:1100px){.sector-kpis{grid-template-columns:repeat(3,1fr)}.sector-group-grid{grid-template-columns:repeat(2,1fr)}}@media(max-width:680px){.sector-kpis{grid-template-columns:repeat(2,1fr)}.sector-group-grid{grid-template-columns:1fr}.sector-detail-grid{grid-template-columns:repeat(2,1fr)}.sector-policy-grid{grid-template-columns:1fr}.supply-chain-item{grid-template-columns:1fr}.supply-chain-item .risk{text-align:left}}
+/* v0.14 preserves the single-career rule: the current actor is visible but cannot be switched. */
+.entity-select:disabled{opacity:1;color:var(--ink);background:#fff;cursor:default;appearance:none;-webkit-appearance:none;padding-right:12px}
+
+</style>
 </head>
 <body>
   <section id="setup" class="setup">
     <div class="setup-wrap">
       <div class="brand-row">
         <div class="brand"><span class="brand-mark"></span> MANDATE</div>
-        <div class="version">GOVERNMENT MANAGEMENT · v0.8</div>
+        <div class="version">MONETARY & GLOBAL FINANCE · v0.13</div>
       </div>
       <div class="hero">
         <div class="eyebrow">A global political and economic power simulator</div>
@@ -422,7 +492,8 @@
         <button data-page="entities"><span class="nav-glyph">E</span>Entities</button>
         <div class="nav-label" style="margin:14px 10px 6px">Government systems</div>
         <button data-page="government"><span class="nav-glyph">G</span>Government</button>
-        <button data-page="monetary"><span class="nav-glyph">M</span>Central Bank</button>
+        <button data-page="finance"><span class="nav-glyph">$</span>Tax & Budget</button>
+        <button data-page="monetary"><span class="nav-glyph">M</span>Money & Markets</button>
         <button data-page="bills"><span class="nav-glyph">B</span>Bills</button>
         <button data-page="laws"><span class="nav-glyph">L</span>Laws</button>
         <button data-page="projects"><span class="nav-glyph">P</span>Projects</button>
@@ -431,7 +502,7 @@
         <button data-page="rankings"><span class="nav-glyph">R</span>Rankings</button>
         <button data-page="timeline"><span class="nav-glyph">T</span>Timeline</button>
       </nav>
-      <div class="side-footer"><b>Shared world:</b> every controlled entity advances each month. A company can finance a party, an opposition can defeat your government, and rival countries keep changing while you manage another actor.</div>
+      <div class="side-footer"><b>Financial survival:</b> taxes, spending, interest rates, exchange rates, reserves, markets, debt, and international lenders now interact every month.</div>
     </aside>
 
     <main class="main">
@@ -515,6 +586,54 @@
     {id:'researchers',label:'Researchers and scientists',ministry:'science',payroll:0.20,desc:'Research output, patents, laboratories, and national innovation.'},
     {id:'socialWorkers',label:'Social and housing workers',ministry:'housing',payroll:0.22,desc:'Benefits delivery, housing services, child protection, and poverty programs.'}
   ];
+
+  const taxInstrumentDefs = [
+    {id:'income1',category:'Income tax',label:'Income tax · lowest bracket',baseRate:5,min:0,max:12,step:1,baseYield:.20,progressive:1,desc:'Rate on taxable income up to roughly 50% of the national median.'},
+    {id:'income2',category:'Income tax',label:'Income tax · lower-middle bracket',baseRate:10,min:0,max:25,step:1,baseYield:.70,progressive:1,desc:'Rate on income from roughly 50% to 100% of the national median.'},
+    {id:'income3',category:'Income tax',label:'Income tax · middle bracket',baseRate:20,min:0,max:40,step:1,baseYield:1.60,progressive:1,desc:'Rate on income from roughly one to two times the national median.'},
+    {id:'income4',category:'Income tax',label:'Income tax · upper-middle bracket',baseRate:30,min:0,max:52,step:1,baseYield:2.20,progressive:1,desc:'Rate on income from roughly two to five times the national median.'},
+    {id:'income5',category:'Income tax',label:'Income tax · top bracket',baseRate:40,min:0,max:70,step:1,baseYield:1.60,progressive:1,desc:'Top marginal rate on income above roughly five times the national median.'},
+    {id:'corporate',category:'Business taxes',label:'Corporate income tax',baseRate:25,min:0,max:55,step:1,baseYield:2.70,business:1,desc:'Tax on the taxable profits of corporations.'},
+    {id:'smallBusiness',category:'Business taxes',label:'Small-business tax',baseRate:12,min:0,max:35,step:1,baseYield:.50,business:.7,desc:'Simplified profit or turnover tax for smaller firms.'},
+    {id:'vat',category:'Consumption taxes',label:'VAT / general sales tax',baseRate:12,min:0,max:32,step:1,baseYield:5.20,consumption:1,desc:'Broad tax on domestic consumption of goods and services.'},
+    {id:'wealth',category:'Wealth & property',label:'Annual wealth tax',baseRate:1,min:0,max:6,step:.25,baseYield:.20,progressive:1,desc:'Annual levy on very high net wealth above an exemption.'},
+    {id:'capitalGains',category:'Wealth & property',label:'Capital-gains tax',baseRate:20,min:0,max:50,step:1,baseYield:.40,progressive:.7,business:.25,desc:'Tax on realized gains from shares, property, and assets.'},
+    {id:'property',category:'Wealth & property',label:'Property tax',baseRate:1.5,min:0,max:8,step:.25,baseYield:.80,progressive:.35,desc:'Recurring tax on assessed land and building values.'},
+    {id:'inheritance',category:'Wealth & property',label:'Inheritance and estate tax',baseRate:15,min:0,max:60,step:1,baseYield:.15,progressive:1,desc:'Tax on large estates and inherited assets.'},
+    {id:'landValue',category:'Wealth & property',label:'Land-value tax',baseRate:1,min:0,max:8,step:.25,baseYield:.15,progressive:.5,desc:'Levy on unimproved land value to discourage speculation.'},
+    {id:'fuel',category:'Excise taxes',label:'Fuel excise tax',baseRate:15,min:0,max:70,step:2.5,baseYield:.55,consumption:.7,inflationary:1,desc:'Excise applied to gasoline, diesel, and transport fuels.'},
+    {id:'carbon',category:'Excise taxes',label:'Carbon-emissions tax',baseRate:8,min:0,max:60,step:2,baseYield:.15,business:.25,inflationary:.5,green:1,desc:'Price on fossil-fuel carbon emissions.'},
+    {id:'alcohol',category:'Excise taxes',label:'Alcohol excise tax',baseRate:35,min:0,max:120,step:5,baseYield:.25,consumption:.35,desc:'Excise tax on beer, wine, and spirits.'},
+    {id:'tobacco',category:'Excise taxes',label:'Tobacco and nicotine tax',baseRate:55,min:0,max:180,step:5,baseYield:.35,consumption:.35,desc:'Excise tax on cigarettes and other nicotine products.'},
+    {id:'sugary',category:'Excise taxes',label:'Sugary-drink tax',baseRate:12,min:0,max:80,step:2,baseYield:.08,consumption:.25,desc:'Health-motivated levy on high-sugar drinks.'},
+    {id:'luxury',category:'Excise taxes',label:'Luxury-goods tax',baseRate:18,min:0,max:70,step:2,baseYield:.10,progressive:.5,consumption:.15,desc:'Additional tax on luxury vehicles, jewelry, yachts, and similar goods.'},
+    {id:'socialEmployee',category:'Social contributions',label:'Employee social contribution',baseRate:5,min:0,max:22,step:.5,baseYield:2.00,labor:1,desc:'Payroll contribution paid by employees for pensions and social insurance.'},
+    {id:'socialEmployer',category:'Social contributions',label:'Employer social contribution',baseRate:7,min:0,max:28,step:.5,baseYield:2.50,labor:.7,business:.7,desc:'Payroll contribution paid by employers.'},
+    {id:'customs',category:'Trade taxes',label:'Import and customs duty',baseRate:8,min:0,max:45,step:1,baseYield:1.10,business:.5,inflationary:.7,desc:'Average tariff collected on imported goods.'},
+    {id:'exportDuty',category:'Trade taxes',label:'Export duty',baseRate:3,min:0,max:30,step:1,baseYield:.15,business:.65,desc:'Tax on selected commodity and strategic exports.'},
+    {id:'financialTransactions',category:'Sector taxes',label:'Financial-transaction tax',baseRate:.2,min:0,max:3,step:.1,baseYield:.12,business:.25,desc:'Small tax on securities and wholesale financial trades.'},
+    {id:'bankLevy',category:'Sector taxes',label:'Bank balance-sheet levy',baseRate:.3,min:0,max:4,step:.1,baseYield:.12,business:.2,desc:'Annual levy on large bank liabilities or assets.'},
+    {id:'digitalServices',category:'Sector taxes',label:'Digital-services tax',baseRate:3,min:0,max:18,step:.5,baseYield:.12,business:.2,desc:'Tax on domestic digital revenue of large online platforms.'},
+    {id:'resourceRoyalty',category:'Sector taxes',label:'Mining and resource royalty',baseRate:8,min:0,max:45,step:1,baseYield:.70,business:.5,desc:'Royalty on oil, gas, mineral, and extractive production.'},
+    {id:'tourism',category:'Sector taxes',label:'Tourism and airport tax',baseRate:8,min:0,max:35,step:1,baseYield:.18,consumption:.2,desc:'Passenger, hotel, and tourism-service levies.'},
+    {id:'vehicle',category:'Sector taxes',label:'Vehicle registration tax',baseRate:5,min:0,max:35,step:1,baseYield:.25,consumption:.25,green:.25,desc:'Registration and ownership levy based on vehicle value or emissions.'},
+    {id:'gambling',category:'Sector taxes',label:'Gambling and betting tax',baseRate:20,min:0,max:70,step:2,baseYield:.12,consumption:.15,desc:'Tax on casinos, online betting, lotteries, and gaming profits.'}
+  ];
+  const spendingCategoryDefs = [
+    {id:'health',label:'Healthcare',base:12,desc:'Hospitals, clinics, medicines, disease control, and medical staff.'},
+    {id:'education',label:'Education',base:13,desc:'Schools, universities, teachers, training, and scholarships.'},
+    {id:'pensions',label:'Pensions',base:14,desc:'Old-age, disability, and survivor pension obligations.'},
+    {id:'welfare',label:'Welfare & family support',base:10,desc:'Cash transfers, unemployment benefits, food, childcare, and poverty programs.'},
+    {id:'defense',label:'National defense',base:10,desc:'Military personnel, readiness, procurement, logistics, and veterans.'},
+    {id:'safety',label:'Police & public safety',base:7,desc:'Police, fire, borders, courts support, prisons, and emergencies.'},
+    {id:'infrastructure',label:'Infrastructure & transport',base:12,desc:'Roads, rail, water, airports, ports, and public works.'},
+    {id:'housing',label:'Housing & local development',base:5,desc:'Public housing, urban renewal, local government, and sanitation.'},
+    {id:'science',label:'Science & industry',base:4,desc:'Research grants, innovation, industrial strategy, and technology.'},
+    {id:'environment',label:'Environment & energy',base:4,desc:'Climate resilience, conservation, pollution control, and energy transition.'},
+    {id:'culture',label:'Culture & sports',base:2,desc:'Arts, heritage, broadcasting, sports, and national institutions.'},
+    {id:'administration',label:'State administration',base:7,desc:'Tax collection, civil service, diplomacy, regulation, and digital government.'}
+  ];
+
   const governmentPriorities = [
     {id:'balanced',label:'Balanced government',desc:'No ministry receives an executive performance bonus.',ministries:[]},
     {id:'growth',label:'Jobs and growth',desc:'Finance, infrastructure, science, and administration receive stronger coordination.',ministries:['finance','infrastructure','science','administration']},
@@ -537,6 +656,15 @@
     const ministries={};ministryDefs.forEach((m,i)=>ministries[m.id]={id:m.id,budgetShare:m.baseShare,performance:round(52+Math.random()*20,0),minister:makeMinister(countryId,m.id,i)});
     const workers={};publicWorkerDefs.forEach(w=>workers[w.id]={staffing:100,salary:100,morale:58});
     return {ministries,workers,contingency:4,priority:'balanced',headSecurity:55,intelligenceFunding:50,counterIntelligence:48,openCrises:[],crisisHistory:[],appointments:0,dismissals:0,reshuffles:0,lastPriorityTurn:-1,lastBudgetTurn:-1,lastWorkforceTurn:-1,lastSecurityTurn:-1};
+  }
+
+
+  function createFiscalSystem(countryId){
+    const c=countries[countryId],rates={},spendingShares={};
+    taxInstrumentDefs.forEach(t=>rates[t.id]=t.baseRate);
+    spendingCategoryDefs.forEach(x=>spendingShares[x.id]=x.base);
+    const baseYield=taxInstrumentDefs.reduce((n,t)=>n+t.baseYield,0);
+    return {rates,spendingShares,budgetReserve:0,taxScale:c.taxRate/baseYield,nonTaxRevenuePct:1.4,creditScore:clamp(92-c.debtRatio*.27-c.inflation*.45+c.stability*.12,8,98),creditRating:'BBB',fiscalStress:25,currentDeficitPct:c.baseSpend-c.taxRate,lastTaxTurn:-1,lastBudgetTurn:-1,lastDebtActionTurn:-1,taxChanges:0,deficitHistory:[c.baseSpend-c.taxRate],debtHistory:[c.debtRatio],ratingHistory:[]};
   }
 
   const countries = {
@@ -676,7 +804,7 @@
     ensureCountryModels();const m=state.countryModels[countryId];if(!m)return;
     if(countryId===state.countryId){
       Object.assign(m.macro,{gdp:state.gdp,gdpPerCapita:state.gdp*1000/state.population,realGrowth:state.growth,inflation:state.inflation,unemployment:state.unemployment,inequality:state.inequality,currencyIndex:state.currencyIndex,policyRate:state.policyRate,creditGrowth:state.creditGrowth,consumerConfidence:state.approval,businessConfidence:state.businessClimate});
-      Object.assign(m.demographics,{population:state.population});Object.assign(m.fiscal,{debtPct:state.debtRatio,revenuePct:state.taxRate,spendingPct:state.baseSpend,deficitPct:state.baseSpend-state.taxRate,creditRating:clamp(92-state.debtRatio*.28-state.inflation*.4+state.stability*.12,5,99)});
+      Object.assign(m.demographics,{population:state.population});const fp=fiscalPosition();Object.assign(m.fiscal,{debtPct:state.debtRatio,revenuePct:fp.totalPct,spendingPct:fp.annualSpendingPct,deficitPct:fp.deficitPct,creditRating:fp.score,debtServicePct:fp.debtServiceRatio,sovereignRisk:fp.stress});
       Object.assign(m.markets,{currencyIndex:state.currencyIndex,housingIndex:state.housingIndex,mortgageRate:bankRates().mortgage,businessLoanRate:bankRates().business,consumerLoanRate:bankRates().consumer,bondYield:bankRates().sovereign,nonperformingLoans:clamp(3+state.unemployment*.22+(100-state.bankHealth)*.08,1,35)});
       Object.assign(m.security,{policeCapacity:state.security,civilUnrest:100-state.stability,policeTrust:100-state.corruption*.55});
       Object.assign(m.health,{coverage:state.health,hospitalQuality:state.health});Object.assign(m.education,{teacherQuality:state.education,testPerformance:state.education});
@@ -692,7 +820,7 @@
       const active=id===state.countryId, c=countries[id], noise=random(-.16,.16);
       if(!active){m.macro.realGrowth+=(c.potentialGrowth-m.macro.realGrowth)*.05+noise;m.macro.gdp*=1+m.macro.realGrowth/1200;m.demographics.population*=1+(m.demographics.annualGrowth||.4)/1200;m.macro.gdpPerCapita=m.macro.gdp*1000/m.demographics.population;m.macro.inflation+=(c.inflation-m.macro.inflation)*.04+random(-.1,.1);m.macro.unemployment+=(c.unemployment-m.macro.unemployment)*.04+random(-.04,.04);}
       else syncCoreIntoCountryModel(id);
-      m.markets.stockIndex=Math.max(20,m.markets.stockIndex*(1+(m.macro.realGrowth-m.macro.inflation*.18+random(-2.2,2.2))/1200));m.markets.monthlyReturn=round(random(-2.4,2.6)+(m.macro.realGrowth-m.macro.inflation)*.05,2);m.markets.currencyIndex=clamp(m.markets.currencyIndex+(m.fiscal.creditRating-60)*.006-m.macro.inflation*.012+random(-.35,.35),30,180);m.markets.housingIndex=Math.max(30,m.markets.housingIndex*(1+(m.macro.creditGrowth||4)/2400));
+      if(active&&state.monetarySystem){m.markets.stockIndex=state.monetarySystem.stockIndex;m.markets.monthlyReturn=state.monetarySystem.stockMonthlyReturn;m.markets.currencyIndex=state.currencyIndex;m.markets.bondYield=bankRates().sovereign;m.markets.capitalControls=state.monetarySystem.capitalControls;}else{m.markets.stockIndex=Math.max(20,m.markets.stockIndex*(1+(m.macro.realGrowth-m.macro.inflation*.18+random(-2.2,2.2))/1200));m.markets.monthlyReturn=round(random(-2.4,2.6)+(m.macro.realGrowth-m.macro.inflation)*.05,2);m.markets.currencyIndex=clamp(m.markets.currencyIndex+(m.fiscal.creditRating-60)*.006-m.macro.inflation*.012+random(-.35,.35),30,180);}m.markets.housingIndex=Math.max(30,m.markets.housingIndex*(1+(m.macro.creditGrowth||4)/2400));
       m.trade.exports*=1+(m.macro.realGrowth+random(-1,1))/1200;m.trade.imports*=1+(m.macro.realGrowth+m.macro.inflation*.1+random(-1,1))/1200;m.trade.balance=m.trade.exports-m.trade.imports;m.energy.demandIndex*=1+(m.macro.realGrowth*.65+random(-.5,.5))/1200;m.energy.fuelPriceIndex*=1+random(-1.2,1.2)/1200;
       m.demographics.medianAge+=1/120;m.demographics.netMigration+=random(-.02,.02);m.security.cyberThreat=clamp(m.security.cyberThreat+random(-.25,.35));m.security.crimeIndex=clamp(m.security.crimeIndex+(m.macro.unemployment-5)*.006+(m.politics.corruption-50)*.003+random(-.15,.15));m.environment.totalEmissions*=1+(m.macro.realGrowth-m.environment.renewableShare*.01)/1200;m.environment.airPollution=clamp(m.environment.airPollution+(m.energy.sources.source_0.generation+m.energy.sources.source_1.generation-35)*.002+random(-.08,.08));m.culture.researchOutput=clamp(m.culture.researchOutput+(m.culture.rdSpend-1.5)*.012+random(-.08,.1));
       m.updatedTurn=state.turn;m.variableCount=numericLeafCount(m);
@@ -837,6 +965,36 @@
     mexico:{policyRate:8.50,neutralRate:6.0}, turkiye:{policyRate:43.00,neutralRate:18.0}
   };
 
+
+  const currencyDefs = {
+    philippines:{code:'PHP',name:'Philippine peso',symbol:'₱',usdRate:58.0,regime:'managed',union:false},
+    unitedstates:{code:'USD',name:'United States dollar',symbol:'$',usdRate:1,regime:'float',union:false},
+    china:{code:'CNY',name:'Chinese yuan',symbol:'¥',usdRate:7.2,regime:'managed',union:false},
+    france:{code:'EUR',name:'Euro',symbol:'€',usdRate:.92,regime:'union',union:true},
+    brazil:{code:'BRL',name:'Brazilian real',symbol:'R$',usdRate:5.5,regime:'float',union:false},
+    indonesia:{code:'IDR',name:'Indonesian rupiah',symbol:'Rp',usdRate:16300,regime:'managed',union:false},
+    mexico:{code:'MXN',name:'Mexican peso',symbol:'$',usdRate:18.5,regime:'float',union:false},
+    turkiye:{code:'TRY',name:'Turkish lira',symbol:'₺',usdRate:41.5,regime:'managed',union:false}
+  };
+  const currencyRegimes = {
+    float:{label:'Free float',desc:'Markets set the rate. Reserves are protected, but volatility can be high.',sensitivity:1.0,credibility:1},
+    managed:{label:'Managed float',desc:'The central bank smooths extreme moves while allowing gradual adjustment.',sensitivity:.62,credibility:1.5},
+    crawl:{label:'Crawling band',desc:'The exchange rate follows a guided path that adjusts with inflation and reserves.',sensitivity:.42,credibility:2},
+    peg:{label:'Hard peg',desc:'The currency is fixed to an external anchor. Stability improves until reserves are tested.',sensitivity:.12,credibility:3},
+    union:{label:'Currency union',desc:'Exchange-rate authority is shared with a supranational central bank.',sensitivity:.3,credibility:3}
+  };
+  const lenderDefs = [
+    {id:'stabilization',name:'International Stabilization Fund',tag:'STABILIZATION',amountPct:3.0,rateDiscount:2.2,term:60,desc:'Emergency balance-of-payments financing for countries facing inflation, reserve loss, or failed bond markets.',condition:'Fiscal consolidation, transparent reporting, and a credible anti-inflation program.'},
+    {id:'development',name:'Global Development Bank',tag:'DEVELOPMENT',amountPct:2.5,rateDiscount:1.8,term:120,desc:'Long-maturity financing for transport, energy, health, water, and institutional modernization.',condition:'Funds must be ring-fenced for development and procurement must be independently audited.'},
+    {id:'reserve',name:'Regional Reserve Facility',tag:'LIQUIDITY',amountPct:1.5,rateDiscount:2.5,term:36,desc:'A regional currency-support and swap arrangement designed to restore short-term market confidence.',condition:'Reserve targets, temporary monetary restraint, and regional surveillance.'},
+    {id:'bilateral',name:'Strategic Bilateral Credit Line',tag:'BILATERAL',amountPct:4.0,rateDiscount:1.0,term:96,desc:'Large state-to-state financing with fewer public fiscal conditions but greater diplomatic exposure.',condition:'Preferred procurement access, strategic cooperation, and long-term diplomatic commitments.'}
+  ];
+  function createMonetarySystem(countryId){
+    const c=countries[countryId],d=currencyDefs[countryId],baseScore=clamp(92-c.debtRatio*.27-c.inflation*.45+c.stability*.12,8,98);
+    const agencies=['Global Ratings Bureau','Meridian Sovereign Analytics','Continental Credit Service'].map((name,i)=>({name,score:clamp(baseScore+[1.5,0,-1.8][i],1,99),rating:creditRatingLabel(clamp(baseScore+[1.5,0,-1.8][i],1,99)),outlook:'Stable'}));
+    return {currencyCode:d.code,currencyName:d.name,currencySymbol:d.symbol,baseExchangeRate:d.usdRate,exchangeRate:d.usdRate,regime:d.regime,currencyUnion:d.union,reserves:c.gdp*c.reserveMonths/12,reserveMonths:c.reserveMonths,capitalControls:d.regime==='managed'?35:d.regime==='union'?15:10,marketConfidence:58,internationalAccess:65,foreignInvestorFlow:0,lastCurrencyActionTurn:-1,lastRegimeTurn:-12,interventionImpulse:0,exchangeHistory:[d.usdRate],stockIndex:100,stockMonthlyReturn:0,stockVolatility:18,stockHistory:[100],ratingAgencies:agencies,ratingOutlook:'Stable',externalLoans:[],lastLenderActionTurn:-6,lenderHistory:[],currencyPolicyHistory:[]};
+  }
+
   const longPlanDefs = [
     {id:'skills2035',title:'Education and Skills 2035',duration:96,annualCost:.65,tag:'HUMAN CAPITAL',desc:'Teacher training, technical colleges, early-childhood access, and industry-linked apprenticeships.',effects:['Education rises every year','Productivity and wages improve slowly','Full payoff after 8 years'],milestone:(s)=>{s.education+=1.15;s.inequality-=.25;s.businessClimate+=.25;},complete:s=>{s.potentialGrowth+=.45;s.unemployment-=.35;s.approval+=2;}},
     {id:'energy2040',title:'Clean Energy Independence 2040',duration:144,annualCost:.55,tag:'ENERGY',desc:'Grid storage, renewable generation, efficiency standards, and domestic energy supply chains.',effects:['Lower energy-price volatility','Cleaner power over 12 years','Stronger external balance'],milestone:(s)=>{s.environment+=1.1;s.infrastructure+=.35;s.energyResilience+=.035;},complete:s=>{s.potentialGrowth+=.28;s.environment+=4;s.inflation-=.35;}},
@@ -966,6 +1124,8 @@
   let projectSearch = '';
   let nationView = 'overview';
   let governmentView = 'cabinet';
+  let financeView = 'overview';
+  let monetaryView = 'overview';
   let pendingEvent = null;
 
   const el = id => document.getElementById(id);
@@ -1030,7 +1190,7 @@
   function captureNationalState(){const out={};Object.entries(state).forEach(([k,v])=>{if(!globalStateKeys.has(k))out[k]=cloneData(v);});return out;}
   function buildNationalSnapshot(countryId,office,leader){
     const c=countries[countryId],debt=c.gdp*c.debtRatio/100,termMonths=(office==='King'||office==='Queen')?240:c.termMonths;
-    return {countryId,code:c.code,country:c.name,official:c.official,office,system:c.system,power:(office==='King'||office==='Queen')?'monarchy':c.power,termMonths,leader:leader||state.leader,government:createGovernmentSystem(countryId),population:c.population,gdp:c.gdp,previousGdp:c.gdp,potentialGrowth:c.potentialGrowth,growth:c.potentialGrowth,inflation:c.inflation,unemployment:c.unemployment,debt,debtRatio:c.debtRatio,taxRate:c.taxRate,baseSpend:c.baseSpend,infrastructure:c.infrastructure,health:c.health,education:c.education,security:c.security,inequality:c.inequality,environment:c.environment,corruption:c.corruption,stability:c.stability,democracy:c.democracy,legislature:c.legislature,elite:c.elite,approval:c.approval,politicalCapital:55,treasury:c.treasury,reserveMonths:c.reserveMonths,collectionEfficiency:.98,businessClimate:58,disasterDefense:0,energyResilience:0,temporarySpend:0,policyRate:monetaryBaselines[countryId].policyRate,neutralRate:monetaryBaselines[countryId].neutralRate,inflationExpectations:c.inflation,creditGrowth:5.5,privateInvestment:55,currencyIndex:100,housingIndex:100,housingSupply:50,bankHealth:76,lastRateDecisionTurn:-1,monetaryActions:[],monetaryImpulses:[],rateHistory:[monetaryBaselines[countryId].policyRate],activeLongPlans:[],completedLongPlans:[],personalFunds:0,hiddenRisk:0,scandals:0,laws:{},lawDates:{},resolutions:{},billVotes:[],activeProjects:[],completedProjects:[],completedAssets:[],projectIncidents:0,history:[c.gdp],approvalHistory:[c.approval],inflationHistory:[c.inflation],electionHeld:false,nextGovernmentElectionTurn:state.turn+termMonths,opponents:opponentNames[countryId].map((name,i)=>({name,party:['Reform Alliance','National Bloc','People’s Coalition'][i],support:round(28-i*5+random(-2,3),1),momentum:round(random(-1,1),1)}))};
+    return {countryId,code:c.code,country:c.name,official:c.official,office,system:c.system,power:(office==='King'||office==='Queen')?'monarchy':c.power,termMonths,leader:leader||state.leader,government:createGovernmentSystem(countryId),fiscalSystem:createFiscalSystem(countryId),monetarySystem:createMonetarySystem(countryId),population:c.population,gdp:c.gdp,previousGdp:c.gdp,potentialGrowth:c.potentialGrowth,growth:c.potentialGrowth,inflation:c.inflation,unemployment:c.unemployment,debt,debtRatio:c.debtRatio,taxRate:c.taxRate,baseSpend:c.baseSpend,infrastructure:c.infrastructure,health:c.health,education:c.education,security:c.security,inequality:c.inequality,environment:c.environment,corruption:c.corruption,stability:c.stability,democracy:c.democracy,legislature:c.legislature,elite:c.elite,approval:c.approval,politicalCapital:55,treasury:c.treasury,reserveMonths:c.reserveMonths,collectionEfficiency:.98,businessClimate:58,disasterDefense:0,energyResilience:0,temporarySpend:0,policyRate:monetaryBaselines[countryId].policyRate,neutralRate:monetaryBaselines[countryId].neutralRate,inflationExpectations:c.inflation,creditGrowth:5.5,privateInvestment:55,currencyIndex:100,housingIndex:100,housingSupply:50,bankHealth:76,lastRateDecisionTurn:-1,monetaryActions:[],monetaryImpulses:[],rateHistory:[monetaryBaselines[countryId].policyRate],activeLongPlans:[],completedLongPlans:[],personalFunds:0,hiddenRisk:0,scandals:0,laws:{},lawDates:{},resolutions:{},billVotes:[],activeProjects:[],completedProjects:[],completedAssets:[],projectIncidents:0,history:[c.gdp],approvalHistory:[c.approval],inflationHistory:[c.inflation],electionHeld:false,nextGovernmentElectionTurn:state.turn+termMonths,opponents:opponentNames[countryId].map((name,i)=>({name,party:['Reform Alliance','National Bloc','People’s Coalition'][i],support:round(28-i*5+random(-2,3),1),momentum:round(random(-1,1),1)}))};
   }
   function applyNationalState(snapshot){Object.entries(cloneData(snapshot)).forEach(([k,v])=>state[k]=v);}
 
@@ -1041,7 +1201,7 @@
     const termMonths=(office==='King'||office==='Queen')?240:c.termMonths;
     const s={
       countryId, code:c.code, country:c.name, official:c.official, office, system:c.system, power:(office==='King'||office==='Queen')?'monarchy':c.power, termMonths,
-      leader:leader || 'Alex Morgan', month:1, year:2026, turn:0, government:createGovernmentSystem(countryId),
+      leader:leader || 'Alex Morgan', month:1, year:2026, turn:0, government:createGovernmentSystem(countryId), fiscalSystem:createFiscalSystem(countryId), monetarySystem:createMonetarySystem(countryId),
       population:c.population, gdp:c.gdp, previousGdp:c.gdp, potentialGrowth:c.potentialGrowth, growth:c.potentialGrowth,
       inflation:c.inflation, unemployment:c.unemployment, debt, debtRatio:c.debtRatio, taxRate:c.taxRate, baseSpend:c.baseSpend,
       infrastructure:c.infrastructure, health:c.health, education:c.education, security:c.security, inequality:c.inequality,
@@ -1094,6 +1254,12 @@
     ensureCountryModels();
     if(!state.government)state.government=createGovernmentSystem(state.countryId);
     const gov=state.government;gov.ministries=gov.ministries||{};gov.workers=gov.workers||{};gov.openCrises=gov.openCrises||[];gov.crisisHistory=gov.crisisHistory||[];
+    if(!state.fiscalSystem)state.fiscalSystem=createFiscalSystem(state.countryId);
+    const fs=state.fiscalSystem;fs.rates=fs.rates||{};fs.spendingShares=fs.spendingShares||{};
+    taxInstrumentDefs.forEach(t=>fs.rates[t.id]=clamp(Number.isFinite(fs.rates[t.id])?fs.rates[t.id]:t.baseRate,t.min,t.max));
+    spendingCategoryDefs.forEach(x=>fs.spendingShares[x.id]=clamp(Number.isFinite(fs.spendingShares[x.id])?fs.spendingShares[x.id]:x.base,1,35));
+    fs.budgetReserve=clamp(Number.isFinite(fs.budgetReserve)?fs.budgetReserve:0,0,45);fs.taxScale=Number.isFinite(fs.taxScale)?fs.taxScale:(countries[state.countryId].taxRate/taxInstrumentDefs.reduce((n,t)=>n+t.baseYield,0));fs.nonTaxRevenuePct=clamp(Number.isFinite(fs.nonTaxRevenuePct)?fs.nonTaxRevenuePct:1.4,0,12);fs.creditScore=clamp(Number.isFinite(fs.creditScore)?fs.creditScore:60,0,100);fs.fiscalStress=clamp(Number.isFinite(fs.fiscalStress)?fs.fiscalStress:25,0,100);fs.currentDeficitPct=Number.isFinite(fs.currentDeficitPct)?fs.currentDeficitPct:(state.baseSpend-state.taxRate);fs.lastTaxTurn=Number.isFinite(fs.lastTaxTurn)?fs.lastTaxTurn:-1;fs.lastBudgetTurn=Number.isFinite(fs.lastBudgetTurn)?fs.lastBudgetTurn:-1;fs.lastDebtActionTurn=Number.isFinite(fs.lastDebtActionTurn)?fs.lastDebtActionTurn:-1;fs.taxChanges=fs.taxChanges||0;fs.deficitHistory=fs.deficitHistory||[];fs.debtHistory=fs.debtHistory||[];fs.ratingHistory=fs.ratingHistory||[];
+    state.monetarySystem=state.monetarySystem||createMonetarySystem(state.countryId);const ms=state.monetarySystem,cd=currencyDefs[state.countryId];ms.currencyCode=ms.currencyCode||cd.code;ms.currencyName=ms.currencyName||cd.name;ms.currencySymbol=ms.currencySymbol||cd.symbol;ms.baseExchangeRate=Number.isFinite(ms.baseExchangeRate)?ms.baseExchangeRate:cd.usdRate;ms.exchangeRate=Math.max(.0001,Number.isFinite(ms.exchangeRate)?ms.exchangeRate:cd.usdRate);ms.regime=currencyRegimes[ms.regime]?ms.regime:cd.regime;ms.currencyUnion=!!cd.union;ms.reserves=Math.max(0,Number.isFinite(ms.reserves)?ms.reserves:state.gdp*state.reserveMonths/12);ms.reserveMonths=clamp(Number.isFinite(ms.reserveMonths)?ms.reserveMonths:state.reserveMonths,0,36);ms.capitalControls=clamp(Number.isFinite(ms.capitalControls)?ms.capitalControls:10,0,100);ms.marketConfidence=clamp(Number.isFinite(ms.marketConfidence)?ms.marketConfidence:58,0,100);ms.internationalAccess=clamp(Number.isFinite(ms.internationalAccess)?ms.internationalAccess:65,0,100);ms.foreignInvestorFlow=Number.isFinite(ms.foreignInvestorFlow)?ms.foreignInvestorFlow:0;ms.lastCurrencyActionTurn=Number.isFinite(ms.lastCurrencyActionTurn)?ms.lastCurrencyActionTurn:-1;ms.lastRegimeTurn=Number.isFinite(ms.lastRegimeTurn)?ms.lastRegimeTurn:-12;ms.interventionImpulse=Number.isFinite(ms.interventionImpulse)?ms.interventionImpulse:0;ms.exchangeHistory=ms.exchangeHistory||[ms.exchangeRate];ms.stockIndex=Math.max(10,Number.isFinite(ms.stockIndex)?ms.stockIndex:100);ms.stockMonthlyReturn=Number.isFinite(ms.stockMonthlyReturn)?ms.stockMonthlyReturn:0;ms.stockVolatility=clamp(Number.isFinite(ms.stockVolatility)?ms.stockVolatility:18,3,100);ms.stockHistory=ms.stockHistory||[ms.stockIndex];ms.ratingAgencies=Array.isArray(ms.ratingAgencies)&&ms.ratingAgencies.length?ms.ratingAgencies:createMonetarySystem(state.countryId).ratingAgencies;ms.ratingAgencies.forEach(a=>{a.score=clamp(Number.isFinite(a.score)?a.score:60,1,99);a.rating=creditRatingLabel(a.score);a.outlook=a.outlook||'Stable';});ms.ratingOutlook=ms.ratingOutlook||'Stable';ms.externalLoans=ms.externalLoans||[];ms.lastLenderActionTurn=Number.isFinite(ms.lastLenderActionTurn)?ms.lastLenderActionTurn:-6;ms.lenderHistory=ms.lenderHistory||[];ms.currencyPolicyHistory=ms.currencyPolicyHistory||[];
     ministryDefs.forEach((m,i)=>{if(!gov.ministries[m.id])gov.ministries[m.id]={id:m.id,budgetShare:m.baseShare,performance:55,minister:makeMinister(state.countryId,m.id,i)};const x=gov.ministries[m.id];x.budgetShare=clamp(Number.isFinite(x.budgetShare)?x.budgetShare:m.baseShare,1,35);x.performance=clamp(Number.isFinite(x.performance)?x.performance:55);if(x.minister){['competence','loyalty','integrity','ambition'].forEach(k=>x.minister[k]=clamp(Number.isFinite(x.minister[k])?x.minister[k]:55));}});
     publicWorkerDefs.forEach(w=>{if(!gov.workers[w.id])gov.workers[w.id]={staffing:100,salary:100,morale:58};const x=gov.workers[w.id];x.staffing=clamp(Number.isFinite(x.staffing)?x.staffing:100,55,150);x.salary=clamp(Number.isFinite(x.salary)?x.salary:100,55,180);x.morale=clamp(Number.isFinite(x.morale)?x.morale:58);});
     gov.contingency=clamp(Number.isFinite(gov.contingency)?gov.contingency:4,0,30);gov.priority=governmentPriorities.some(x=>x.id===gov.priority)?gov.priority:'balanced';gov.headSecurity=clamp(Number.isFinite(gov.headSecurity)?gov.headSecurity:55,15,100);gov.intelligenceFunding=clamp(Number.isFinite(gov.intelligenceFunding)?gov.intelligenceFunding:50,15,100);gov.counterIntelligence=clamp(Number.isFinite(gov.counterIntelligence)?gov.counterIntelligence:48,15,100);
@@ -1144,7 +1310,7 @@
     state.creditGrowth=clamp(state.creditGrowth,-25,35);
     state.inflation=Math.max(-3,state.inflation);
     state.unemployment=clamp(state.unemployment,1,40);
-    state.taxRate=clamp(state.taxRate,5,55);
+    state.taxRate=clamp(state.taxRate,0,80);
     state.baseSpend=clamp(state.baseSpend,8,70);
     state.gdp=Math.max(20,state.gdp);
     state.population=Math.max(1,state.population);
@@ -1198,17 +1364,17 @@
   }
 
   function renderWorkspace(){
-    const govOnly=['government','monetary','bills','laws','projects','opposition'];
+    const govOnly=['government','finance','monetary','bills','laws','projects','opposition'];
     if(govOnly.includes(currentPage)&&!isPrimaryGovernment()){
       renderRoleAccessNotice(currentPage);return;
     }
-    const renderers={dashboard:renderDashboard,operations:renderOperations,entities:renderEntities,government:renderGovernment,monetary:renderMonetary,bills:renderBills,laws:renderLaws,projects:renderProjects,nation:renderNationData,opposition:renderOpposition,rankings:renderRankings,timeline:renderTimeline};
+    const renderers={dashboard:renderDashboard,operations:renderOperations,entities:renderEntities,government:renderGovernment,finance:renderFinance,monetary:renderMonetary,bills:renderBills,laws:renderLaws,projects:renderProjects,nation:renderNationData,opposition:renderOpposition,rankings:renderRankings,timeline:renderTimeline};
     (renderers[currentPage]||renderDashboard)();
   }
 
   function renderRoleAccessNotice(page){
     const e=getActiveEntity();
-    const labels={government:'cabinet and ministry controls',monetary:'central-bank controls',bills:'the national bill docket',laws:'the national law book',projects:'state-funded national projects',opposition:'incumbent survival tools'};
+    const labels={government:'cabinet and ministry controls',finance:'taxation, budget, and debt controls',monetary:'central-bank controls',bills:'the national bill docket',laws:'the national law book',projects:'state-funded national projects',opposition:'incumbent survival tools'};
     el('workspace').innerHTML=titleBlock('Government authority required',`${e.name} does not directly control ${labels[page]}. Switch to a controlled head of government, win power through an election, or add a government entity.`,'ROLE-BASED ACCESS')+`<div class="panel"><div class="role-banner"><div><h3>${actorLabel(e)}</h3><p>Your current operations are available from the Operations tab. The world economy and government still advance while you build power.</p></div><div class="entity-type">${roleDefs[e.type].label}</div></div><button class="primary" data-open-page="operations">Open operations</button> <button class="small-btn light" data-open-page="entities">Switch entity</button></div>`;
     document.querySelectorAll('[data-open-page]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.openPage)));
   }
@@ -1219,15 +1385,28 @@
     return `<div class="page-title"><div><h2>${title}</h2><p>${desc}</p></div><span class="status-pill">${pill}</span></div>`;
   }
 
+  function averageAgencyScore(){const a=state.monetarySystem?.ratingAgencies||[];return a.length?a.reduce((n,x)=>n+x.score,0)/a.length:(state.fiscalSystem?.creditScore||65);}
+  function effectiveGovernmentBorrowingRate(){
+    const ms=state.monetarySystem,totalExternal=(ms?.externalLoans||[]).reduce((n,l)=>n+l.principal,0),domestic=Math.max(0,state.debt-totalExternal),market=bankRates().sovereign,externalInterest=(ms?.externalLoans||[]).reduce((n,l)=>n+l.principal*l.rate,0);
+    return state.debt>0?(domestic*market+externalInterest)/state.debt:market;
+  }
   function bankRates(){
     const riskSpread=2.15+Math.max(0,state.unemployment-5)*.09+Math.max(0,75-state.bankHealth)*.025;
+    const agencyScore=averageAgencyScore();
     return {
       deposit:Math.max(0,state.policyRate-1.15),
       mortgage:state.policyRate+riskSpread,
       business:state.policyRate+riskSpread+1.05,
       consumer:state.policyRate+riskSpread+6.25,
-      sovereign:Math.max(1.2,1.2+state.policyRate*.35+Math.max(0,state.inflation-3)*.18+Math.max(0,state.debtRatio-80)*.025)
+      sovereign:Math.max(1.2,1.2+state.policyRate*.35+Math.max(0,state.inflation-3)*.18+Math.max(0,state.debtRatio-80)*.025+Math.max(0,65-agencyScore)*.055+Math.max(0,55-(state.monetarySystem?.internationalAccess||55))*.025)
     };
+  }
+  function formatExchangeRate(v){if(v>=1000)return Math.round(v).toLocaleString();if(v>=10)return v.toFixed(2);if(v>=1)return v.toFixed(3);return v.toFixed(4);}
+  function reserveMonths(){const ms=state.monetarySystem;return state.gdp>0?ms.reserves/(state.gdp/12):0;}
+  function externalLoanPrincipal(){return (state.monetarySystem?.externalLoans||[]).reduce((n,l)=>n+l.principal,0);}
+  function monetaryPolicyMix(){
+    const pos=fiscalPosition(),ms=state.monetarySystem,real=state.policyRate-state.inflation,fxMove=(ms.exchangeRate/ms.baseExchangeRate-1)*100;
+    return {real,pos,fxMove,stance:real>2?'Restrictive':real<0?'Accommodative':'Neutral',fiscal:pos.balancePct>=0?'Tight':'Expansionary',currency:fxMove>8?'Weakening':fxMove<-5?'Strengthening':'Broadly stable'};
   }
 
   function monetaryStance(){
@@ -1240,54 +1419,86 @@
   }
 
   function renderMonetary(){
-    const r=bankRates(), stance=monetaryStance();
-    const locked=state.lastRateDecisionTurn===state.turn;
-    const activeImpulses=state.monetaryImpulses.filter(x=>x.age<30);
-    const active=state.activeLongPlans;
-    const available=longPlanDefs.filter(p=>!active.some(a=>a.id===p.id)&&!state.completedLongPlans.includes(p.id));
-    el('workspace').innerHTML=titleBlock('Central bank and long-term strategy','Set the national policy rate, watch commercial bank rates respond, and commit the state to programs whose benefits take years to arrive.',locked?'NEXT MEETING NEXT MONTH':'POLICY MEETING OPEN')+`
-      <div class="rate-stage">
-        <section class="rate-hero">
-          <div class="rate-kicker">National policy interest rate</div>
-          <div class="rate-number">${pct(state.policyRate,2)}</div>
-          <div class="rate-sub">The policy rate influences deposit, mortgage, business, consumer, currency, and government borrowing costs. Effects arrive with long and uncertain delays rather than instantly.</div>
-          <div class="stance-pill"><i></i>${stance.name} · real rate ${pct(stance.real,1)}</div>
-          <div class="rate-controls">
-            ${[-1,-.5,-.25,0,.25,.5,1].map(d=>`<button class="rate-btn ${d===0?'hold':''}" data-rate-move="${d}" ${locked?'disabled':''}>${d===0?'Hold rate':d>0?'Raise +'+d.toFixed(2):'Cut '+Math.abs(d).toFixed(2)}%</button>`).join('')}
-          </div>
-        </section>
-        <section class="panel" style="margin:0">
-          <h3>Banking transmission</h3><div class="panel-sub">Commercial rates include bank risk and lending spreads. They update whenever policy or financial stress changes.</div>
-          <div class="signal-grid">
-            <div class="signal-card"><small>Deposit rate</small><strong>${pct(r.deposit,2)}</strong><em>Average saver return before tax</em></div>
-            <div class="signal-card"><small>Mortgage rate</small><strong>${pct(r.mortgage,2)}</strong><em>Housing and construction credit</em></div>
-            <div class="signal-card"><small>Business loan</small><strong>${pct(r.business,2)}</strong><em>Investment and working capital</em></div>
-            <div class="signal-card"><small>Consumer credit</small><strong>${pct(r.consumer,2)}</strong><em>Cards and unsecured lending</em></div>
-            <div class="signal-card"><small>Credit growth</small><strong>${pct(state.creditGrowth,1)}</strong><em>${state.creditGrowth<0?'Credit contraction':'Annualized lending expansion'}</em></div>
-            <div class="signal-card"><small>Bank health</small><strong>${Math.round(state.bankHealth)}/100</strong><em>Capital, defaults, and liquidity</em></div>
-          </div>
-        </section>
-      </div>
-      <div class="two-col">
-        <div class="panel"><h3>Monetary transmission pipeline</h3><div class="panel-sub">A rate decision can support growth within months, while its strongest inflation effect often appears much later.</div>
-          ${activeImpulses.length?activeImpulses.slice(-8).reverse().map(x=>`<div class="transmission-item"><b>${x.delta>0?'Rate increase':'Rate cut'} ${Math.abs(x.delta).toFixed(2)}%</b><div><p>${x.age<4?'Early credit and currency response':x.age<14?'Peak effect on demand, jobs, and prices':'Long tail fading through the economy'}</p></div><span>Month ${x.age}/30</span></div>`).join(''):'<div class="brief-empty">No rate change is moving through the economy yet. A hold decision preserves the current stance without creating a new shock.</div>'}
-          ${sparkline(state.rateHistory,'Policy-rate history')}
-        </div>
-        <div class="panel"><h3>Financial conditions</h3><div class="panel-sub">The president sees outcomes, but cannot eliminate trade-offs.</div><div class="stat-list">
-          ${barRow('Private investment',state.privateInvestment)}
-          ${barRow('Currency confidence',state.currencyIndex)}
-          ${barRow('Housing supply',state.housingSupply)}
-          ${barRow('Housing price index',state.housingIndex)}
-          ${barRow('Banking system health',state.bankHealth)}
-          ${barRow('Inflation expectations',clamp(state.inflationExpectations*5),true)}
-        </div><div class="outcome" style="margin-top:13px"><b>Government borrowing rate:</b> ${pct(r.sovereign,2)} estimated annual cost on newly financed debt.<br><br>${state.centralBankIndependence?'<b>Institution:</b> The Central Bank Independence Act is in force. Your decision represents the policy council’s action, not a private presidential order.':'<b>Institution:</b> The central bank remains exposed to executive pressure. Passing the independence law will improve credibility but make political interference harder.'}</div></div>
-      </div>
-      <div class="page-title" style="margin-top:24px"><div><h2>Long-term national plans</h2><p>These programs charge the budget every month, deliver milestones each year, and may outlive the president who started them. You may run four at once.</p></div><span class="status-pill">${active.length}/4 ACTIVE</span></div>
-      ${active.length?`<div class="card-grid" style="margin-bottom:14px">${active.map(longPlanActiveCard).join('')}</div>`:''}
-      <div class="card-grid">${available.map(longPlanAvailableCard).join('')}</div>`;
+    const ms=state.monetarySystem,r=bankRates(),stance=monetaryStance(),mix=monetaryPolicyMix(),locked=state.lastRateDecisionTurn===state.turn;
+    const tabs=[['overview','Overview'],['rates','Interest rates'],['currency','Currency'],['markets','Stock market'],['lenders','Lenders & ratings'],['strategy','Long-term plans']];
+    let body='';
+    if(monetaryView==='overview'){
+      body=`<div class="money-hero"><div class="currency-command"><small>${ms.currencyCode} · ${currencyRegimes[ms.regime].label}</small><strong>1 USD = ${formatExchangeRate(ms.exchangeRate)} ${ms.currencyCode}</strong><p>Simulated exchange rate, not a live market quote. Currency value responds to inflation, policy rates, reserves, fiscal credibility, capital flows, and intervention.</p></div>${[
+        ['Policy rate',pct(state.policyRate,2),stance.name],['Inflation',pct(state.inflation,1),'expectations '+pct(state.inflationExpectations,1)],['Stock index',round(ms.stockIndex,1),pct(ms.stockMonthlyReturn,2)+' this month'],['Foreign reserves',money(ms.reserves),reserveMonths().toFixed(1)+' months']
+      ].map(x=>`<div class="money-kpi"><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></div>`).join('')}</div>
+      <div class="panel"><h3>Macroeconomic policy mix</h3><div class="panel-sub">Interest-rate, taxation, spending, debt, and currency choices reinforce or fight one another.</div><div class="policy-mix-grid">
+        <div class="policy-mix"><small>Monetary stance</small><b>${mix.stance}</b><span>Real policy rate ${pct(mix.real,1)}</span></div>
+        <div class="policy-mix"><small>Fiscal stance</small><b>${mix.fiscal}</b><span>${mix.pos.balancePct>=0?'Surplus':'Deficit'} ${pct(Math.abs(mix.pos.balancePct),2)} of GDP</span></div>
+        <div class="policy-mix"><small>Currency direction</small><b>${mix.currency}</b><span>${mix.fxMove>=0?'+':''}${mix.fxMove.toFixed(1)}% from starting rate</span></div>
+        <div class="policy-mix"><small>Market access</small><b>${Math.round(ms.internationalAccess)}/100</b><span>${creditRatingLabel(averageAgencyScore())} average rating</span></div>
+      </div></div>
+      <div class="two-col"><div class="panel"><h3>Transmission channels</h3>${barRow('Private investment',state.privateInvestment)}${barRow('Business confidence',state.businessClimate)}${barRow('Currency confidence',state.currencyIndex)}${barRow('Credit growth',clamp((state.creditGrowth+25)/60*100))}${barRow('Bank health',state.bankHealth)}</div><div class="panel"><h3>Current trade-offs</h3><div class="history-note"><b>Lower rates</b><br>Support credit, investment, hiring, housing, and stocks—but can weaken the currency and raise inflation.</div><div class="history-note"><b>Higher taxes or lower spending</b><br>Can improve debt and ratings, but may reduce demand and employment.</div><div class="history-note"><b>Currency defense</b><br>Can slow imported inflation, but consumes reserves and may fail if policy credibility is weak.</div><div class="history-note"><b>International borrowing</b><br>Provides emergency cash at the cost of interest, conditions, foreign exposure, and future refinancing risk.</div></div></div>`;
+    }else if(monetaryView==='rates'){
+      const activeImpulses=state.monetaryImpulses.filter(x=>x.age<30);
+      body=`<div class="rate-stage"><section class="rate-hero"><div class="rate-kicker">National policy interest rate</div><div class="rate-number">${pct(state.policyRate,2)}</div><div class="rate-sub">The policy rate influences bank lending, inflation, exchange rates, investment, employment, stock valuations, and sovereign financing. Effects arrive with long and uncertain delays.</div><div class="stance-pill"><i></i>${stance.name} · real rate ${pct(stance.real,1)}</div><div class="rate-controls">${[-1,-.5,-.25,0,.25,.5,1].map(d=>`<button class="rate-btn ${d===0?'hold':''}" data-rate-move="${d}" ${locked?'disabled':''}>${d===0?'Hold rate':d>0?'Raise +'+d.toFixed(2):'Cut '+Math.abs(d).toFixed(2)}%</button>`).join('')}</div></section><section class="panel" style="margin:0"><h3>Banking transmission</h3><div class="signal-grid">${[['Deposit rate',r.deposit,'Average saver return'],['Mortgage rate',r.mortgage,'Housing credit'],['Business loan',r.business,'Investment finance'],['Consumer credit',r.consumer,'Cards and unsecured loans'],['Sovereign yield',r.sovereign,'New government borrowing'],['Credit growth',state.creditGrowth,'Annual lending expansion']].map(x=>`<div class="signal-card"><small>${x[0]}</small><strong>${pct(x[1],2)}</strong><em>${x[2]}</em></div>`).join('')}</div></section></div><div class="two-col"><div class="panel"><h3>Monetary transmission pipeline</h3>${activeImpulses.length?activeImpulses.slice(-8).reverse().map(x=>`<div class="transmission-item"><b>${x.delta>0?'Rate increase':'Rate cut'} ${Math.abs(x.delta).toFixed(2)}%</b><div><p>${x.age<4?'Early credit, stock-market, and currency response':x.age<14?'Peak effect on demand, jobs, and prices':'Long tail fading through the economy'}</p></div><span>Month ${x.age}/30</span></div>`).join(''):'<div class="brief-empty">No rate change is moving through the economy yet.</div>'}${sparkline(state.rateHistory,'Policy-rate history')}</div><div class="panel"><h3>Financial conditions</h3>${barRow('Private investment',state.privateInvestment)}${barRow('Currency confidence',state.currencyIndex)}${barRow('Housing prices',state.housingIndex)}${barRow('Bank health',state.bankHealth)}${barRow('Inflation expectations',clamp(state.inflationExpectations*5),true)}<div class="outcome" style="margin-top:13px"><b>Effective debt cost:</b> ${pct(effectiveGovernmentBorrowingRate(),2)} across domestic bonds and negotiated external loans.</div></div></div>`;
+    }else if(monetaryView==='currency'){
+      const union=ms.currencyUnion,actionLocked=ms.lastCurrencyActionTurn===state.turn;
+      body=`<div class="money-hero"><div class="currency-command"><small>${ms.currencyName} · ${currencyRegimes[ms.regime].label}</small><strong>1 USD = ${formatExchangeRate(ms.exchangeRate)} ${ms.currencyCode}</strong><p>${union?'Exchange-rate authority is shared through a currency union. The national government can influence confidence and capital flows but cannot unilaterally devalue the common currency.':'The exchange rate changes monthly according to inflation, interest rates, reserves, trade, fiscal stress, capital flows, and intervention.'}</p></div>${[['Reserves',money(ms.reserves),reserveMonths().toFixed(1)+' import months'],['Confidence',Math.round(state.currencyIndex)+'/100','market trust'],['Capital controls',Math.round(ms.capitalControls)+'/100','cross-border restrictions'],['Foreign flows',money(ms.foreignInvestorFlow),'monthly net flow']].map(x=>`<div class="money-kpi"><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></div>`).join('')}</div>
+      <div class="panel"><h3>Exchange-rate regime</h3><div class="panel-sub">A harder regime can reduce volatility but requires credibility and reserves. Changing the regime costs political capital and can trigger speculation.</div><div class="regime-grid">${Object.entries(currencyRegimes).map(([id,x])=>`<button class="regime-card ${ms.regime===id?'active':''}" data-currency-regime="${id}" ${(union||id==='union'||state.turn-ms.lastRegimeTurn<6)?'disabled':''}><b>${x.label}</b><span>${x.desc}</span></button>`).join('')}</div></div>
+      <div class="two-col"><div class="panel"><h3>Currency operations</h3><div class="panel-sub">Only one direct currency action is permitted each month.</div><div class="currency-actions">
+        <button class="currency-action" data-currency-action="defend" ${actionLocked?'disabled':''}><b>Defend the currency</b><span>Sell reserves equal to 0.5% of GDP to strengthen the exchange rate and slow imported inflation.</span></button>
+        <button class="currency-action" data-currency-action="accumulate" ${actionLocked?'disabled':''}><b>Accumulate reserves</b><span>Buy foreign currency equal to 0.35% of GDP. Reserves rise, but the currency weakens temporarily.</span></button>
+        <button class="currency-action" data-currency-action="controlsUp" ${actionLocked?'disabled':''}><b>Tighten capital controls</b><span>Reduce capital flight and volatility, while harming investment and market access.</span></button>
+        <button class="currency-action" data-currency-action="controlsDown" ${actionLocked?'disabled':''}><b>Relax capital controls</b><span>Improve investment access, but expose the currency to faster outflows.</span></button>
+        <button class="currency-action" data-currency-action="devalue" ${(actionLocked||union||ms.regime==='float')?'disabled':''}><b>Official devaluation</b><span>Weaken the managed rate by 5%. Exports improve, while imports and inflation become more expensive.</span></button>
+        <button class="currency-action" data-currency-action="revalue" ${(actionLocked||union||ms.regime==='float')?'disabled':''}><b>Official revaluation</b><span>Strengthen the managed rate by 3%. Imported inflation falls, but exporters lose competitiveness.</span></button>
+      </div></div><div class="panel"><h3>Exchange-rate history</h3>${sparkline(ms.exchangeHistory,`${ms.currencyCode} per USD`)}<div class="finance-link"><b>Policy connection:</b> Higher rates and tighter budgets usually support the currency. Inflation, deficits, political instability, weak reserves, and foreign-currency debt usually weaken it.</div></div></div>`;
+    }else if(monetaryView==='markets'){
+      body=`<div class="market-board"><div class="panel"><h3>National stock market</h3><div class="market-tape"><div class="market-tile ${ms.stockMonthlyReturn>=0?'good':'bad'}"><small>Composite index</small><strong>${round(ms.stockIndex,1)}</strong><em>base 100 at game start</em></div><div class="market-tile ${ms.stockMonthlyReturn>=0?'good':'bad'}"><small>Monthly return</small><strong>${pct(ms.stockMonthlyReturn,2)}</strong><em>equity-market move</em></div><div class="market-tile"><small>Volatility</small><strong>${round(ms.stockVolatility,1)}</strong><em>risk index</em></div></div>${sparkline(ms.stockHistory,'Stock-index history')}</div><div class="panel"><h3>Market drivers</h3>${barRow('Investor confidence',ms.marketConfidence)}${barRow('International access',ms.internationalAccess)}${barRow('Private investment',state.privateInvestment)}${barRow('Bank health',state.bankHealth)}${barRow('Political stability',state.stability)}<div class="outcome" style="margin-top:12px"><b>Foreign portfolio flow:</b> ${money(ms.foreignInvestorFlow)} this month. Rate cuts can lift valuations but may cause currency outflows; fiscal or political crises can trigger simultaneous bond, stock, and currency pressure.</div></div></div>`;
+    }else if(monetaryView==='lenders'){
+      const agencyAvg=averageAgencyScore(),rating=creditRatingLabel(agencyAvg),canNegotiate=state.turn-ms.lastLenderActionTurn>=3;
+      body=`<div class="money-hero"><div class="currency-command"><small>Sovereign market access</small><strong>${rating} · ${pct(r.sovereign,2)} yield</strong><p>Three independent rating agencies evaluate debt, deficits, inflation, reserves, political stability, growth, and willingness to repay. Their verdict changes government borrowing costs.</p></div>${[['External loans',money(externalLoanPrincipal()),ms.externalLoans.length+' active facilities'],['International access',Math.round(ms.internationalAccess)+'/100',ms.ratingOutlook+' outlook'],['Debt / GDP',pct(state.debtRatio,1),money(state.debt)+' total'],['Reserve cover',reserveMonths().toFixed(1)+' months',money(ms.reserves)]].map(x=>`<div class="money-kpi"><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></div>`).join('')}</div>
+      <div class="panel"><h3>Credit-rating agencies</h3><div class="agency-grid">${ms.ratingAgencies.map(a=>`<div class="agency-card"><small>${a.name}</small><strong>${a.rating}</strong><span>Score ${Math.round(a.score)}/100 · ${a.outlook} outlook</span></div>`).join('')}</div></div>
+      <div class="page-title" style="margin-top:20px"><div><h2>Existing international facilities</h2><p>Loans increase treasury liquidity and public debt. Conditions are reviewed every month.</p></div><span class="status-pill">${ms.externalLoans.length} ACTIVE</span></div>${ms.externalLoans.length?`<div class="loan-list">${ms.externalLoans.map(l=>`<div class="loan-row"><div><h4>${l.name}</h4><p>${l.condition}</p></div><div class="loan-stat"><small>Principal</small><b>${money(l.principal)}</b></div><div class="loan-stat"><small>Interest</small><b>${pct(l.rate,2)}</b></div><div class="loan-stat"><small>Maturity</small><b>${Math.max(0,l.maturityTurn-state.turn)}m</b></div></div>`).join('')}</div>`:'<div class="brief-empty">No negotiated international lending facility is active.</div>'}
+      <div class="page-title" style="margin-top:20px"><div><h2>Available lender negotiations</h2><p>Better ratings and stability improve your bargaining position. A failed negotiation can weaken confidence.</p></div><span class="status-pill">${canNegotiate?'NEGOTIATIONS OPEN':'WAIT '+Math.max(0,3-(state.turn-ms.lastLenderActionTurn))+' MONTHS'}</span></div><div class="lender-grid">${lenderDefs.map(l=>{const amount=state.gdp*l.amountPct/100,rate=Math.max(1.25,r.sovereign-l.rateDiscount);return `<article class="lender-card"><div class="action-top"><span class="action-tag">${l.tag}</span><span class="action-level">${l.term/12} YEARS</span></div><h3>${l.name}</h3><p>${l.desc}</p><div class="lender-terms"><div><small>Facility</small><b>${money(amount)}</b></div><div><small>Indicative rate</small><b>${pct(rate,2)}</b></div><div><small>Political cost</small><b>${l.id==='bilateral'?'High':'Medium'}</b></div></div><div class="finance-link"><b>Conditions:</b> ${l.condition}</div><div class="plan-footer"><span class="cost">Terms are negotiated<br>before acceptance</span><button class="small-btn" data-lender="${l.id}" ${!canNegotiate?'disabled':''}>Negotiate</button></div></article>`;}).join('')}</div>`;
+    }else{
+      const active=state.activeLongPlans,available=longPlanDefs.filter(p=>!active.some(a=>a.id===p.id)&&!state.completedLongPlans.includes(p.id));
+      body=`<div class="page-title"><div><h2>Long-term national plans</h2><p>Programs charge the budget every month, deliver annual milestones, and may outlive the leader who started them. You may run four at once.</p></div><span class="status-pill">${active.length}/4 ACTIVE</span></div>${active.length?`<div class="card-grid" style="margin-bottom:14px">${active.map(longPlanActiveCard).join('')}</div>`:''}<div class="card-grid">${available.map(longPlanAvailableCard).join('')}</div>`;
+    }
+    el('workspace').innerHTML=titleBlock('Money, currency and global finance','Coordinate interest rates, exchange-rate policy, reserves, stock markets, sovereign borrowing, credit ratings, and international lender negotiations.',`${currencyDefs[state.countryId].code} · ${creditRatingLabel(averageAgencyScore())}`)+`<div class="monetary-tabs">${tabs.map(t=>`<button class="${monetaryView===t[0]?'active':''}" data-monetary-view="${t[0]}">${t[1]}</button>`).join('')}</div>${body}`;
+    document.querySelectorAll('[data-monetary-view]').forEach(b=>b.addEventListener('click',()=>{monetaryView=b.dataset.monetaryView;renderMonetary();}));
     document.querySelectorAll('[data-rate-move]').forEach(btn=>btn.addEventListener('click',()=>setPolicyRate(Number(btn.dataset.rateMove))));
+    document.querySelectorAll('[data-currency-regime]').forEach(btn=>btn.addEventListener('click',()=>setCurrencyRegime(btn.dataset.currencyRegime)));
+    document.querySelectorAll('[data-currency-action]').forEach(btn=>btn.addEventListener('click',()=>performCurrencyAction(btn.dataset.currencyAction)));
+    document.querySelectorAll('[data-lender]').forEach(btn=>btn.addEventListener('click',()=>openLenderNegotiation(btn.dataset.lender)));
     document.querySelectorAll('[data-long-plan]').forEach(btn=>btn.addEventListener('click',()=>startLongPlan(btn.dataset.longPlan)));
     document.querySelectorAll('[data-cancel-plan]').forEach(btn=>btn.addEventListener('click',()=>cancelLongPlan(btn.dataset.cancelPlan)));
+  }
+
+  function setCurrencyRegime(id){
+    const ms=state.monetarySystem;if(ms.currencyUnion||!currencyRegimes[id]||id==='union')return;if(state.turn-ms.lastRegimeTurn<6){showToast('The exchange-rate regime cannot be changed again yet.');return;}const old=ms.regime;ms.regime=id;ms.lastRegimeTurn=state.turn;state.politicalCapital-=4;ms.marketConfidence+=(id==='peg'?3:id==='float'?-1:1);state.currencyIndex+=(id==='peg'?2:0);if(id==='peg')ms.reserves=Math.max(0,ms.reserves-state.gdp*.003);ms.currencyPolicyHistory.unshift({date:dateLabel(),action:`Changed regime from ${currencyRegimes[old].label} to ${currencyRegimes[id].label}`});addBrief(`CURRENCY REGIME: ${state.country} changes from ${currencyRegimes[old].label} to ${currencyRegimes[id].label}. Markets will test whether reserves and policy are credible.`);addTimeline(`Changed the exchange-rate regime to ${currencyRegimes[id].label}.`);normalize();renderMonetary();saveGame(false);
+  }
+  function performCurrencyAction(action){
+    const ms=state.monetarySystem;if(ms.lastCurrencyActionTurn===state.turn){showToast('Only one direct currency operation is permitted each month.');return;}let result='';
+    if(action==='defend'){const cost=state.gdp*.005;if(ms.reserves<cost){showToast('Foreign reserves are too low for this intervention.');return;}ms.reserves-=cost;ms.interventionImpulse-=2.2;state.currencyIndex+=2;state.inflation-=.08;result=`The central bank sells ${money(cost)} in reserves to support the ${ms.currencyName}.`;}
+    else if(action==='accumulate'){const cost=state.gdp*.0035;if(state.treasury<cost){showToast('The treasury lacks liquidity to fund reserve accumulation.');return;}state.treasury-=cost;ms.reserves+=cost;ms.interventionImpulse+=1.3;state.inflation+=.03;result=`The state purchases ${money(cost)} in foreign assets, increasing reserve protection while allowing temporary depreciation.`;}
+    else if(action==='controlsUp'){ms.capitalControls+=10;ms.marketConfidence-=2;ms.internationalAccess-=2;ms.interventionImpulse-=.6;state.privateInvestment-=1;result='Capital controls are tightened to slow outflows and reduce speculative pressure.';}
+    else if(action==='controlsDown'){ms.capitalControls-=10;ms.marketConfidence+=1.5;ms.internationalAccess+=2;state.privateInvestment+=.6;ms.interventionImpulse+=.4;result='Capital controls are relaxed, improving access to investment while increasing exposure to rapid outflows.';}
+    else if(action==='devalue'){if(ms.currencyUnion||ms.regime==='float')return;ms.exchangeRate*=1.05;state.inflation+=.65;state.businessClimate+=.5;state.approval-=1.2;result=`The official ${ms.currencyCode} rate is devalued by 5%, supporting exports while raising import prices.`;}
+    else if(action==='revalue'){if(ms.currencyUnion||ms.regime==='float')return;ms.exchangeRate*=.97;state.inflation-=.35;state.businessClimate-=.6;state.approval+=.25;result=`The official ${ms.currencyCode} rate is revalued by 3%, reducing import costs while pressuring exporters.`;}
+    ms.capitalControls=clamp(ms.capitalControls,0,100);ms.lastCurrencyActionTurn=state.turn;state.politicalCapital-=.75;ms.currencyPolicyHistory.unshift({date:dateLabel(),action:result});addBrief(`CURRENCY POLICY: ${result}`);addTimeline(result);normalize();renderMonetary();renderMetrics();saveGame(false);
+  }
+  function lenderOfferTerms(id){const l=lenderDefs.find(x=>x.id===id),r=bankRates();return {def:l,amount:state.gdp*l.amountPct/100,rate:Math.max(1.25,r.sovereign-l.rateDiscount)};}
+  function openLenderNegotiation(id){
+    const ms=state.monetarySystem;if(state.turn-ms.lastLenderActionTurn<3)return;const t=lenderOfferTerms(id);if(!t.def)return;const leverage=clamp(averageAgencyScore()*.45+state.stability*.25+reserveMonths()*2+ms.internationalAccess*.15-state.fiscalSystem.fiscalStress*.2,5,95);
+    el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">International lender negotiation</div><h2>${t.def.name}</h2><p class="modal-desc">Proposed facility: ${money(t.amount)} at ${pct(t.rate,2)} for ${t.def.term/12} years. Bargaining leverage is ${Math.round(leverage)}/100.</p><div class="outcome"><b>Conditions:</b> ${t.def.condition}</div><button class="choice" data-lender-choice="accept"><b>Accept standard terms</b><span>Immediate approval and disbursement. Conditions apply in full.</span></button><button class="choice" data-lender-choice="bargain"><b>Demand better terms</b><span>Chance to reduce the rate and soften conditions. Failure damages confidence and delays access.</span></button><button class="choice" data-lender-choice="reject"><b>Reject the facility</b><span>Preserve policy independence and avoid new debt.</span></button></div></div></div>`;
+    document.querySelectorAll('[data-lender-choice]').forEach(b=>b.addEventListener('click',()=>resolveLenderNegotiation(id,b.dataset.lenderChoice,leverage)));
+  }
+  function resolveLenderNegotiation(id,choice,leverage){
+    const ms=state.monetarySystem,t=lenderOfferTerms(id);if(!t.def)return;el('modalRoot').innerHTML='';ms.lastLenderActionTurn=state.turn;
+    if(choice==='reject'){ms.marketConfidence+=.2;addBrief(`INTERNATIONAL FINANCE: The government rejects financing from ${t.def.name}.`);renderMonetary();saveGame(false);return;}
+    let rate=t.rate,condition=t.def.condition,success=true;if(choice==='bargain'){success=Math.random()<leverage/100;if(success){rate=Math.max(.75,rate-.65);condition+=' Negotiators secure wider implementation flexibility.';}else{ms.marketConfidence-=2;ms.internationalAccess-=3;state.currencyIndex-=1;addBrief(`LENDER TALKS FAIL: ${t.def.name} rejects the government's demand for better terms. Markets question the financing plan.`);showModalResult('Negotiation failed','The lender refuses revised terms and suspends the offer for several months.','No funds are disbursed. International market access weakens.');renderMonetary();saveGame(false);return;}}
+    const loan={id:`loan-${id}-${state.turn}`,lenderId:id,name:t.def.name,principal:t.amount,rate,term:t.def.term,maturityTurn:state.turn+t.def.term,condition,started:dateLabel(),compliance:70};ms.externalLoans.push(loan);state.treasury+=t.amount;state.debt+=t.amount;ms.reserves+=id==='reserve'?t.amount*.65:t.amount*.18;ms.internationalAccess+=id==='development'?3:1;state.politicalCapital-=id==='bilateral'?3:1.5;
+    if(id==='stabilization'){state.baseSpend=Math.max(8,state.baseSpend-.5);state.policyRate+=.25;state.approval-=1.5;}
+    if(id==='development'){state.infrastructure+=.8;state.corruption-=.3;}
+    if(id==='reserve'){state.currencyIndex+=2;ms.marketConfidence+=3;}
+    if(id==='bilateral'){state.elite+=2;state.democracy-=.8;state.hiddenRisk+=2;}
+    ms.lenderHistory.unshift({date:dateLabel(),name:t.def.name,amount:t.amount,rate});addBrief(`INTERNATIONAL LOAN: ${t.def.name} approves ${money(t.amount)} at ${pct(rate,2)}. Conditions will be reviewed monthly.`);addTimeline(`Negotiated ${money(t.amount)} from ${t.def.name} at ${pct(rate,2)}.`);normalize();showModalResult('Financing approved',`${t.def.name} disburses ${money(t.amount)} to the government.`,`${condition} The loan matures in ${t.def.term} months.`);renderAll();saveGame(false);
   }
 
   function setPolicyRate(delta){
@@ -1474,6 +1685,89 @@
     el('confirmEntity').addEventListener('click',()=>{const t=typeEl.value,cid=el('newEntityCountry').value,name=el('newEntityName').value.trim()||roleDefs[t].defaultName,sub=el('newEntityExtra').value;const ent=makeControlledEntity(t,cid,name,{office:t==='government'?sub:undefined,subtype:sub,leader:state.leader,primary:false});if(t==='government')ent.nationalState=buildNationalSnapshot(cid,sub,state.leader);state.controlledEntities.push(ent);addBrief(`NEW CONTROLLED ENTITY: ${name} enters your power portfolio in ${countries[cid].name}.`);addTimeline(`Took control of ${actorLabel(ent)}.`);el('modalRoot').innerHTML='';switchEntity(ent.id);});
   }
 
+
+  function creditRatingLabel(score){
+    if(score>=94)return 'AAA';if(score>=88)return 'AA+';if(score>=82)return 'AA';if(score>=76)return 'A+';if(score>=70)return 'A';if(score>=64)return 'BBB+';if(score>=57)return 'BBB';if(score>=50)return 'BBB−';if(score>=43)return 'BB+';if(score>=36)return 'BB';if(score>=28)return 'B';if(score>=18)return 'CCC';return 'Default risk';
+  }
+  function taxRevenueForecast(){
+    const fs=state.fiscalSystem,byCategory={};let grossPct=0;
+    taxInstrumentDefs.forEach(t=>{
+      const rate=fs.rates[t.id],ratio=t.baseRate>0?rate/t.baseRate:0;
+      const behavioral=Math.pow(Math.max(0,ratio),.86)*Math.max(.55,1-Math.max(0,ratio-1)*.045);
+      const yieldPct=t.baseYield*fs.taxScale*behavioral;
+      byCategory[t.category]=(byCategory[t.category]||0)+yieldPct;grossPct+=yieldPct;
+    });
+    const compliance=clamp(state.collectionEfficiency*(1-state.corruption/1800),.48,1.08),netTaxPct=grossPct*compliance;
+    const nonTaxPct=fs.nonTaxRevenuePct*Math.max(.7,Math.min(1.25,state.stability/55));
+    const totalPct=netTaxPct+nonTaxPct;
+    return {grossPct,netTaxPct,nonTaxPct,totalPct,monthly:state.gdp*(totalPct/100)/12,byCategory,compliance};
+  }
+  function fiscalPosition(){
+    const rev=taxRevenueForecast(),spending=monthlySpending(),annualSpendingPct=spending*12/state.gdp*100,balancePct=rev.totalPct-annualSpendingPct,deficitPct=-balancePct;
+    const debtService=state.debt*(effectiveGovernmentBorrowingRate()/100),debtServiceRatio=debtService/Math.max(.1,rev.monthly*12)*100;
+    let score=96-state.debtRatio*.26-Math.max(0,deficitPct)*1.65-Math.max(0,state.inflation-3)*.62-Math.max(0,debtServiceRatio-12)*.32+(state.stability-50)*.16+(state.growth-2)*.8+(state.treasury/state.gdp)*24-(state.corruption-40)*.08;
+    score=clamp(score,1,99);const rating=creditRatingLabel(score);
+    const stress=clamp(Math.max(0,state.debtRatio-55)*.42+Math.max(0,deficitPct-3)*4.4+Math.max(0,state.inflation-5)*1.7+Math.max(0,debtServiceRatio-14)*1.1+Math.max(0,55-score)*.65,0,100);
+    return {...rev,spending,annualSpendingPct,balancePct,deficitPct,debtService,debtServiceRatio,score,rating,stress};
+  }
+  function effectiveTaxEffects(){
+    const fs=state.fiscalSystem;let business=0,consumption=0,labor=0,progressive=0,inflationary=0,green=0;
+    taxInstrumentDefs.forEach(t=>{const delta=(fs.rates[t.id]-t.baseRate)/Math.max(1,t.baseRate);business+=delta*(t.business||0);consumption+=delta*(t.consumption||0);labor+=delta*(t.labor||0);progressive+=delta*(t.progressive||0);inflationary+=delta*(t.inflationary||0);green+=delta*(t.green||0);});
+    return {business,consumption,labor,progressive,inflationary,green};
+  }
+  function renderFinance(){
+    const pos=fiscalPosition(),fs=state.fiscalSystem,riskClass=pos.stress>72?'bad':pos.stress>45?'warn':'';
+    const taxGroups=[...new Set(taxInstrumentDefs.map(t=>t.category))];
+    const tabs=[['overview','Overview'],['taxes','Taxes'],['budget','Budget allocation'],['debt','Debt & credit']];
+    let body='';
+    if(financeView==='overview'){
+      const cats=Object.entries(pos.byCategory).sort((a,b)=>b[1]-a[1]);
+      body=`<div class="fiscal-hero"><div class="fiscal-score"><span>Sovereign credit rating</span><strong>${pos.rating}</strong><small>Score ${Math.round(pos.score)}/100 · yield ${pct(bankRates().sovereign,2)}</small></div>${[['Revenue',money(pos.monthly),pct(pos.totalPct,1)+' of GDP'],['Spending',money(pos.spending),pct(pos.annualSpendingPct,1)+' of GDP'],[pos.balancePct>=0?'Surplus':'Deficit',pct(Math.abs(pos.balancePct),2),pos.balancePct>=0?'annualized fiscal surplus':'annualized borrowing need'],['Public debt',pct(state.debtRatio,1),money(state.debt)+' outstanding']].map(x=>`<div class="fiscal-kpi"><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></div>`).join('')}</div>
+      <div class="budget-summary"><div class="panel"><h3>Where state income comes from</h3><div class="panel-sub">Forecast after compliance, evasion, corruption leakage, and non-tax income.</div><div class="revenue-bars">${cats.map(([k,v])=>`<div class="revenue-bar"><span>${k}</span><div class="bar"><i class="good" style="width:${Math.min(100,v/Math.max(.1,pos.grossPct)*100)}%"></i></div><b>${pct(v*pos.compliance,2)}</b></div>`).join('')}<div class="revenue-bar"><span>Non-tax income</span><div class="bar"><i class="warn" style="width:${Math.min(100,pos.nonTaxPct/Math.max(.1,pos.totalPct)*100)}%"></i></div><b>${pct(pos.nonTaxPct,2)}</b></div></div></div>
+      <div class="panel fiscal-risk ${riskClass}"><h3>Fiscal stability</h3><div class="panel-sub">Stress combines debt, deficits, inflation, interest costs, reserves, and creditworthiness.</div>${barRow('Fiscal stress',pos.stress,true)}${barRow('Tax compliance',pos.compliance*100)}${barRow('Debt-service burden',Math.min(100,pos.debtServiceRatio),true)}${barRow('Cash reserve',clamp(state.treasury/state.gdp*400))}<div class="outcome" style="margin-top:12px"><b>${pos.stress>72?'Danger: financing confidence is breaking down.':pos.stress>45?'Warning: borrowing is becoming politically and economically costly.':'The state can currently finance itself without acute stress.'}</b><br><br>Every deficit is automatically financed with new public debt. A weaker rating raises bond yields and makes the deficit larger through interest costs.</div></div></div>`;
+    }else if(financeView==='taxes'){
+      body=`<div class="panel"><div class="role-banner"><div><h3>Manual national tax code</h3><p>All ${taxInstrumentDefs.length} tax instruments can be adjusted independently. Higher statutory rates do not produce perfectly linear revenue because avoidance, weaker activity, and evasion rise at extreme levels.</p></div><div class="entity-type">${pct(pos.netTaxPct,1)} NET TAX</div></div></div>${taxGroups.map(group=>{const rows=taxInstrumentDefs.filter(t=>t.category===group),yieldPct=rows.reduce((n,t)=>n+(pos.byCategory[group]||0)*((t.baseYield)/(rows.reduce((a,x)=>a+x.baseYield,0))),0);return `<section class="tax-group"><div class="tax-group-title"><h3>${group}</h3><span>${pct((pos.byCategory[group]||0)*pos.compliance,2)} GDP forecast</span></div><div class="tax-list">${rows.map(t=>`<div class="tax-row"><div><h4>${t.label}</h4><p>${t.desc}</p></div><div class="tax-control"><strong>${pct(fs.rates[t.id],fs.rates[t.id]%1?2:0)}</strong><div class="mini-stepper"><button data-tax-change="${t.id}" data-delta="${-t.step}" ${fs.rates[t.id]<=t.min?'disabled':''}>−</button><button data-tax-change="${t.id}" data-delta="${t.step}" ${fs.rates[t.id]>=t.max?'disabled':''}>+</button></div><small>${pct(t.min,0)}–${pct(t.max,0)}</small></div></div>`).join('')}</div></section>`;}).join('')}`;
+    }else if(financeView==='budget'){
+      const allocated=spendingCategoryDefs.reduce((n,x)=>n+fs.spendingShares[x.id],0);
+      body=`<div class="budget-summary"><div class="panel"><h3>Total state-spending target</h3><div class="panel-sub">This is the recurring program envelope before interest, projects, long-term plans, and special operations.</div><div class="economy-grid" style="margin-top:12px"><div class="economy-cell"><small>Target</small><strong>${pct(state.baseSpend,1)}</strong><em>of GDP yearly</em></div><div class="economy-cell"><small>Reserve share</small><strong>${pct(fs.budgetReserve,1)}</strong><em>unallocated room</em></div><div class="economy-cell"><small>Interest cost</small><strong>${money(pos.debtService/12)}</strong><em>monthly</em></div><div class="economy-cell"><small>Full spending</small><strong>${pct(pos.annualSpendingPct,1)}</strong><em>of GDP including obligations</em></div></div><div class="stepper" style="margin-top:13px"><button data-spend-target="-0.5">− 0.5 GDP</button><button data-spend-target="0.5">+ 0.5 GDP</button></div></div><div class="panel"><h3>Allocation rule</h3><div class="panel-sub">Cut a category to create reserve room, then transfer that room into another priority. The total must remain funded.</div><div class="outcome" style="margin-top:12px"><b>${pct(allocated,1)} allocated · ${pct(fs.budgetReserve,1)} available</b><br><br>Allocation changes affect public-service performance every month. They do not erase salaries, debt interest, active construction contracts, or legal entitlements.</div></div></div><div class="allocation-list">${spendingCategoryDefs.map(x=>{const share=fs.spendingShares[x.id],amt=state.gdp*(state.baseSpend/100)*(share/100);return `<div class="allocation-row"><div><h4>${x.label}</h4><p>${x.desc}</p></div><div>${barRow('Budget share',Math.min(100,share*3.2))}</div><div class="allocation-value"><strong>${pct(share,1)}</strong><small>${money(amt)} yearly</small><div class="mini-stepper"><button data-allocation-change="${x.id}" data-delta="-1" ${share<=1?'disabled':''}>−</button><button data-allocation-change="${x.id}" data-delta="1" ${fs.budgetReserve<1?'disabled':''}>+</button></div></div></div>`;}).join('')}</div>`;
+    }else{
+      body=`<div class="fiscal-hero"><div class="fiscal-score"><span>Market verdict</span><strong>${pos.rating}</strong><small>${pct(bankRates().sovereign,2)} sovereign yield · stress ${Math.round(pos.stress)}/100</small></div>${[['Outstanding debt',money(state.debt),pct(state.debtRatio,1)+' of GDP'],['Debt service',money(pos.debtService),pct(pos.debtServiceRatio,1)+' of revenue'],['Cash reserve',money(state.treasury),pct(state.treasury/state.gdp*100,2)+' of GDP'],['Annual borrowing',money(Math.max(0,pos.deficitPct/100*state.gdp)),pct(Math.max(0,pos.deficitPct),2)+' of GDP']].map(x=>`<div class="fiscal-kpi"><small>${x[0]}</small><strong>${x[1]}</strong><span>${x[2]}</span></div>`).join('')}</div><div class="panel fiscal-risk ${riskClass}"><h3>Debt-management room</h3><div class="panel-sub">Borrowing can protect services during a crisis, but it raises future interest costs and can trigger rating downgrades, inflation, currency weakness, austerity, or political collapse.</div><div class="debt-actions"><button class="debt-action" data-debt-action="issue"><b>Issue emergency bonds</b><span>Raise cash equal to 1% of GDP. Debt rises by 1.1% of GDP because of fees and market discount.</span></button><button class="debt-action" data-debt-action="repay"><b>Repay public debt</b><span>Use cash equal to 0.5% of GDP to retire debt and improve confidence.</span></button><button class="debt-action" data-debt-action="reserve"><b>Build fiscal reserve</b><span>Freeze 0.5% of GDP in planned spending this year and move it into treasury liquidity.</span></button></div></div><div class="two-col"><div class="panel"><h3>Debt danger indicators</h3>${barRow('Debt / GDP',Math.min(100,state.debtRatio/1.6),true)}${barRow('Deficit pressure',Math.min(100,Math.max(0,pos.deficitPct)*8),true)}${barRow('Interest / revenue',Math.min(100,pos.debtServiceRatio),true)}${barRow('Inflation danger',Math.min(100,Math.max(0,state.inflation)*5),true)}</div><div class="panel"><h3>Automatic consequences</h3><div class="history-note"><b>Rating channel</b><br>Weak scores increase the sovereign spread used for newly financed debt.</div><div class="history-note"><b>Currency channel</b><br>High stress weakens confidence, raises imported inflation, and pressures reserves.</div><div class="history-note"><b>Political channel</b><br>Fiscal crises reduce approval, stability, elite loyalty, and legislative support.</div><div class="history-note"><b>Default channel</b><br>Extreme debt, inflation, and financing stress can remove the government from power.</div></div></div>`;
+    }
+    el('workspace').innerHTML=titleBlock('Taxation & state finances','Set nearly thirty taxes manually, allocate the national budget, and manage deficits, debt, credit ratings, and fiscal survival.',`${pos.rating} · ${pos.balancePct>=0?'SURPLUS':'DEFICIT'}`)+`<div class="finance-tabs">${tabs.map(t=>`<button class="${financeView===t[0]?'active':''}" data-finance-view="${t[0]}">${t[1]}</button>`).join('')}</div>${body}`;
+    document.querySelectorAll('[data-finance-view]').forEach(b=>b.addEventListener('click',()=>{financeView=b.dataset.financeView;renderFinance();}));
+    document.querySelectorAll('[data-tax-change]').forEach(b=>b.addEventListener('click',()=>changeTaxInstrument(b.dataset.taxChange,Number(b.dataset.delta))));
+    document.querySelectorAll('[data-allocation-change]').forEach(b=>b.addEventListener('click',()=>changeFiscalAllocation(b.dataset.allocationChange,Number(b.dataset.delta))));
+    document.querySelectorAll('[data-spend-target]').forEach(b=>b.addEventListener('click',()=>changeFiscalSpendingTarget(Number(b.dataset.spendTarget))));
+    document.querySelectorAll('[data-debt-action]').forEach(b=>b.addEventListener('click',()=>performDebtAction(b.dataset.debtAction)));
+  }
+  function changeTaxInstrument(id,delta){
+    const fs=state.fiscalSystem,t=taxInstrumentDefs.find(x=>x.id===id);if(!t)return;const old=fs.rates[id],next=clamp(round(old+delta,2),t.min,t.max);if(next===old)return;fs.rates[id]=next;fs.lastTaxTurn=state.turn;fs.taxChanges++;state.politicalCapital-=.18;
+    const direction=delta>0?1:-1,weight=Math.abs(delta)/Math.max(1,t.step);state.approval-=direction*(t.consumption||0)*.09*weight;state.businessClimate-=direction*(t.business||0)*.07*weight;state.inequality-=direction*(t.progressive||0)*.025*weight;state.inflation+=direction*(t.inflationary||0)*.012*weight;state.environment+=direction*(t.green||0)*.025*weight;state.taxRate=taxRevenueForecast().netTaxPct;
+    addBrief(`TAX CODE: ${t.label} ${delta>0?'rises':'falls'} from ${pct(old,old%1?2:0)} to ${pct(next,next%1?2:0)}.`);normalize();renderFinance();renderMetrics();saveGame(false);
+  }
+  function changeFiscalAllocation(id,delta){
+    const fs=state.fiscalSystem,x=spendingCategoryDefs.find(v=>v.id===id);if(!x)return;const old=fs.spendingShares[id];if(delta>0&&fs.budgetReserve<delta){showToast('Cut another budget first to create allocation room.');return;}if(delta<0&&old+delta<1)return;fs.spendingShares[id]=old+delta;fs.budgetReserve-=delta;fs.lastBudgetTurn=state.turn;state.politicalCapital-=.15;addBrief(`BUDGET: ${x.label} changes to ${pct(fs.spendingShares[id],1)} of the recurring program envelope.`);normalize();renderFinance();saveGame(false);
+  }
+  function changeFiscalSpendingTarget(delta){const old=state.baseSpend;state.baseSpend=clamp(round(old+delta,1),8,70);if(old===state.baseSpend)return;state.politicalCapital-=.5;state.approval+=delta>0?.18:-.28;state.inflation+=delta>0?.012:-.006;addBrief(`STATE BUDGET: The recurring spending target changes from ${pct(old,1)} to ${pct(state.baseSpend,1)} of GDP.`);normalize();renderFinance();renderMetrics();saveGame(false);}
+  function performDebtAction(action){
+    const fs=state.fiscalSystem;if(fs.lastDebtActionTurn===state.turn){showToast('Only one extraordinary debt action is allowed each month.');return;}let result='';
+    if(action==='issue'){state.treasury+=state.gdp*.01;state.debt+=state.gdp*.011;state.currencyIndex-=.35;state.politicalCapital-=1;result='Emergency bonds provide immediate liquidity, while debt and refinancing risk rise.';}
+    else if(action==='repay'){const cash=state.gdp*.005;if(state.treasury<cash){showToast('The treasury does not have enough cash for this repayment.');return;}state.treasury-=cash;state.debt=Math.max(0,state.debt-cash);state.currencyIndex+=.25;state.stability+=.2;result='The treasury retires debt and signals fiscal discipline to investors.';}
+    else{const cash=state.gdp*.005;state.baseSpend=Math.max(8,state.baseSpend-.5);state.treasury+=cash;state.approval-=.7;state.growth-=.08;result='The spending target is cut by 0.5% of GDP and the cash is transferred into the fiscal reserve.';}
+    fs.lastDebtActionTurn=state.turn;addBrief(`DEBT MANAGEMENT: ${result}`);addTimeline(result);normalize();renderFinance();renderMetrics();saveGame(false);
+  }
+  function applyFiscalAllocationEffects(){
+    const fs=state.fiscalSystem,delta=id=>(fs.spendingShares[id]-(spendingCategoryDefs.find(x=>x.id===id)?.base||0));
+    state.health+=delta('health')*.006;state.education+=delta('education')*.006;state.infrastructure+=delta('infrastructure')*.005;state.security+=(delta('defense')*.0025+delta('safety')*.004);state.environment+=delta('environment')*.006;state.businessClimate+=(delta('science')*.003+delta('infrastructure')*.002);state.inequality-=(delta('welfare')*.004+delta('pensions')*.002+delta('housing')*.0025);state.approval+=delta('culture')*.0015;
+    state.collectionEfficiency=clamp(state.collectionEfficiency+delta('administration')*.00008,.5,1.12);
+  }
+  function updateFiscalStability(){
+    const fs=state.fiscalSystem,pos=fiscalPosition();fs.creditScore=pos.score;fs.creditRating=pos.rating;fs.fiscalStress=pos.stress;fs.currentDeficitPct=pos.deficitPct;fs.deficitHistory.push(pos.deficitPct);fs.debtHistory.push(state.debtRatio);fs.ratingHistory.push(pos.score);[fs.deficitHistory,fs.debtHistory,fs.ratingHistory].forEach(a=>{if(a.length>60)a.shift();});
+    if(pos.stress>45){const severity=(pos.stress-45)/55;state.currencyIndex-=severity*.35;state.inflation+=severity*.045;state.approval-=severity*.16;state.stability-=severity*.12;state.elite-=severity*.06;}
+    if(pos.stress>72&&Math.random()<.12){addBrief(`FISCAL WARNING: Rating agencies place ${state.country} under review as debt service, deficits, and inflation undermine financing confidence.`);state.businessClimate-=1;state.legislature-=.6;}
+    if(pos.stress>88&&Math.random()<.08){state.inflation+=.6;state.currencyIndex-=2;state.treasury-=state.gdp*.002;state.approval-=2;state.stability-=2;addBrief('SOVEREIGN FINANCING SHOCK: A weak bond auction forces emergency borrowing at punitive rates.');}
+  }
+
   function renderDashboard(){
     const actor=getActiveEntity();
     if(!isPrimaryGovernment()){renderActorDashboard(actor);return;}
@@ -1496,8 +1790,8 @@
         <div class="panel">
           <h3>Monthly fiscal position</h3><div class="panel-sub">Revenue and obligations scale with the size of your economy.</div>
           <div class="economy-grid">
-            <div class="economy-cell"><small>Revenue</small><strong>${money(revenue)}</strong><em>${pct(state.taxRate)} tax burden</em></div>
-            <div class="economy-cell"><small>Spending</small><strong>${money(spending)}</strong><em>${pct(state.baseSpend)} base spending</em></div>
+            <div class="economy-cell"><small>Revenue</small><strong>${money(revenue)}</strong><em>${pct(taxRevenueForecast().totalPct)} of GDP</em></div>
+            <div class="economy-cell"><small>Spending</small><strong>${money(spending)}</strong><em>${pct(monthlySpending()*12/state.gdp*100)} of GDP</em></div>
             <div class="economy-cell"><small>Balance</small><strong>${money(balance)}</strong><em>${balance<0?'Borrowing required':'Monthly surplus'}</em></div>
             <div class="economy-cell"><small>Cash reserve</small><strong>${money(state.treasury)}</strong><em>Immediate liquidity</em></div>
           </div>
@@ -2073,8 +2367,7 @@
   function dateLabel(){return `${monthNames[state.month-1]} ${state.year}`;}
 
   function monthlyRevenue(){
-    const corruptionLoss=1-state.corruption/2000;
-    return state.gdp*(state.taxRate/100)*state.collectionEfficiency*corruptionLoss/12;
+    const forecast=taxRevenueForecast();state.taxRate=forecast.totalPct;return forecast.monthly;
   }
 
   function projectMonthlyCost(){
@@ -2094,7 +2387,7 @@
   }
 
   function monthlySpending(){
-    const interest=state.debt*(bankRates().sovereign/100)/12;
+    const interest=state.debt*(effectiveGovernmentBorrowingRate()/100)/12;
     return state.gdp*((state.baseSpend+state.temporarySpend)/100)/12+interest+projectMonthlyCost()+completedProjectMonthlyCost()+longPlanMonthlyCost()+governmentOperationalMonthlyCost();
   }
 
@@ -2111,6 +2404,7 @@
     g-=(Math.max(0,state.inflation-4))*.12;
     g-=(Math.max(0,state.debtRatio-90))*.018;
     g+=(state.baseSpend-state.taxRate-3)*.025;
+    const taxMix=effectiveTaxEffects();g-=taxMix.business*.18;g-=taxMix.labor*.08;g-=taxMix.consumption*.045;
     g+=(state.stability-55)*.012;
     const comp=cabinetComposition();g+=(comp.avgCompetence-55)*.008;g+=(state.government.ministries.finance.performance-55)*.006;g+=(state.government.ministries.infrastructure.performance-55)*.006;
     return clamp(g,-12,12);
@@ -2146,6 +2440,27 @@
     const bankTarget=82-defaultPressure;
     state.bankHealth+=(bankTarget-state.bankHealth)*.055;
     state.inflation+=(state.inflationExpectations-state.inflation)*.018+(state.creditGrowth-5)*.006;
+  }
+
+  function updateMonetaryMarkets(){
+    const ms=state.monetarySystem,reg=currencyRegimes[ms.regime],pos=fiscalPosition(),m=state.countryModels?.[state.countryId],tradePct=m&&state.gdp?clamp((m.trade.balance/state.gdp)*100,-12,12):0;
+    const globalInflation=2.5,rateSupport=(state.policyRate-state.inflation)-(state.neutralRate-globalInflation),reserveSupport=(reserveMonths()-4)*.22,stressPressure=pos.stress*.025+(state.inflation-globalInflation)*.18-Math.max(-4,Math.min(4,tradePct))*.08-(state.stability-50)*.018;
+    const flowPressure=-(ms.foreignInvestorFlow/Math.max(1,state.gdp))*.8,controlsShield=ms.capitalControls*.006;
+    let monthlyDepreciation=(stressPressure-rateSupport*.16-reserveSupport+flowPressure-controlsShield+random(-.45,.45))*reg.sensitivity*.22;
+    if(ms.regime==='peg'&&reserveMonths()<2.5){monthlyDepreciation+=1.5;ms.marketConfidence-=1.2;}
+    monthlyDepreciation+=ms.interventionImpulse;ms.interventionImpulse*=.35;
+    monthlyDepreciation=clamp(monthlyDepreciation,-4.5,8.5);ms.exchangeRate=Math.max(.0001,ms.exchangeRate*(1+monthlyDepreciation/100));
+    state.currencyIndex=clamp(state.currencyIndex-monthlyDepreciation*.75+(100-state.currencyIndex)*.018,0,100);state.inflation+=Math.max(-2,Math.min(5,monthlyDepreciation))*.035;
+    const currentAccount=state.gdp*(tradePct/100)/12,capitalFlow=state.gdp*((ms.marketConfidence-50)+(averageAgencyScore()-55)+(state.policyRate-state.neutralRate)*2-ms.capitalControls*.15)/100000+random(-state.gdp*.0007,state.gdp*.0007);
+    ms.foreignInvestorFlow=capitalFlow;ms.reserves=Math.max(0,ms.reserves+currentAccount*.22+capitalFlow*.35);ms.reserveMonths=reserveMonths();state.reserveMonths=ms.reserveMonths;
+    const stockReturn=(state.growth/12)-state.inflation*.018-(state.policyRate-state.neutralRate)*.075+(state.businessClimate-50)*.025+(state.stability-50)*.018-monthlyDepreciation*.04+random(-1.8,1.8);
+    ms.stockMonthlyReturn=round(stockReturn,2);ms.stockIndex=Math.max(10,ms.stockIndex*(1+stockReturn/100));ms.stockVolatility=clamp(ms.stockVolatility*.9+Math.abs(stockReturn)*2+pos.stress*.035,4,100);ms.marketConfidence=clamp(ms.marketConfidence+(state.growth-2)*.06-(state.inflation-4)*.045+(state.stability-50)*.015-pos.stress*.012+random(-.45,.45),0,100);
+    const baseAgency=pos.score+reserveSupport*.55+(ms.internationalAccess-60)*.08-Math.max(0,monthlyDepreciation)*.32;
+    ms.ratingAgencies.forEach((a,i)=>{const target=clamp(baseAgency+[1.5,0,-1.8][i],1,99);a.score+=(target-a.score)*.12;a.rating=creditRatingLabel(a.score);a.outlook=target>a.score+2?'Positive':target<a.score-2?'Negative':'Stable';});
+    const avg=averageAgencyScore();ms.ratingOutlook=ms.ratingAgencies.filter(a=>a.outlook==='Negative').length>=2?'Negative':ms.ratingAgencies.filter(a=>a.outlook==='Positive').length>=2?'Positive':'Stable';ms.internationalAccess=clamp(ms.internationalAccess+(avg-60)*.008+(reserveMonths()-4)*.04-pos.stress*.018+random(-.15,.15),0,100);
+    ms.externalLoans.forEach(l=>{const conditionPressure=pos.deficitPct>6?-.5:pos.deficitPct<3?.25:0;l.compliance=clamp((l.compliance||70)+conditionPressure+(state.corruption<50?.12:-.18),0,100);if(l.compliance<35&&Math.random()<.08){ms.internationalAccess-=2;ms.marketConfidence-=1;state.approval-=.4;addBrief(`LENDER REVIEW: ${l.name} reports weak compliance with financing conditions and warns that future support may be suspended.`);}if(state.turn+1>=l.maturityTurn){if(state.treasury>=l.principal*.35){const paid=l.principal*.35;state.treasury-=paid;state.debt=Math.max(0,state.debt-paid);l.principal-=paid;l.maturityTurn+=24;addBrief(`DEBT MATURITY: ${state.country} pays ${money(paid)} and extends the remaining ${l.name} balance.`);}else{l.rate+=1.5;l.maturityTurn+=18;ms.internationalAccess-=5;ms.marketConfidence-=4;state.currencyIndex-=3;addBrief(`FORCED REFINANCING: ${l.name} is rolled over at ${pct(l.rate,2)} after the treasury cannot meet the maturity payment.`);}}});
+    ms.exchangeHistory.push(ms.exchangeRate);ms.stockHistory.push(ms.stockIndex);[ms.exchangeHistory,ms.stockHistory].forEach(a=>{if(a.length>60)a.shift();});
+    const cm=state.countryModels?.[state.countryId];if(cm){cm.markets.stockIndex=ms.stockIndex;cm.markets.monthlyReturn=ms.stockMonthlyReturn;cm.markets.currencyIndex=state.currencyIndex;cm.markets.bondYield=bankRates().sovereign;cm.macro.currencyIndex=state.currencyIndex;cm.macro.foreignReserves=ms.reserves;}
   }
 
   function updateLongTermPlans(){
@@ -2222,7 +2537,9 @@
     updateProjects();
     updateLongTermPlans();
     applyMonetaryTransmission();
+    updateMonetaryMarkets();
     updateGovernmentManagement();
+    applyFiscalAllocationEffects();
 
     state.growth=computeGrowth()+random(-.35,.35);
     state.gdp*=1+state.growth/1200;
@@ -2232,6 +2549,8 @@
     const spending=monthlySpending();
     const balance=revenue-spending;
     if(balance>=0){state.treasury+=balance*.55;state.debt=Math.max(0,state.debt-balance*.25);}else{state.debt+=-balance;state.treasury-=Math.min(Math.max(0,state.treasury),-balance*.08);}
+    state.debtRatio=state.debt/state.gdp*100;
+    updateFiscalStability();
 
     const demand=(state.baseSpend-state.taxRate-2)*.035;
     state.inflation+=demand/12+(state.growth-state.potentialGrowth)*.025+random(-.18,.18)-state.energyResilience*.025;
@@ -2265,7 +2584,7 @@
     state.month++;
     if(state.month>12){state.month=1;state.year++;}
 
-    const summary=`Monthly report: growth ${pct(state.growth)}, inflation ${pct(state.inflation)}, unemployment ${pct(state.unemployment)}, approval ${Math.round(state.approval)}%.`;
+    const summary=`Monthly report: growth ${pct(state.growth)}, inflation ${pct(state.inflation)}, unemployment ${pct(state.unemployment)}, ${state.monetarySystem.currencyCode} ${formatExchangeRate(state.monetarySystem.exchangeRate)} per USD, stocks ${state.monetarySystem.stockMonthlyReturn>=0?'+':''}${pct(state.monetarySystem.stockMonthlyReturn,2)}, approval ${Math.round(state.approval)}%.`;
     addBrief(summary);
     if(state.turn%3===0){const article=generateCountryArticle(state.countryId,true);addBrief(`${article.section}: ${article.title}. ${article.body}`);}
 
@@ -2338,6 +2657,8 @@
     else if(state.elite<12&&state.power!=='competitive')reason='Party and security elites remove the leadership in an internal challenge.';
     else if(state.hiddenRisk>88&&state.legislature<35)reason='A combined corruption investigation and legislative revolt ends the administration.';
     else if(state.debtRatio>190&&state.inflation>28)reason='A sovereign debt and currency collapse destroys the government.';
+    else if((state.fiscalSystem?.fiscalStress||0)>96&&state.stability<35)reason='A failed bond market, collapsing credit rating, and uncontrolled deficit force the government from power.';
+    else if(reserveMonths()<.6&&state.currencyIndex<18&&state.inflation>20)reason='A reserve exhaustion and currency crisis destroys confidence in the government.';
     if(reason){
       demotePrimaryGovernment(reason);normalize();renderAll();saveGame(false);
       showModalResult('Removed from office',reason,'The simulation does not end. You now control the former governing coalition as a legal opposition party and can attempt a return to power.');
@@ -2406,6 +2727,99 @@
   }
   function resetGame(){localStorage.removeItem('mandate-save');location.reload();}
   function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.add('hidden'),2600);}
+
+  /* MANDATE v0.14 — 142-sector economic engine */
+  const sectorGroupsV14=[
+    ['agriculture','Agriculture & natural production',7,26,.42,.52,.30,['Rice','Wheat & cereals','Corn & feed grains','Fruits','Vegetables','Sugar crops','Coffee & cocoa','Oilseeds','Livestock','Poultry & eggs','Dairy farming','Fisheries','Aquaculture','Forestry','Rubber & natural fibers','Agricultural services']],
+    ['mining','Mining & raw materials',4,8,.75,.82,.44,['Crude oil extraction','Natural gas extraction','Coal mining','Iron ore','Copper','Nickel','Gold & precious metals','Bauxite & aluminum ore','Lithium','Uranium','Rare earths','Phosphate rock','Stone, sand & gravel','Salt & industrial minerals','Mining services']],
+    ['food','Food processing',7,19,.28,.56,.35,['Grain milling','Sugar refining','Edible oils','Meat processing','Seafood processing','Dairy products','Bakery & packaged foods','Beverages','Alcoholic drinks','Tobacco products','Integrated food processing','Animal feed']],
+    ['basicManufacturing','Basic manufacturing',11,13,.64,.68,.46,['Cement','Glass','Ceramics','Steel','Aluminum','Nonferrous metals','Basic chemicals','Fertilizer','Petrochemicals','Plastics & rubber products','Paper & pulp','Packaging','Textiles','Apparel','Leather & footwear','Furniture & wood products']],
+    ['advancedManufacturing','Advanced manufacturing',12,10,.31,.82,.78,['Mechanical components','Industrial machinery','Electrical equipment','Power equipment','Batteries','Semiconductors','Consumer electronics','Mobile phones','Computers & servers','Medical equipment','Pharmaceuticals','Automotive manufacturing','Rail equipment','Aerospace','Shipbuilding','Humanoid robots']],
+    ['energy','Energy & utilities',6,5,.70,.32,.61,['Oil refining','Gas processing','Coal power','Gas power','Nuclear power','Hydroelectric power','Solar power','Wind power','Geothermal power','Biomass power','Hydrogen','Biofuels','Electricity transmission','Battery storage']],
+    ['construction','Construction & infrastructure',7,24,.36,.08,.35,['Residential construction','Commercial construction','Industrial construction','Roads & highways','Rail infrastructure','Airports','Ports','Water & sanitation']],
+    ['transport','Transport & logistics',7,17,.48,.35,.42,['Road freight','Passenger buses','Urban transit','Rail freight','Passenger rail','Air transport','Maritime shipping','Warehousing & logistics']],
+    ['consumerServices','Consumer services',12,29,.15,.10,.32,['Retail trade','Wholesale trade','Tourism & hotels','Restaurants','Entertainment','Culture & media','Sports industry','Personal services','Real estate services']],
+    ['businessServices','Business & financial services',11,16,.08,.30,.63,['Commercial banking','Insurance','Asset management','Stock exchange services','Fintech & payments','Professional services','Legal & accounting','Advertising','Telecommunications','Business process outsourcing']],
+    ['digitalTechnology','Digital & frontier technology',8,8,.10,.58,.95,['Software','Cloud computing','Data centers','Cybersecurity','E-commerce','Social platforms','Video games','Generative AI','Robotics software','Space & satellite services']],
+    ['healthSocial','Health, education & social economy',8,31,.09,.06,.55,['Hospitals','Primary healthcare','Long-term care','Health insurance','Education services','Universities & research','Social care','Housing services']]
+  ];
+  const sectorSlugV14=n=>n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const sectorCatalogV14=sectorGroupsV14.flatMap(g=>g[7].map(name=>({id:sectorSlugV14(name),name,group:g[0],groupLabel:g[1],share:g[2],labor:g[3],carbon:g[4],tradable:g[5],tech:g[6]})));
+  const sectorDefsV14=Object.fromEntries(sectorCatalogV14.map(x=>[x.id,x]));
+  const sectorSpecializationV14={
+    philippines:{agriculture:1.18,food:1.08,businessServices:1.22,digitalTechnology:1.13,advancedManufacturing:.75,mining:.82},
+    unitedstates:{agriculture:.78,mining:.88,advancedManufacturing:1.22,businessServices:1.30,digitalTechnology:1.42,healthSocial:1.12},
+    china:{agriculture:.74,mining:.82,basicManufacturing:1.32,advancedManufacturing:1.50,construction:1.18,digitalTechnology:1.22},
+    france:{agriculture:.90,advancedManufacturing:1.13,businessServices:1.20,healthSocial:1.20,digitalTechnology:1.08,construction:.85},
+    brazil:{agriculture:1.50,mining:1.45,food:1.32,basicManufacturing:.92,digitalTechnology:.75,businessServices:.92},
+    indonesia:{agriculture:1.30,mining:1.28,food:1.16,energy:1.18,consumerServices:1.05,advancedManufacturing:.70},
+    mexico:{agriculture:.95,basicManufacturing:1.18,advancedManufacturing:1.28,transport:1.12,businessServices:1.02,digitalTechnology:.90},
+    turkiye:{agriculture:.95,basicManufacturing:1.25,advancedManufacturing:1.12,construction:1.25,transport:1.08,digitalTechnology:.86}
+  };
+  const sectorStarV14={
+    philippines:{'business-process-outsourcing':1.8,'semiconductors':1.25,'integrated-food-processing':1.2},
+    unitedstates:{'generative-ai':2.1,'software':1.7,'aerospace':1.45,'pharmaceuticals':1.35,'space-and-satellite-services':1.55},
+    china:{'mobile-phones':1.75,'consumer-electronics':1.7,'solar-power':1.65,'batteries':1.6,'steel':1.45,'humanoid-robots':1.45},
+    france:{'aerospace':1.55,'nuclear-power':1.6,'tourism-and-hotels':1.35,'pharmaceuticals':1.25},
+    brazil:{'iron-ore':1.6,'coffee-and-cocoa':1.55,'integrated-food-processing':1.35,'livestock':1.3},
+    indonesia:{'nickel':1.75,'coal-mining':1.45,'geothermal-power':1.35,'fisheries':1.25},
+    mexico:{'automotive-manufacturing':1.65,'medical-equipment':1.35,'mobile-phones':1.3,'aerospace':1.25},
+    turkiye:{'textiles':1.45,'apparel':1.45,'automotive-manufacturing':1.3,'shipbuilding':1.2}
+  };
+  function sectorInputsV14(d){
+    const common={agriculture:['fertilizer','agricultural-services','electricity-transmission','road-freight'],mining:['industrial-machinery','electricity-transmission','road-freight','basic-chemicals'],food:['rice','livestock','fisheries','packaging','electricity-transmission','warehousing-and-logistics'],basicManufacturing:['crude-oil-extraction','natural-gas-extraction','coal-mining','iron-ore','electricity-transmission','road-freight'],advancedManufacturing:['mechanical-components','steel','semiconductors','software','electricity-transmission','warehousing-and-logistics'],energy:['industrial-machinery','electrical-equipment','mechanical-components','mining-services'],construction:['cement','steel','glass','industrial-machinery','road-freight'],transport:['oil-refining','automotive-manufacturing','telecommunications','roads-and-highways'],consumerServices:['electricity-transmission','telecommunications','retail-trade','commercial-banking'],businessServices:['software','telecommunications','electricity-transmission','universities-and-research'],digitalTechnology:['semiconductors','data-centers','electricity-transmission','universities-and-research'],healthSocial:['pharmaceuticals','medical-equipment','education-services','electricity-transmission']};
+    const special={'fertilizer':['phosphate-rock','natural-gas-extraction','basic-chemicals','electricity-transmission'],'hydrogen':['electricity-transmission','natural-gas-extraction','industrial-machinery'],'nuclear-power':['uranium','power-equipment','industrial-machinery'],'solar-power':['semiconductors','glass','aluminum','electrical-equipment'],'wind-power':['steel','mechanical-components','electrical-equipment'],'batteries':['lithium','nickel','copper','basic-chemicals'],'mobile-phones':['semiconductors','batteries','consumer-electronics','software'],'medical-equipment':['semiconductors','mechanical-components','plastics-and-rubber-products','software'],'humanoid-robots':['semiconductors','mechanical-components','batteries','robotics-software','generative-ai'],'generative-ai':['data-centers','semiconductors','cloud-computing','electricity-transmission','universities-and-research'],'integrated-food-processing':['grain-milling','meat-processing','seafood-processing','packaging'],'mechanical-components':['steel','aluminum','industrial-machinery','electricity-transmission']};
+    return (special[d.id]||common[d.group]||[]).filter(id=>sectorDefsV14[id]).slice(0,5);
+  }
+  function createSectorEconomyV14(countryId,gdpValue){
+    const c=countries[countryId],r=seeded(hashSeed(countryId+'-sectors-v14')),spec=sectorSpecializationV14[countryId]||{},stars=sectorStarV14[countryId]||{},raw=[];
+    sectorGroupsV14.forEach(g=>{const ws=g[7].map(n=>(.65+r()*.7)*(stars[sectorSlugV14(n)]||1)),sum=ws.reduce((a,b)=>a+b,0),groupShare=g[2]*(spec[g[0]]||1);g[7].forEach((n,i)=>raw.push({d:sectorDefsV14[sectorSlugV14(n)],share:groupShare*ws[i]/sum}));});
+    const total=raw.reduce((n,x)=>n+x.share,0),gdp=Number.isFinite(gdpValue)?gdpValue:c.gdp,pc=gdp*1000/c.population,sectors={};
+    raw.forEach(x=>{const d=x.d,share=x.share/total*100,production=gdp*share/100,quality=clamp(42+c.education*.32+d.tech*18+(r()-.5)*14,28,96),productivity=clamp(35+c.education*.34+d.tech*25+(r()-.5)*16,22,98),util=clamp(66+r()*22,48,96),specialization=spec[d.group]||1,importDependence=clamp(33-(specialization-1)*28+(r()-.5)*22+(d.tradable>.7?6:0),3,82),exportOrientation=clamp(d.tradable*(18+quality*.42)+(r()-.5)*10,1,72),demand=production*(.90+r()*.24),imports=demand*importDependence/100,exports=production*exportOrientation/100,available=production+imports-exports,shortage=clamp((demand-available)/Math.max(.01,demand)*100,0,100),surplus=clamp((available-demand)/Math.max(.01,demand)*100,0,100),employment=Math.max(1,production*d.labor*(.75+r()*.5)),innovation=clamp(28+c.education*.34+d.tech*30+(r()-.5)*18,12,98);
+      sectors[d.id]={id:d.id,name:d.name,group:d.group,groupLabel:d.groupLabel,share:round(share,3),production:round(production,4),capacity:round(production/(util/100),4),demand:round(demand,4),imports:round(imports,4),exports:round(exports,4),inventoryMonths:round(.45+r()*1.65,2),rawMaterialStock:round(40+r()*95,1),priceIndex:round(96+r()*8,2),inputCostIndex:round(96+r()*8,2),shortage:round(shortage,2),surplus:round(surplus,2),employment:round(employment,1),employmentGrowth:0,wageIndex:round(clamp(45+pc/1800+productivity*.32+(r()-.5)*14,35,165),2),productivity:round(productivity,2),corporateTaxRate:round(clamp(15+c.taxRate*.22+(r()-.5)*5,8,38),2),innovation:round(innovation,2),quality:round(quality,2),emissions:round(production*d.carbon*(.8+r()*.45),4),domesticCompetition:round(clamp(48+r()*35,18,95),2),foreignCompetition:round(clamp(35+d.tradable*42+(r()-.5)*18,8,96),2),importDependence:round(importDependence,2),exportOrientation:round(exportOrientation,2),profitMargin:round(clamp(5+quality*.055+productivity*.035-d.carbon*2+(r()-.5)*7,-8,28),2),growth:round(c.potentialGrowth+(innovation-50)*.025+(r()-.5)*4,2),supplyRisk:0,subsidy:0,tariff:0,embargo:false,rdPriority:false,procurement:false,stateOwned:['nuclear-power','electricity-transmission','water-and-sanitation','rail-infrastructure'].includes(d.id),inputs:sectorInputsV14(d),lastPolicyTurn:-1};
+    });
+    const out={modelVersion:14,countryId,totalSectors:sectorCatalogV14.length,sectors,history:[],lastUpdatedTurn:0};recalcSectorV14(out);return out;
+  }
+  function recalcSectorV14(e){
+    const a=Object.values(e.sectors||{}),production=a.reduce((n,s)=>n+s.production,0),demand=a.reduce((n,s)=>n+s.demand,0),imports=a.reduce((n,s)=>n+s.imports,0),exports=a.reduce((n,s)=>n+s.exports,0),employment=a.reduce((n,s)=>n+s.employment,0),emissions=a.reduce((n,s)=>n+s.emissions,0),taxRevenue=a.reduce((n,s)=>n+Math.max(0,s.production*s.profitMargin/100)*s.corporateTaxRate/100,0),subsidyCost=a.reduce((n,s)=>n+s.production*s.subsidy/100,0),w=Math.max(.01,production),avg=k=>a.reduce((n,s)=>n+s.production*(s[k]||0),0)/w;
+    e.summary={production,demand,imports,exports,tradeBalance:exports-imports,employment,emissions,taxRevenue,subsidyCost,shortage:avg('shortage'),surplus:avg('surplus'),productivity:avg('productivity'),innovation:avg('innovation'),quality:avg('quality'),priceIndex:avg('priceIndex'),outputGrowth:avg('growth'),employmentGrowth:avg('employmentGrowth'),supplyChainRisk:avg('supplyRisk')};e.groups={};sectorGroupsV14.forEach(g=>{const xs=a.filter(s=>s.group===g[0]),out=xs.reduce((n,s)=>n+s.production,0);e.groups[g[0]]={label:g[1],count:xs.length,production:out,employment:xs.reduce((n,s)=>n+s.employment,0),shortage:out?xs.reduce((n,s)=>n+s.production*s.shortage,0)/out:0,growth:out?xs.reduce((n,s)=>n+s.production*s.growth,0)/out:0,exports:xs.reduce((n,s)=>n+s.exports,0),emissions:xs.reduce((n,s)=>n+s.emissions,0)};});return e.summary;
+  }
+  function simulateSectorV14(e,macro){
+    if(!e?.sectors)return;const list=Object.values(e.sectors),currency=macro.currencyIndex||100,education=macro.education||60,business=macro.businessClimate||55,environment=macro.environment||50,energy=macro.energyReliability||70;
+    list.forEach(s=>{const d=sectorDefsV14[s.id],risks=(s.inputs||[]).map(id=>e.sectors[id]?.shortage||0),supplier=risks.length?risks.reduce((a,b)=>a+b,0)/risks.length:0;s.supplyRisk=clamp(supplier*.72+Math.max(0,55-energy)*.35+(s.embargo?s.importDependence*.38:0),0,100);const dg=(macro.growth||2)*.68-(macro.inflation||3)*.10+(business-50)*.018+(s.group==='healthSocial'?.35:0)+(s.group==='digitalTechnology'?.55:0)+random(-.65,.65);s.demand=Math.max(.001,s.demand*(1+dg/1200));const inv=(business-50)*.025+(s.innovation-50)*.018+s.subsidy*.28+(s.rdPriority?1.1:0)+(s.procurement?.65:0)-Math.max(0,(macro.interestRate||5)-6)*.11;s.capacity=Math.max(.001,s.capacity*(1+inv/1200));const oldP=s.production,compet=(s.quality-50)*.018+(s.productivity-50)*.014-(s.inputCostIndex-100)*.025+(currency-100)*-.008-s.supplyRisk*.035,target=Math.min(s.capacity,s.demand*(1.02+s.exportOrientation/260));s.production=Math.max(.001,s.production+(target-s.production)*.08+s.production*(compet+random(-.5,.5))/1200);const gap=Math.max(0,s.demand-s.production),emb=s.embargo?.07:1,tar=Math.max(.35,1-s.tariff/100*1.15);s.imports=Math.max(0,(gap+s.demand*s.importDependence/100*.42)*emb*tar*(1+Math.max(0,100-currency)*.004));const ex=clamp((s.quality+s.productivity)/140+(100-s.priceIndex)*.008+(100-currency)*.003-s.foreignCompetition*.0025,.12,1.6);s.exports=Math.max(0,s.production*s.exportOrientation/100*ex);const md=s.demand/12,stock=s.inventoryMonths*md+(s.production+s.imports-s.exports)/12-md;s.inventoryMonths=clamp(stock/Math.max(.001,md),0,6);const available=s.production+s.imports-s.exports+s.inventoryMonths*md;s.shortage=clamp((s.demand-available)/Math.max(.001,s.demand)*100,0,100);s.surplus=clamp((available-s.demand)/Math.max(.001,s.demand)*100,0,100);s.priceIndex=clamp(s.priceIndex+s.shortage*.055-s.surplus*.025+(macro.inflation||3)/12+(s.inputCostIndex-100)*.025+s.tariff*.014+random(-.18,.18),45,420);s.inputCostIndex=clamp(s.inputCostIndex+(macro.inflation||3)/16+s.supplyRisk*.018+(100-currency)*.006-random(0,.15),45,420);s.rawMaterialStock=clamp(s.rawMaterialStock-s.supplyRisk*.035+(s.imports>gap?.35:.05)+random(-.3,.45),0,240);s.productivity=clamp(s.productivity+(s.innovation-45)*.0024+(s.rdPriority?.07:0)+(education-55)*.0012-s.supplyRisk*.0008+random(-.04,.06),10,130);s.innovation=clamp(s.innovation+(s.rdPriority?.12:.015)+s.subsidy*.008+(education-55)*.0015+random(-.035,.045),0,120);s.quality=clamp(s.quality+(s.innovation-50)*.0018+(s.productivity-50)*.0012+random(-.03,.04),10,120);s.growth=clamp(s.growth*.65+((s.production/oldP-1)*1200)*.35,-35,45);const oldE=s.employment,targetE=Math.max(.1,s.production*d.labor*(100/Math.max(25,s.productivity)));s.employment+=(targetE-s.employment)*.07;s.employmentGrowth=oldE?((s.employment/oldE)-1)*1200:0;s.wageIndex=clamp(s.wageIndex+(macro.inflation||3)/24+(s.productivity-55)*.0015-Math.max(0,(macro.unemployment||5)-7)*.018+random(-.05,.07),25,260);s.profitMargin=clamp(9+(s.priceIndex-s.inputCostIndex)*.08+(s.productivity-55)*.055+(s.quality-55)*.025-s.wageIndex*.018+s.subsidy*.55-s.tariff*.035,-25,38);s.domesticCompetition=clamp(s.domesticCompetition+(s.profitMargin>12?.04:-.02)-(s.stateOwned?.02:0)+random(-.06,.06),5,100);s.foreignCompetition=clamp(s.foreignCompetition+(s.imports>s.exports?.04:-.02)-s.tariff*.002-(s.embargo?.08:0)+random(-.05,.05),2,100);s.emissions=Math.max(0,s.production*d.carbon*(1-s.innovation/500)*(1-(environment-50)/500));});
+    e.lastUpdatedTurn=(e.lastUpdatedTurn||0)+1;const x=recalcSectorV14(e);e.history=e.history||[];e.history.push({production:x.production,price:x.priceIndex,shortage:x.shortage,trade:x.tradeBalance,jobs:x.employment});if(e.history.length>60)e.history.shift();return x;
+  }
+  function ensureSectorV14(target=state){if(!target)return;if(!target.sectorEconomy||Object.keys(target.sectorEconomy.sectors||{}).length!==sectorCatalogV14.length)target.sectorEconomy=createSectorEconomyV14(target.countryId,target.gdp);target.sectorEconomy.totalSectors=sectorCatalogV14.length;Object.values(target.sectorEconomy.sectors).forEach(s=>{s.subsidy=clamp(Number.isFinite(s.subsidy)?s.subsidy:0,0,8);s.tariff=clamp(Number.isFinite(s.tariff)?s.tariff:0,0,60);s.embargo=!!s.embargo;s.rdPriority=!!s.rdPriority;s.procurement=!!s.procurement;s.inputs=s.inputs||sectorInputsV14(sectorDefsV14[s.id]);});recalcSectorV14(target.sectorEconomy);if(target.contentEngine)target.contentEngine.sectorCount=sectorCatalogV14.length;}
+  let sectorViewV14='overview',sectorSearchV14='',sectorFilterV14='all';
+  function sectorStatusV14(s){if(s.shortage>=4)return['Shortage','shortage'];if(s.surplus>=5)return['Surplus','surplus'];return['Balanced','balanced'];}
+  function updatePrimarySectorsV14(){ensureSectorV14();const cm=state.countryModels?.[state.countryId],x=simulateSectorV14(state.sectorEconomy,{growth:state.growth,inflation:state.inflation,unemployment:state.unemployment,interestRate:state.policyRate,currencyIndex:state.currencyIndex,education:state.education,businessClimate:state.businessClimate,environment:state.environment,energyReliability:cm?.energy?.gridReliability||70});state.sectorOutputGrowth=x.outputGrowth;state.sectorEmploymentGrowth=x.employmentGrowth;state.sectorTradeBalance=x.tradeBalance;state.sectorSupplyRisk=x.supplyChainRisk;state.inflation+=((x.priceIndex-100)*.035+x.shortage*.08)*.018;state.unemployment-=x.employmentGrowth*.0025;state.businessClimate+=clamp((x.productivity-55)*.002+(x.quality-55)*.001-x.shortage*.003,-.25,.25);if(cm){cm.trade.balance=x.tradeBalance;cm.sectorEconomy=cloneData(state.sectorEconomy);}}
+  function sectorPolicyV14(id,kind,value=0){const s=state.sectorEconomy?.sectors?.[id];if(!s)return;if(kind==='subsidy')s.subsidy=clamp(s.subsidy+value,0,8);if(kind==='tariff'){s.tariff=clamp(s.tariff+value,0,60);state.inflation+=value>0?.03:-.015;}if(kind==='embargo'){s.embargo=!s.embargo;state.politicalCapital-=s.embargo?2:1;}if(kind==='rd'){s.rdPriority=!s.rdPriority;state.politicalCapital-=1;}if(kind==='procurement'){s.procurement=!s.procurement;state.politicalCapital-=1;state.corruption+=s.procurement?.15:-.05;}s.lastPolicyTurn=state.turn;recalcSectorV14(state.sectorEconomy);const text=`${s.name}: subsidy ${pct(s.subsidy,1)}, tariff ${pct(s.tariff,0)}, imports ${s.embargo?'embargoed':'open'}, R&D ${s.rdPriority?'priority':'normal'}, procurement ${s.procurement?'preferred':'open'}.`;addBrief(`SECTOR POLICY: ${text}`);addTimeline(text);normalize();renderSectorV14();renderMetrics();saveGame(false);}
+  function sectorKpisV14(x){return `<div class="sector-kpis"><div class="sector-kpi"><small>Industrial output</small><strong>${money(x.production)}</strong><em>${pct(x.outputGrowth,1)} weighted growth</em></div><div class="sector-kpi"><small>Employment</small><strong>${round(x.employment/1000,1)}M</strong><em>${x.employmentGrowth>=0?'+':''}${pct(x.employmentGrowth,2)} annualized</em></div><div class="sector-kpi"><small>Supply shortages</small><strong>${pct(x.shortage,1)}</strong><em>${x.shortage>5?'Inflation and production risk':'Broadly balanced'}</em></div><div class="sector-kpi"><small>Sector trade</small><strong>${money(x.tradeBalance)}</strong><em>${x.tradeBalance>=0?'Net exporter':'Net importer'}</em></div><div class="sector-kpi"><small>Productivity</small><strong>${round(x.productivity,0)}/100</strong><em>Industrial efficiency</em></div><div class="sector-kpi"><small>CO₂ emissions</small><strong>${round(x.emissions,1)} Mt</strong><em>Production-linked</em></div></div>`;}
+  function renderSectorV14(){
+    if(!isPrimaryGovernment()){renderRoleAccessNotice('sectors');return;}ensureSectorV14();const e=state.sectorEconomy,x=recalcSectorV14(e),tabs=[['overview','Overview'],['all','All 142 sectors'],['agriculture','Agriculture'],['mining','Mining'],['manufacturing','Manufacturing'],['energy','Energy'],['services','Services'],['supply','Supply chains'],['trade','Trade policy']];let body='';if(sectorViewV14==='overview')body=renderSectorOverviewV14(e,x);else if(sectorViewV14==='supply')body=renderSupplyV14(e);else if(sectorViewV14==='trade')body=renderTradeV14(e);else body=renderSectorTableV14(e,sectorViewV14);el('workspace').innerHTML=titleBlock('Sector Economy','A 142-sector production, consumption, supply-chain, trade, employment, innovation, quality, price, taxation, and emissions model. Every industry changes each month.',`${e.totalSectors} LIVE SECTORS`)+`<div class="intel-tabs">${tabs.map(t=>`<button class="intel-tab ${sectorViewV14===t[0]?'active':''}" data-sector-view="${t[0]}">${t[1]}</button>`).join('')}</div>`+body;bindSectorV14();
+  }
+  function bindSectorV14(){document.querySelectorAll('[data-sector-view]').forEach(b=>b.addEventListener('click',()=>{sectorViewV14=b.dataset.sectorView;renderSectorV14();}));const q=el('sectorSearchV14');if(q)q.addEventListener('input',ev=>{sectorSearchV14=ev.target.value;renderSectorV14();});const f=el('sectorFilterV14');if(f)f.addEventListener('change',ev=>{sectorFilterV14=ev.target.value;renderSectorV14();});document.querySelectorAll('[data-open-sector]').forEach(b=>b.addEventListener('click',()=>openSectorV14(b.dataset.openSector)));}
+  function renderSectorOverviewV14(e,x){const groups=Object.entries(e.groups).sort((a,b)=>b[1].production-a[1].production),short=Object.values(e.sectors).sort((a,b)=>b.shortage-a.shortage).slice(0,8),exports=Object.values(e.sectors).sort((a,b)=>b.exports-a.exports).slice(0,8),innov=Object.values(e.sectors).sort((a,b)=>b.innovation-a.innovation).slice(0,8);return sectorKpisV14(x)+`<div class="sector-group-grid">${groups.map(([id,g])=>`<button class="sector-group-card" data-sector-view="${['basicManufacturing','advancedManufacturing','food'].includes(id)?'manufacturing':['consumerServices','businessServices','digitalTechnology','healthSocial','transport','construction'].includes(id)?'services':id}"><b>${g.label}</b><small>${g.count} modeled sectors</small><div class="group-stats"><span>Output<strong>${money(g.production)}</strong></span><span>Growth<strong>${pct(g.growth,1)}</strong></span><span>Shortage<strong>${pct(g.shortage,1)}</strong></span></div></button>`).join('')}</div><div class="three-col"><div class="panel"><h3>Most severe shortages</h3><div class="panel-sub">Domestic output, imports, and inventories cannot fully meet demand.</div><div class="stat-list">${short.map(s=>barRow(s.name,s.shortage,true)).join('')}</div></div><div class="panel"><h3>Largest export sectors</h3><div class="panel-sub">Industries earning the most external revenue.</div><div class="stat-list">${exports.map(s=>`<div class="stat-row"><b>${s.name}</b><div class="bar"><i class="good" style="width:${clamp(s.exports/Math.max(.01,exports[0].exports)*100)}%"></i></div><span>${money(s.exports)}</span></div>`).join('')}</div></div><div class="panel"><h3>Innovation frontier</h3><div class="panel-sub">Research and commercialization leaders.</div><div class="stat-list">${innov.map(s=>barRow(s.name,s.innovation)).join('')}</div></div></div>`;}
+  function matchSectorViewV14(s,v){if(v==='all')return true;if(v==='agriculture')return['agriculture','food'].includes(s.group);if(v==='mining')return s.group==='mining';if(v==='manufacturing')return['food','basicManufacturing','advancedManufacturing'].includes(s.group);if(v==='energy')return s.group==='energy';if(v==='services')return['construction','transport','consumerServices','businessServices','digitalTechnology','healthSocial'].includes(s.group);return true;}
+  function renderSectorTableV14(e,v){let a=Object.values(e.sectors).filter(s=>matchSectorViewV14(s,v)),q=sectorSearchV14.trim().toLowerCase();if(q)a=a.filter(s=>s.name.toLowerCase().includes(q)||s.groupLabel.toLowerCase().includes(q));if(sectorFilterV14==='shortage')a=a.filter(s=>s.shortage>=4);if(sectorFilterV14==='surplus')a=a.filter(s=>s.surplus>=5);if(sectorFilterV14==='embargo')a=a.filter(s=>s.embargo);if(sectorFilterV14==='strategic')a=a.filter(s=>s.rdPriority||s.procurement||s.subsidy>0);a.sort((a,b)=>b.production-a.production);const table=dataTable('Live industrial ledger','Annualized sector values. Output, demand, jobs, trade, prices, supply chains, and company behavior evolve every month.',['Sector','Output','Demand','Price','Supply','Jobs','Trade','Productivity','Quality',''],a.map(s=>{const st=sectorStatusV14(s);return[`<div class="sector-name"><b>${s.name}</b><small>${s.groupLabel}</small></div>`,money(s.production),money(s.demand),round(s.priceIndex,1),`<span class="sector-status ${st[1]}">${st[0]} ${st[1]==='shortage'?pct(s.shortage,1):st[1]==='surplus'?pct(s.surplus,1):''}</span>`,`${round(s.employment,0)}k`,money(s.exports-s.imports),Math.round(s.productivity),Math.round(s.quality),`<button class="small-btn light" data-open-sector="${s.id}">Manage</button>`]})).replace('class="data-table"','class="data-table sector-table"');return `<div class="sector-toolbar"><input id="sectorSearchV14" value="${sectorSearchV14.replace(/"/g,'&quot;')}" placeholder="Search sectors, products, or industries"><select id="sectorFilterV14"><option value="all" ${sectorFilterV14==='all'?'selected':''}>All conditions</option><option value="shortage" ${sectorFilterV14==='shortage'?'selected':''}>Shortages</option><option value="surplus" ${sectorFilterV14==='surplus'?'selected':''}>Surpluses</option><option value="embargo" ${sectorFilterV14==='embargo'?'selected':''}>Embargoed</option><option value="strategic" ${sectorFilterV14==='strategic'?'selected':''}>Strategic support</option></select><span class="sector-badge">${a.length} sectors shown</span></div>${table}`;}
+  function renderSupplyV14(e){const a=Object.values(e.sectors).map(s=>({s,r:s.supplyRisk||0,inputs:(s.inputs||[]).map(id=>e.sectors[id]).filter(Boolean)})).sort((a,b)=>b.r-a.r),critical=a.slice(0,20);return sectorKpisV14(e.summary)+`<div class="supply-chain-list">${critical.map(x=>`<div class="supply-chain-item"><div><h3>${x.s.name}</h3><p>${x.s.groupLabel}</p></div><div><div class="bar"><i class="${x.r>55?'bad':x.r>30?'warn':'good'}" style="width:${clamp(x.r)}%"></i></div><p>Inputs: ${x.inputs.length?x.inputs.map(i=>`${i.name} (${pct(i.shortage,0)} shortage)`).join(' · '):'No critical modeled inputs'}</p></div><div class="risk">${round(x.r,0)}/100 risk</div></div>`).join('')}</div>`;}
+  function renderTradeV14(e){const a=Object.values(e.sectors).sort((a,b)=>(b.imports+b.exports)-(a.imports+a.exports));return sectorKpisV14(e.summary)+dataTable('Trade, embargoes, and competition','Open Manage to change tariffs, embargoes, subsidies, R&D priorities, and state procurement.',['Sector','Imports','Exports','Balance','Import reliance','Foreign competition','Tariff','Embargo',''],a.map(s=>[s.name,money(s.imports),money(s.exports),money(s.exports-s.imports),pct(s.importDependence,0),Math.round(s.foreignCompetition)+'/100',pct(s.tariff,0),s.embargo?'Active':'Open',`<button class="small-btn light" data-open-sector="${s.id}">Manage</button>`])).replace('class="data-table"','class="data-table sector-table"');}
+  function openSectorV14(id){const s=state.sectorEconomy?.sectors?.[id];if(!s)return;const st=sectorStatusV14(s),inputs=(s.inputs||[]).map(x=>state.sectorEconomy.sectors[x]).filter(Boolean);el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">${s.groupLabel}</div><h2>${s.name}</h2><p class="modal-desc">A live national industry. Support can improve capacity and innovation, while tariffs, embargoes, subsidies, and procurement may raise prices, fiscal costs, corruption, and retaliation risk.</p><div class="sector-detail-grid"><div><small>Production</small><b>${money(s.production)}</b></div><div><small>Demand</small><b>${money(s.demand)}</b></div><div><small>Price index</small><b>${round(s.priceIndex,1)}</b></div><div><small>Supply</small><b>${st[0]} ${st[1]==='shortage'?pct(s.shortage,1):st[1]==='surplus'?pct(s.surplus,1):''}</b></div><div><small>Employment</small><b>${round(s.employment,0)}k</b></div><div><small>Wage index</small><b>${round(s.wageIndex,0)}</b></div><div><small>Productivity</small><b>${round(s.productivity,0)}/100</b></div><div><small>Innovation</small><b>${round(s.innovation,0)}/100</b></div><div><small>Product quality</small><b>${round(s.quality,0)}/100</b></div><div><small>Profit margin</small><b>${pct(s.profitMargin,1)}</b></div><div><small>Imports / exports</small><b>${money(s.imports)} / ${money(s.exports)}</b></div><div><small>CO₂ emissions</small><b>${round(s.emissions,2)} Mt</b></div></div><div class="law-meta">Critical inputs: ${inputs.length?inputs.map(i=>`${i.name} — ${pct(i.shortage,1)} shortage`).join(' · '):'No upstream sectors assigned'}</div><div class="sector-policy-grid"><div class="sector-policy-card"><h4>Production subsidy · ${pct(s.subsidy,1)}</h4><p>Improves investment and capacity but creates permanent government spending.</p><div class="worker-buttons"><button data-sector-action="subsidy" data-id="${s.id}" data-value="-0.5">Reduce</button><button data-sector-action="subsidy" data-id="${s.id}" data-value="0.5">Increase</button></div></div><div class="sector-policy-card"><h4>Import tariff · ${pct(s.tariff,0)}</h4><p>Protects producers but raises input and consumer prices.</p><div class="worker-buttons"><button data-sector-action="tariff" data-id="${s.id}" data-value="-5">Reduce</button><button data-sector-action="tariff" data-id="${s.id}" data-value="5">Increase</button></div></div><div class="sector-policy-card"><h4>Trade access · ${s.embargo?'Embargoed':'Open'}</h4><p>Embargoes remove foreign supply immediately and can produce shortages.</p><button class="small-btn ${s.embargo?'light':'danger'}" data-sector-action="embargo" data-id="${s.id}">${s.embargo?'Lift embargo':'Impose embargo'}</button></div><div class="sector-policy-card"><h4>Strategic R&D · ${s.rdPriority?'Priority':'Normal'}</h4><p>Raises innovation and quality slowly over several years.</p><button class="small-btn ${s.rdPriority?'light':''}" data-sector-action="rd" data-id="${s.id}">${s.rdPriority?'Remove priority':'Set R&D priority'}</button></div><div class="sector-policy-card"><h4>State procurement · ${s.procurement?'Preferred':'Open bidding'}</h4><p>Creates domestic demand but increases capture and corruption risk.</p><button class="small-btn ${s.procurement?'light':''}" data-sector-action="procurement" data-id="${s.id}">${s.procurement?'End preference':'Prefer domestic suppliers'}</button></div><div class="sector-policy-card"><h4>Ownership · ${s.stateOwned?'State-controlled':'Private / mixed'}</h4><p>Ownership changes through privatization or nationalization legislation.</p><span class="sector-badge">Corporate tax ${pct(s.corporateTaxRate,1)}</span></div></div><div class="modal-footer"><button id="closeSectorV14" class="small-btn light">Close</button></div></div></div></div>`;el('closeSectorV14').addEventListener('click',()=>el('modalRoot').innerHTML='');document.querySelectorAll('[data-sector-action]').forEach(b=>b.addEventListener('click',()=>{el('modalRoot').innerHTML='';sectorPolicyV14(b.dataset.id,b.dataset.sectorAction,Number(b.dataset.value||0));}));}
+
+  const buildCountryDataModelV13=buildCountryDataModel;buildCountryDataModel=function(id){const m=buildCountryDataModelV13(id);m.modelVersion=14;m.sectorEconomy=createSectorEconomyV14(id,countries[id].gdp);m.variableCount=numericLeafCount(m);return m;};
+  const newStateV13=newState;newState=function(...args){const s=newStateV13(...args);ensureSectorV14(s);Object.entries(s.countryModels||{}).forEach(([id,m])=>{if(!m.sectorEconomy)m.sectorEconomy=createSectorEconomyV14(id,m.macro.gdp);m.modelVersion=14;m.variableCount=numericLeafCount(m);});return s;};
+  const buildNationalSnapshotV13=buildNationalSnapshot;buildNationalSnapshot=function(...args){const x=buildNationalSnapshotV13(...args);x.sectorEconomy=createSectorEconomyV14(x.countryId,x.gdp);return x;};
+  const normalizeV13=normalize;normalize=function(){normalizeV13();if(state.controlledEntities?.length>1){const keep=state.controlledEntities.find(e=>e.id===state.activeEntityId)||state.controlledEntities[0];state.controlledEntities=[keep];state.activeEntityId=keep.id;}ensureSectorV14();Object.entries(state.countryModels||{}).forEach(([id,m])=>{if(!m.sectorEconomy)m.sectorEconomy=createSectorEconomyV14(id,m.macro?.gdp||COUNTRIES[id]?.gdp||1000);m.modelVersion=Math.max(14,m.modelVersion||0);m.variableCount=numericLeafCount(m);});};
+  const computeGrowthV13=computeGrowth;computeGrowth=function(){const x=state.sectorEconomy?.summary;return clamp(computeGrowthV13()+(x?(x.outputGrowth-2)*.11-x.shortage*.045+(x.productivity-55)*.008+(x.innovation-50)*.004:0),-12,12);};
+  const taxRevenueForecastV13=taxRevenueForecast;taxRevenueForecast=function(){const r=taxRevenueForecastV13(),x=state.sectorEconomy?.summary;if(!x)return r;const diff=clamp(x.taxRevenue/Math.max(.01,state.gdp)*100-1.8,-1.2,1.6);r.grossPct+=diff;r.netTaxPct+=diff;r.totalPct+=diff;r.monthly+=state.gdp*(diff/100)/12;r.byCategory.Business=(r.byCategory.Business||0)+diff;return r;};
+  const monthlySpendingV13=monthlySpending;monthlySpending=function(){return monthlySpendingV13()+(state.sectorEconomy?.summary?.subsidyCost||0)/12;};
+  const updateCountryModelsV13=updateCountryModels;updateCountryModels=function(){updateCountryModelsV13();Object.entries(state.countryModels||{}).forEach(([id,m])=>{if(id===state.countryId){m.sectorEconomy=cloneData(state.sectorEconomy);}else{if(!m.sectorEconomy)m.sectorEconomy=createSectorEconomyV14(id,m.macro.gdp);simulateSectorV14(m.sectorEconomy,{growth:m.macro.realGrowth,inflation:m.macro.inflation,unemployment:m.macro.unemployment,interestRate:m.macro.policyRate||4,currencyIndex:m.markets.currencyIndex||100,education:m.education.testPerformance||60,businessClimate:m.macro.businessConfidence||55,environment:m.environment.environmentScore||50,energyReliability:m.energy.gridReliability||70});}m.modelVersion=14;m.variableCount=numericLeafCount(m);});};
+  const advanceMonthV13=advanceMonth;advanceMonth=function(){if(state&&!state.gameOver&&isPrimaryGovernment())updatePrimarySectorsV14();return advanceMonthV13();};
+  const renderWorkspaceV13=renderWorkspace;renderWorkspace=function(){if(currentPage==='sectors')return renderSectorV14();return renderWorkspaceV13();};
+  const renderDashboardV13=renderDashboard;renderDashboard=function(){renderDashboardV13();if(!isPrimaryGovernment())return;ensureSectorV14();const x=state.sectorEconomy.summary,box=document.createElement('div');box.className='panel';box.innerHTML=`<div class="page-title" style="margin:0 0 12px"><div><h3 style="font-size:14px">142-sector economy</h3><div class="panel-sub">Production, demand, shortages, trade, jobs, innovation, quality, and emissions.</div></div><button class="small-btn light" id="openSectorsV14">Open sector economy</button></div><div class="economy-grid"><div class="economy-cell"><small>Industrial output</small><strong>${money(x.production)}</strong><em>${pct(x.outputGrowth,1)} growth</em></div><div class="economy-cell"><small>Shortages</small><strong>${pct(x.shortage,1)}</strong><em>Weighted supply gap</em></div><div class="economy-cell"><small>Sector trade</small><strong>${money(x.tradeBalance)}</strong><em>${x.tradeBalance>=0?'Surplus':'Deficit'}</em></div><div class="economy-cell"><small>Innovation</small><strong>${round(x.innovation,0)}/100</strong><em>Commercial technology</em></div></div>`;el('workspace').appendChild(box);el('openSectorsV14').addEventListener('click',()=>openPage('sectors'));};
+  const renderRoleAccessNoticeV13=renderRoleAccessNotice;renderRoleAccessNotice=function(page){if(page!=='sectors')return renderRoleAccessNoticeV13(page);const e=getActiveEntity();el('workspace').innerHTML=titleBlock('Government authority required',`${e.name} does not directly control national sector, trade, subsidy, or embargo policy.`,'ROLE-BASED ACCESS')+`<div class="panel"><p class="panel-sub">Win or hold national office to manage the 142-sector economy.</p><button class="primary" data-open-page="operations">Open operations</button></div>`;document.querySelectorAll('[data-open-page]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.openPage)));};
+  openAddEntityModal=()=>showToast('This career is locked to one entity. Start a new game to choose another role or country.');const oldRenderHeaderV14=renderHeader;renderHeader=function(){oldRenderHeaderV14();el('entitySwitcher').disabled=true;};document.querySelector('#nav [data-page="entities"]')?.remove();el('addEntityBtn').style.display='none';const navV14=document.createElement('button');navV14.dataset.page='sectors';navV14.innerHTML='<span class="nav-glyph">S</span>Sector Economy';const billsNavV14=document.querySelector('#nav [data-page="bills"]');document.getElementById('nav').insertBefore(navV14,billsNavV14);document.querySelector('.side-footer').innerHTML='<b>Economic survival:</b> 142 sectors, supply chains, trade, taxes, spending, currencies, debt, and markets interact every month.';
+
 
   initCountryCards();
   initRoleCards();
