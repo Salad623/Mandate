@@ -81,3 +81,7 @@ A new game begins with one playable role and one country or headquarters. The pl
 ## Deployment
 
 Upload `index.html` to a static host such as GitHub Pages, Netlify, or Cloudflare Pages. No backend server is required for this version.
+
+## QA hotfix
+
+A full menu, button, system, save, responsive-layout, and 24-month simulation test was completed on July 12, 2026. The test found and repaired a Main Menu regression introduced during the Version 1.0C merge. See `QA-REPORT.md` for the complete result and test limitations.

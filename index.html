@@ -27,6 +27,25 @@
     button{cursor:pointer}
     .hidden{display:none!important}
 
+    .main-menu-screen{min-height:100vh;display:grid;place-items:center;padding:28px 18px;background:radial-gradient(circle at 50% -10%,rgba(210,33,62,.18),transparent 36%),linear-gradient(180deg,#fff 0%,#fff5f6 100%)}
+    .main-menu-shell{width:min(560px,100%)}
+    .menu-logo{text-align:center;margin-bottom:28px}
+    .menu-emblem{width:66px;height:66px;margin:0 auto 16px;border-radius:21px;background:linear-gradient(145deg,var(--blue-2),var(--blue));box-shadow:0 18px 40px rgba(159,16,38,.22);position:relative}
+    .menu-emblem:before{content:"";position:absolute;width:31px;height:4px;left:17px;top:18px;background:#fff;border-radius:6px;box-shadow:0 11px 0 #fff,0 22px 0 #fff}
+    .menu-emblem:after{content:"";position:absolute;width:4px;height:38px;right:13px;top:13px;background:rgba(255,255,255,.35);border-radius:6px}
+    .menu-logo h1{font-size:clamp(43px,11vw,68px);letter-spacing:-.065em;margin:0;color:var(--ink)}
+    .menu-logo p{margin:8px 0 0;color:var(--blue);font-size:11px;font-weight:900;letter-spacing:.22em;text-transform:uppercase}
+    .menu-save-card{border:1px solid var(--line);background:#fff;border-radius:20px;padding:18px;box-shadow:var(--shadow);margin-bottom:13px;display:grid;grid-template-columns:48px 1fr auto;gap:14px;align-items:center;cursor:pointer}
+    .menu-save-icon{width:48px;height:48px;border-radius:15px;background:var(--blue-3);color:var(--blue);display:grid;place-items:center;font-size:21px;font-weight:950}
+    .menu-save-card small{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:850}
+    .menu-save-card b{display:block;font-size:16px;margin:4px 0}.menu-save-card span{font-size:11px;color:var(--muted)}
+    .menu-actions{display:grid;gap:10px}
+    .menu-action{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:15px;padding:16px 17px;display:flex;align-items:center;justify-content:space-between;text-align:left;font-weight:900;box-shadow:0 8px 24px rgba(83,18,31,.06);transition:.16s ease}
+    .menu-action:hover{transform:translateY(-2px);border-color:#e7a7b4}.menu-action.primary-menu{background:linear-gradient(135deg,var(--blue-2),var(--blue));color:#fff;border-color:transparent;box-shadow:0 14px 30px rgba(159,16,38,.22)}
+    .menu-action:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}.menu-action .arrow{font-size:21px}
+    .menu-note{text-align:center;color:var(--muted);font-size:10px;line-height:1.55;margin:17px auto 0;max-width:430px}
+    .menu-version{display:inline-flex;margin-top:13px;border:1px solid #efb4bf;background:#fff;color:var(--blue);border-radius:999px;padding:6px 9px;font-size:10px;font-weight:900}
+    .brand-tools{display:flex;align-items:center;gap:9px}
     .setup{
       min-height:100vh;
       padding:40px 22px 60px;
@@ -460,6 +479,7 @@
     @media(max-width:900px){.trade-hero{grid-template-columns:repeat(2,1fr)}.trade-hero-main{grid-column:1/-1}.partner-grid,.trade-control-grid,.infra-grid,.institution-grid{grid-template-columns:1fr}.contract-card{grid-template-columns:1fr 1fr}.contract-card>div:first-child{grid-column:1/-1}.trade-response-grid{grid-template-columns:1fr}.partner-stats{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:560px){.trade-hero{grid-template-columns:1fr 1fr;padding:12px}.trade-hero-main{grid-column:1/-1}.trade-kpi{padding:10px}.partner-card{padding:12px}.partner-actions button{flex:1}.trade-action-row{grid-template-columns:1fr}.contract-card{grid-template-columns:1fr 1fr}.institution-grid{grid-template-columns:1fr}}
 
+    @media(max-width:600px){.main-menu-screen{padding:20px 14px}.menu-logo{margin-bottom:22px}.menu-save-card{grid-template-columns:44px 1fr auto;padding:15px}.menu-save-icon{width:44px;height:44px}.brand-tools{align-items:flex-end;flex-direction:column}.top-actions{gap:5px}.top-actions .ghost{padding:9px 10px}.advance{min-width:96px;padding:10px}}
   </style>
   <style id="sector-engine-v014">
 .sector-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.sector-toolbar input,.sector-toolbar select{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 12px;font-size:11px;outline:none}.sector-toolbar input{flex:1;min-width:190px}.sector-toolbar select{min-width:150px}.sector-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:14px}.sector-kpi{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;min-width:0}.sector-kpi small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.11em;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector-kpi strong{display:block;font-size:19px;letter-spacing:-.035em;margin:7px 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector-kpi em{display:block;font-style:normal;color:var(--muted);font-size:9px;line-height:1.35}.sector-group-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:14px}.sector-group-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px;text-align:left;transition:.16s ease}.sector-group-card:hover{border-color:#e3a3b0;transform:translateY(-1px)}.sector-group-card b{display:block;font-size:13px}.sector-group-card small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.group-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}.group-stats span{background:var(--soft);border-radius:9px;padding:8px;font-size:9px;color:var(--muted)}.group-stats strong{font-size:11px;color:var(--ink);margin-top:3px}.sector-table{min-width:1080px}.sector-table td{vertical-align:middle}.sector-name{display:flex;flex-direction:column;gap:3px}.sector-name small{color:var(--muted);font-size:9px;font-weight:500}.sector-status{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:900;white-space:nowrap}.sector-status.shortage{background:#fff0f2;color:var(--danger)}.sector-status.surplus{background:#edf9f3;color:var(--good)}.sector-status.balanced{background:#fff8e9;color:var(--warn)}.sector-detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px 0}.sector-detail-grid div{background:var(--soft);border-radius:11px;padding:10px}.sector-detail-grid small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;font-weight:850}.sector-detail-grid b{display:block;font-size:13px;margin-top:5px}.sector-policy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:13px}.sector-policy-card{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff}.sector-policy-card h4{font-size:11px;margin:0 0 5px}.sector-policy-card p{font-size:9px;color:var(--muted);line-height:1.45;margin:0 0 9px}.supply-chain-list{display:grid;gap:10px}.supply-chain-item{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px;display:grid;grid-template-columns:minmax(160px,1fr) 2fr auto;gap:12px;align-items:center}.supply-chain-item h3{margin:0;font-size:12px}.supply-chain-item p{margin:4px 0 0;font-size:9px;color:var(--muted);line-height:1.4}.supply-chain-item .risk{font-size:11px;font-weight:900;color:var(--danger)}.sector-badge{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 8px;font-size:9px;font-weight:850;color:var(--muted)}
@@ -480,11 +500,20 @@
 </style>
 </head>
 <body>
-  <section id="setup" class="setup">
+  <section id="mainMenu" class="main-menu-screen">
+    <div class="main-menu-shell">
+      <div class="menu-logo"><div class="menu-emblem" aria-hidden="true"></div><h1>MANDATE</h1><p>Global Power Simulator</p><span class="menu-version">VERSION 1.0C · QA HOTFIX</span></div>
+      <div id="menuSaveCard" class="menu-save-card hidden"><div id="menuSaveIcon" class="menu-save-icon">PH</div><div><small>Your career</small><b id="menuSaveTitle">No active career</b><span id="menuSaveMeta"></span></div><span class="arrow">›</span></div>
+      <div class="menu-actions"><button id="menuNewGame" class="menu-action primary-menu" type="button"><span>New Game</span><span class="arrow">›</span></button><button id="menuContinue" class="menu-action" type="button" disabled><span>Continue</span><span class="arrow">›</span></button></div>
+      <p class="menu-note">One locked career per save. Your role may change only through elections, removal, succession, or other events inside the simulation.</p>
+    </div>
+  </section>
+
+  <section id="setup" class="setup hidden">
     <div class="setup-wrap">
       <div class="brand-row">
         <div class="brand"><span class="brand-mark"></span> MANDATE</div>
-        <div class="version">GLOBAL POWER SIMULATOR · 1.0C</div>
+        <div class="brand-tools"><button id="setupBackBtn" class="ghost" type="button">Main menu</button><div class="version">GLOBAL POWER SIMULATOR · 1.0C</div></div>
       </div>
       <div class="hero">
         <div class="eyebrow">A global political and economic power simulator</div>
@@ -556,7 +585,7 @@
         <div class="top-actions">
           <div class="entity-toolbar"><select id="entitySwitcher" class="entity-select" aria-label="Controlled entity"></select><button id="addEntityBtn" class="ghost">+</button></div>
           <button id="saveBtn" class="ghost hide-mobile">Save</button>
-          <button id="resetBtn" class="ghost hide-mobile">New game</button>
+          <button id="resetBtn" class="ghost">Menu</button>
           <button id="advanceBtn" class="advance">Next month</button>
         </div>
       </header>
@@ -1172,6 +1201,19 @@
 
   const el = id => document.getElementById(id);
 
+  function hasSavedCareer(){try{const raw=localStorage.getItem('mandate-save');if(!raw)return false;const parsed=JSON.parse(raw);return !!parsed?.countryId;}catch{return false;}}
+  function updateMainMenu(){
+    const hasSave=!!state?.countryId||hasSavedCareer(),continueBtn=el('menuContinue'),card=el('menuSaveCard');
+    if(continueBtn)continueBtn.disabled=!hasSave;if(card)card.classList.toggle('hidden',!hasSave);if(!hasSave)return;
+    let save=state;if(!save?.countryId){try{save=JSON.parse(localStorage.getItem('mandate-save'));}catch{save=null;}}if(!save)return;
+    const actor=save.controlledEntities?.find(x=>x.id===save.activeEntityId)||save.controlledEntities?.[0];
+    const role=actor?.type==='government'?(actor.office||save.office||'National leader'):actor?.type==='opposition'?'Opposition leader':actor?.type==='underground'?'Underground movement':actor?.type==='company'?'Multinational CEO':(save.office||'National leader');
+    el('menuSaveIcon').textContent=save.code||countries[save.countryId]?.code||'—';el('menuSaveTitle').textContent=actor?.name||`${save.office||'Leader'} ${save.leader||''}`.trim();el('menuSaveMeta').textContent=`${role} · ${save.country||countries[save.countryId]?.name||''} · ${monthNames[(save.month||1)-1]} ${save.year||2026}`;
+  }
+  function showMainMenu(saveCurrent=false){if(saveCurrent&&state?.countryId)saveGame(false);el('mainMenu').classList.remove('hidden');el('setup').classList.add('hidden');el('app').classList.add('hidden');el('modalRoot').innerHTML='';updateMainMenu();window.scrollTo({top:0,behavior:'instant'});}
+  function showNewGameSetup(clearSave=false){if(clearSave){try{localStorage.removeItem('mandate-save');}catch{}state=null;}selectedCountry=null;selectedRole='government';currentPage='dashboard';document.querySelectorAll('[data-role]').forEach(x=>x.classList.toggle('selected',x.dataset.role==='government'));document.querySelectorAll('.country-card').forEach(x=>x.classList.remove('selected'));renderRoleConfig();const err=el('setupError');if(err){err.textContent='';err.classList.remove('show');}const btn=el('startGame');if(btn){btn.dataset.loading='0';btn.disabled=false;btn.classList.remove('is-loading');btn.textContent='Take control';}el('mainMenu').classList.add('hidden');el('app').classList.add('hidden');el('setup').classList.remove('hidden');window.scrollTo({top:0,behavior:'instant'});}
+  function continueSavedCareer(){if(!state?.countryId&&!loadGame()){showToast('No saved career was found.');updateMainMenu();return;}selectedCountry=state.countryId;el('mainMenu').classList.add('hidden');el('setup').classList.add('hidden');el('app').classList.remove('hidden');currentPage='dashboard';document.querySelectorAll('#nav button[data-page]').forEach(x=>x.classList.toggle('active',x.dataset.page==='dashboard'));renderAll();window.scrollTo({top:0,behavior:'instant'});}
+
   function initCountryCards(){
     el('countryGrid').innerHTML = Object.entries(countries).map(([id,c])=>`
       <button class="country-card" data-country="${id}">
@@ -1293,6 +1335,7 @@
         const actor=getActiveEntity();
         addBrief(`You now control ${actor.name} in ${actor.country}. Your career is locked to this entity unless the role changes through gameplay.`);
         addTimeline(`Entered the world as ${actorLabel(actor)}.`);
+        el('mainMenu').classList.add('hidden');
         el('setup').classList.add('hidden');
         el('app').classList.remove('hidden');
         renderAll();
@@ -2797,7 +2840,7 @@
   function loadGame(){
     try{const raw=localStorage.getItem('mandate-save');if(!raw)return false;state=JSON.parse(raw);return !!state.countryId;}catch{return false;}
   }
-  function resetGame(){try{localStorage.removeItem('mandate-save');}catch{}location.reload();}
+  function resetGame(){showNewGameSetup(true);}
   function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.add('hidden'),2600);}
 
   /* MANDATE v0.14 — 142-sector economic engine */
@@ -3084,7 +3127,11 @@
   el('startGame').addEventListener('click',start);
   el('advanceBtn').addEventListener('click',advanceMonth);
   el('saveBtn').addEventListener('click',()=>saveGame(true));
-  el('resetBtn').addEventListener('click',()=>{if(confirm('Start a new world? Your current shared-world save will be deleted.'))resetGame();});
+  el('resetBtn').addEventListener('click',()=>showMainMenu(true));
+  el('menuContinue').addEventListener('click',continueSavedCareer);
+  el('menuSaveCard').addEventListener('click',continueSavedCareer);
+  el('menuNewGame').addEventListener('click',()=>{const hasSave=!!state?.countryId||hasSavedCareer();if(hasSave&&!confirm('Start a new game? This will permanently replace the current career save.'))return;showNewGameSetup(true);});
+  el('setupBackBtn').addEventListener('click',()=>showMainMenu(false));
   el('nav').addEventListener('click',e=>{
     const btn=e.target.closest('button[data-page]');if(!btn)return;
     currentPage=btn.dataset.page;
@@ -3094,10 +3141,8 @@
   el('entitySwitcher').addEventListener('change',e=>switchEntity(e.target.value));
   el('addEntityBtn').addEventListener('click',openAddEntityModal);
 
-  if(loadGame()){
-    selectedCountry=state.countryId;
-    el('setup').classList.add('hidden');el('app').classList.remove('hidden');renderAll();
-  }
+  if(loadGame())selectedCountry=state.countryId;
+  showMainMenu(false);
 })();
 </script>
 </body>
