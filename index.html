@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#9f1026" />
-  <title>MANDATE v0.15 — Main Menu Restored</title>
+  <title>MANDATE 1.0C — Trade & Economic Diplomacy</title>
   <style>
     :root {
       --ink:#271116;
@@ -26,36 +26,6 @@
     button,input,select{font:inherit}
     button{cursor:pointer}
     .hidden{display:none!important}
-
-    .main-menu{
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      padding:28px 18px;
-      background:
-        radial-gradient(circle at 50% -10%, rgba(210,33,62,.20), transparent 35%),
-        linear-gradient(180deg,#fff 0%,#fff7f8 62%,#f8edef 100%);
-    }
-    .menu-shell{width:min(560px,100%);}
-    .menu-logo{text-align:center;margin-bottom:28px}
-    .menu-emblem{width:66px;height:66px;margin:0 auto 16px;border-radius:22px;background:linear-gradient(145deg,var(--blue),var(--blue-2));box-shadow:0 18px 40px rgba(159,16,38,.24);display:grid;place-items:center;color:#fff;font-weight:950;font-size:22px;letter-spacing:-.05em}
-    .menu-logo h1{font-size:clamp(44px,12vw,72px);line-height:.95;letter-spacing:-.06em;margin:0;color:var(--ink)}
-    .menu-logo p{margin:10px 0 0;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.2em;font-weight:850}
-    .save-card{border:1px solid var(--line);background:rgba(255,255,255,.94);border-radius:20px;padding:17px;box-shadow:var(--shadow);margin-bottom:14px}
-    .save-card.empty{opacity:.7}
-    .save-top{display:flex;align-items:center;justify-content:space-between;gap:14px}
-    .save-icon{width:44px;height:44px;border-radius:15px;background:var(--blue-3);border:1px solid #efb5c1;display:grid;place-items:center;color:var(--blue);font-weight:950}
-    .save-copy{flex:1;min-width:0}.save-copy small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.13em;font-weight:900}.save-copy b{display:block;font-size:16px;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.save-copy span{display:block;color:var(--muted);font-size:11px;margin-top:4px}
-    .menu-actions{display:grid;gap:10px}
-    .menu-btn{width:100%;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:16px;padding:16px 18px;display:flex;align-items:center;gap:13px;text-align:left;font-weight:900;box-shadow:0 8px 22px rgba(76,13,27,.05);transition:.16s ease}
-    .menu-btn:hover{transform:translateY(-1px);border-color:#dfa0ad;box-shadow:0 12px 28px rgba(111,10,30,.10)}
-    .menu-btn.primary-menu{border:0;color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue-2));box-shadow:0 15px 30px rgba(159,16,38,.24)}
-    .menu-btn:disabled{opacity:.42;cursor:not-allowed;transform:none;box-shadow:none}
-    .menu-btn .menu-glyph{width:34px;height:34px;border:1px solid currentColor;border-radius:11px;display:grid;place-items:center;font-size:14px;flex:0 0 auto}
-    .menu-btn .menu-text{flex:1}.menu-btn .menu-text small{display:block;font-size:10px;font-weight:650;opacity:.72;margin-top:3px}.menu-arrow{font-size:20px}
-    .menu-note{text-align:center;color:var(--muted);font-size:10px;line-height:1.55;margin-top:17px}
-    .setup-back{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 13px;font-size:11px;font-weight:850}
-    @media(max-width:620px){.main-menu{align-items:start;padding-top:54px}.menu-shell{max-width:420px}.menu-logo{margin-bottom:22px}}
 
     .setup{
       min-height:100vh;
@@ -361,7 +331,7 @@
     @media(max-width:880px){
       .setup-grid{grid-template-columns:1fr}.principles{position:static}
       .app{display:block;padding-bottom:72px}
-      .sidebar{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;height:68px;z-index:30;padding:8px;background:rgba(10,42,102,.97);backdrop-filter:blur(12px)}
+      .sidebar{position:fixed;left:0;right:0;top:auto;bottom:0;width:auto;height:68px;z-index:30;padding:8px;background:rgba(111,8,25,.97);backdrop-filter:blur(12px)}
       .side-brand,.nav-label,.side-footer{display:none}
       .nav{height:100%;display:flex;flex-direction:row;gap:4px;overflow-x:auto;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}
       .nav button{width:auto;min-width:62px;padding:5px 3px;display:flex;flex-direction:column;justify-content:center;gap:3px;font-size:8px;text-align:center}
@@ -462,6 +432,34 @@
     @media(max-width:1050px){.money-hero{grid-template-columns:repeat(2,minmax(0,1fr))}.currency-command{grid-column:span 2}.policy-mix-grid,.regime-grid{grid-template-columns:repeat(2,1fr)}.market-board{grid-template-columns:1fr}}
     @media(max-width:700px){.money-hero{grid-template-columns:1fr 1fr}.currency-command{grid-column:span 2}.currency-actions,.market-tape,.agency-grid,.lender-grid{grid-template-columns:1fr}.loan-row{grid-template-columns:1fr 1fr}.loan-row>div:first-child{grid-column:1/-1}.policy-mix-grid,.regime-grid{grid-template-columns:1fr 1fr}}
 
+  
+    .entity-toolbar{display:none!important}
+
+    /* MANDATE 1.0C — Trade & Economic Diplomacy */
+    .trade-tabs{display:flex;gap:8px;overflow:auto;padding-bottom:4px;margin-bottom:14px;scrollbar-width:none}
+    .trade-tabs::-webkit-scrollbar{display:none}
+    .trade-tab{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:999px;padding:9px 13px;font-size:11px;font-weight:850;white-space:nowrap}
+    .trade-tab.active{background:var(--blue);border-color:var(--blue);color:#fff}
+    .trade-hero{display:grid;grid-template-columns:1.25fr repeat(4,minmax(0,.72fr));gap:10px;background:linear-gradient(135deg,#6f0819,#c91938);border-radius:20px;padding:16px;margin-bottom:14px;color:#fff;box-shadow:0 18px 38px rgba(111,8,25,.18)}
+    .trade-hero-main{padding:4px 7px}.trade-hero-main small,.trade-kpi small{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;opacity:.72}
+    .trade-hero-main strong{display:block;font-size:28px;letter-spacing:-.045em;margin:7px 0 4px}.trade-hero-main span{font-size:11px;line-height:1.45;opacity:.84}
+    .trade-kpi{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:12px;min-width:0}.trade-kpi strong{display:block;font-size:17px;margin:8px 0 4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.trade-kpi span{font-size:9px;opacity:.75}
+    .trade-alerts{display:grid;gap:8px}.trade-alert{border-left:4px solid var(--blue-2);padding:11px 12px;background:#fff8f9;border-radius:10px;font-size:11px;line-height:1.5}.trade-alert.warn{border-color:var(--warn);background:#fff9ef}.trade-alert.good{border-color:var(--good);background:#f2fbf7}.trade-alert b{display:block;margin-bottom:3px}
+    .partner-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .partner-card{border:1px solid var(--line);background:#fff;border-radius:17px;padding:15px;box-shadow:0 8px 20px rgba(60,20,30,.04)}
+    .partner-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.partner-head h3{margin:0;font-size:15px}.partner-head p{margin:4px 0 0;font-size:10px;color:var(--muted)}
+    .relation-badge{font-size:10px;font-weight:900;border-radius:999px;padding:6px 8px;background:var(--blue-3);color:var(--blue-2);white-space:nowrap}.relation-badge.good{background:#eaf8f1;color:var(--good)}.relation-badge.bad{background:#fff0f1;color:var(--danger)}
+    .partner-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:13px 0}.partner-stat{background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:9px;min-width:0}.partner-stat small{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:850}.partner-stat b{display:block;font-size:12px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .partner-actions{display:flex;gap:7px;flex-wrap:wrap}.partner-actions button{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:9px;padding:8px 10px;font-size:10px;font-weight:850}.partner-actions button.primary-mini{background:var(--blue);border-color:var(--blue);color:#fff}.partner-actions button.danger-mini{background:#fff1f3;border-color:#f0b5c0;color:var(--danger)}
+    .trade-control-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.trade-control{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}.trade-control h3{margin:0 0 5px;font-size:14px}.trade-control p{font-size:10px;color:var(--muted);line-height:1.5;margin:0 0 12px}.trade-control label{display:grid;gap:5px;font-size:9px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);font-weight:850;margin-bottom:9px}.trade-control select{border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px;color:var(--ink);text-transform:none;letter-spacing:0;font-size:11px;font-weight:700}.trade-action-row{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}.trade-action-row button{border:0;background:var(--blue);color:#fff;border-radius:10px;padding:10px;font-size:10px;font-weight:850}.trade-action-row button.secondary{background:#fff;border:1px solid var(--line);color:var(--ink)}
+    .contract-list{display:grid;gap:9px}.contract-card{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(4,minmax(70px,.65fr));gap:10px;align-items:center;border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff}.contract-card h4{margin:0;font-size:12px}.contract-card p{margin:4px 0 0;font-size:9px;color:var(--muted)}.contract-cell small{display:block;font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;font-weight:850}.contract-cell b{display:block;margin-top:5px;font-size:11px}.contract-status{font-size:9px;font-weight:900;color:var(--good)}
+    .infra-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.infra-card{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}.infra-card h3{font-size:14px;margin:0 0 6px}.infra-card p{font-size:10px;line-height:1.5;color:var(--muted);min-height:45px}.infra-meta{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.infra-meta span{font-size:9px;font-weight:850;background:var(--soft);border:1px solid var(--line);border-radius:999px;padding:6px 8px}.infra-card button{width:100%;border:0;background:var(--blue);color:#fff;border-radius:10px;padding:10px;font-size:10px;font-weight:850}
+    .institution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.institution-card{border:1px solid var(--line);border-radius:16px;padding:15px;background:#fff}.institution-card h3{margin:0;font-size:14px}.institution-card p{font-size:10px;color:var(--muted);line-height:1.5}.institution-score{display:flex;align-items:center;gap:10px;margin:12px 0}.institution-score strong{font-size:24px;color:var(--blue-2)}.institution-score .bar{flex:1}.institution-card button{border:1px solid var(--line);background:#fff;border-radius:9px;padding:9px 11px;font-size:10px;font-weight:850;color:var(--ink)}
+    .organization-card{border:1px solid var(--line);border-radius:15px;padding:14px;background:#fff;display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:9px}.organization-card h4{margin:0;font-size:12px}.organization-card p{margin:4px 0 0;font-size:9px;color:var(--muted)}.organization-card button{border:0;background:var(--blue);color:#fff;border-radius:9px;padding:9px 11px;font-size:10px;font-weight:850;white-space:nowrap}
+    .trade-response-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}.trade-response{border:1px solid var(--line);border-radius:14px;padding:13px;background:#fff}.trade-response small{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);font-weight:850}.trade-response strong{display:block;font-size:18px;margin:7px 0}.trade-response p{font-size:9px;line-height:1.45;color:var(--muted);margin:0}
+    @media(max-width:900px){.trade-hero{grid-template-columns:repeat(2,1fr)}.trade-hero-main{grid-column:1/-1}.partner-grid,.trade-control-grid,.infra-grid,.institution-grid{grid-template-columns:1fr}.contract-card{grid-template-columns:1fr 1fr}.contract-card>div:first-child{grid-column:1/-1}.trade-response-grid{grid-template-columns:1fr}.partner-stats{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.trade-hero{grid-template-columns:1fr 1fr;padding:12px}.trade-hero-main{grid-column:1/-1}.trade-kpi{padding:10px}.partner-card{padding:12px}.partner-actions button{flex:1}.trade-action-row{grid-template-columns:1fr}.contract-card{grid-template-columns:1fr 1fr}.institution-grid{grid-template-columns:1fr}}
+
   </style>
   <style id="sector-engine-v014">
 .sector-toolbar{display:flex;gap:9px;align-items:center;flex-wrap:wrap;margin-bottom:14px}.sector-toolbar input,.sector-toolbar select{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:11px;padding:10px 12px;font-size:11px;outline:none}.sector-toolbar input{flex:1;min-width:190px}.sector-toolbar select{min-width:150px}.sector-kpis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;margin-bottom:14px}.sector-kpi{border:1px solid var(--line);background:#fff;border-radius:14px;padding:13px;min-width:0}.sector-kpi small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.11em;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector-kpi strong{display:block;font-size:19px;letter-spacing:-.035em;margin:7px 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.sector-kpi em{display:block;font-style:normal;color:var(--muted);font-size:9px;line-height:1.35}.sector-group-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin-bottom:14px}.sector-group-card{border:1px solid var(--line);background:#fff;border-radius:15px;padding:14px;text-align:left;transition:.16s ease}.sector-group-card:hover{border-color:#e3a3b0;transform:translateY(-1px)}.sector-group-card b{display:block;font-size:13px}.sector-group-card small{display:block;color:var(--muted);font-size:9px;margin-top:3px}.group-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:11px}.group-stats span{background:var(--soft);border-radius:9px;padding:8px;font-size:9px;color:var(--muted)}.group-stats strong{font-size:11px;color:var(--ink);margin-top:3px}.sector-table{min-width:1080px}.sector-table td{vertical-align:middle}.sector-name{display:flex;flex-direction:column;gap:3px}.sector-name small{color:var(--muted);font-size:9px;font-weight:500}.sector-status{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;font-size:8px;font-weight:900;white-space:nowrap}.sector-status.shortage{background:#fff0f2;color:var(--danger)}.sector-status.surplus{background:#edf9f3;color:var(--good)}.sector-status.balanced{background:#fff8e9;color:var(--warn)}.sector-detail-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:14px 0}.sector-detail-grid div{background:var(--soft);border-radius:11px;padding:10px}.sector-detail-grid small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;font-weight:850}.sector-detail-grid b{display:block;font-size:13px;margin-top:5px}.sector-policy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:13px}.sector-policy-card{border:1px solid var(--line);border-radius:13px;padding:12px;background:#fff}.sector-policy-card h4{font-size:11px;margin:0 0 5px}.sector-policy-card p{font-size:9px;color:var(--muted);line-height:1.45;margin:0 0 9px}.supply-chain-list{display:grid;gap:10px}.supply-chain-item{border:1px solid var(--line);border-radius:14px;background:#fff;padding:13px;display:grid;grid-template-columns:minmax(160px,1fr) 2fr auto;gap:12px;align-items:center}.supply-chain-item h3{margin:0;font-size:12px}.supply-chain-item p{margin:4px 0 0;font-size:9px;color:var(--muted);line-height:1.4}.supply-chain-item .risk{font-size:11px;font-weight:900;color:var(--danger)}.sector-badge{display:inline-flex;align-items:center;gap:5px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:6px 8px;font-size:9px;font-weight:850;color:var(--muted)}
@@ -469,48 +467,33 @@
 /* v0.14 preserves the single-career rule: the current actor is visible but cannot be switched. */
 .entity-select:disabled{opacity:1;color:var(--ink);background:#fff;cursor:default;appearance:none;-webkit-appearance:none;padding-right:12px}
 
+
+/* Version 1.0C — reliable launch and trade diplomacy */
+.setup-actions-wrap{display:flex;flex-direction:column;gap:8px}
+.setup-error{display:none;border:1px solid #efb4bf;background:#fff1f3;color:#8b1028;border-radius:11px;padding:10px 12px;font-size:10px;font-weight:800;line-height:1.45}
+.setup-error.show{display:block;animation:setupShake .28s ease}
+.country-grid.needs-selection{outline:3px solid rgba(196,30,58,.22);outline-offset:7px;border-radius:14px;animation:setupShake .28s ease}
+#startGame.is-loading{cursor:wait;opacity:.88;position:relative;padding-left:42px}
+#startGame.is-loading:before{content:"";position:absolute;left:17px;top:50%;width:15px;height:15px;margin-top:-8px;border:2px solid rgba(255,255,255,.45);border-top-color:#fff;border-radius:50%;animation:spinLaunch .7s linear infinite}
+@keyframes spinLaunch{to{transform:rotate(360deg)}}
+@keyframes setupShake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 </style>
 </head>
 <body>
-  <section id="mainMenu" class="main-menu">
-    <div class="menu-shell">
-      <div class="menu-logo">
-        <div class="menu-emblem">M</div>
-        <h1>MANDATE</h1>
-        <p>Global Power Simulator</p>
-      </div>
-      <div id="menuSaveCard" class="save-card empty">
-        <div class="save-top">
-          <div class="save-icon">S</div>
-          <div class="save-copy">
-            <small>Current career</small>
-            <b id="menuSaveTitle">No saved game</b>
-            <span id="menuSaveMeta">Start a new career to create a local save.</span>
-          </div>
-        </div>
-      </div>
-      <div class="menu-actions">
-        <button id="menuNewGame" class="menu-btn primary-menu"><span class="menu-glyph">＋</span><span class="menu-text">New Game<small>Choose one role and country for a locked career.</small></span><span class="menu-arrow">›</span></button>
-        <button id="menuContinue" class="menu-btn" disabled><span class="menu-glyph">▶</span><span class="menu-text">Continue<small>Resume your latest saved career.</small></span><span class="menu-arrow">›</span></button>
-      </div>
-      <div class="menu-note">One playable entity per career. To choose another role or country, return here and begin a new game.</div>
-    </div>
-  </section>
-
-  <section id="setup" class="setup hidden">
+  <section id="setup" class="setup">
     <div class="setup-wrap">
       <div class="brand-row">
         <div class="brand"><span class="brand-mark"></span> MANDATE</div>
-        <div style="display:flex;align-items:center;gap:8px"><button id="setupBack" class="setup-back">Main menu</button><div class="version">SECTOR ECONOMY · v0.15</div></div>
+        <div class="version">GLOBAL POWER SIMULATOR · 1.0C</div>
       </div>
       <div class="hero">
         <div class="eyebrow">A global political and economic power simulator</div>
-        <h1>Control a government—or challenge one.</h1>
-        <p>Choose one political or corporate career and live with that choice for the entire save. Every playable country carries a deep national model, while national leaders directly manage ministers, budgets, workers, security, intelligence, laws, markets, projects, and crises.</p>
+        <h1>Choose one path to power.</h1>
+        <p>Begin one locked career as a national leader, opposition leader, underground movement, or multinational CEO. Your country, organization, and role can change only through gameplay or by starting a new game.</p>
       </div>
       <div class="setup-grid">
         <div class="country-panel">
-          <div class="panel-head"><div><h2>Choose your starting role</h2><span>Your selected role is locked for this career unless gameplay changes your political position.</span></div></div>
+          <div class="panel-head"><div><h2>Choose your starting role</h2><span>Choose carefully. This starting entity is locked for the entire career.</span></div></div>
           <div id="roleGrid" class="role-grid">
             <button class="role-card selected" data-role="government"><small>Government</small><b>Head of state or government</b><span>Play as a president, prime minister, king, or queen.</span></button>
             <button class="role-card" data-role="opposition"><small>Legal politics</small><b>Opposition party leader</b><span>Build support, win seats, expose the government, and contest elections.</span></button>
@@ -518,11 +501,14 @@
             <button class="role-card" data-role="company"><small>Corporate power</small><b>Multinational CEO</b><span>Invest, expand, lobby governments, acquire rivals, and dominate markets.</span></button>
           </div>
           <div id="roleConfig" class="role-config"></div>
-          <div class="panel-head"><div><h2>Choose your country or headquarters</h2><span>This country is locked to your new career.</span></div></div>
+          <div class="panel-head"><div><h2>Choose your country or headquarters</h2><span>This becomes the country or headquarters for your single career.</span></div></div>
           <div id="countryGrid" class="country-grid"></div>
-          <div class="setup-actions">
-            <input id="leaderName" class="name-input" value="Salha Akmad" maxlength="30" aria-label="Leader name" />
-            <button id="startGame" class="primary" disabled>Enter the world</button>
+          <div class="setup-actions-wrap">
+            <div class="setup-actions">
+              <input id="leaderName" class="name-input" value="Salha Akmad" maxlength="30" aria-label="Leader name" />
+              <button id="startGame" class="primary" type="button">Enter the world</button>
+            </div>
+            <div id="setupError" class="setup-error" role="alert" aria-live="polite"></div>
           </div>
         </div>
         <aside class="principles">
@@ -549,6 +535,7 @@
         <button data-page="government"><span class="nav-glyph">G</span>Government</button>
         <button data-page="finance"><span class="nav-glyph">$</span>Tax & Budget</button>
         <button data-page="monetary"><span class="nav-glyph">M</span>Money & Markets</button>
+        <button data-page="trade"><span class="nav-glyph">X</span>Trade & Diplomacy</button>
         <button data-page="bills"><span class="nav-glyph">B</span>Bills</button>
         <button data-page="laws"><span class="nav-glyph">L</span>Laws</button>
         <button data-page="projects"><span class="nav-glyph">P</span>Projects</button>
@@ -569,7 +556,7 @@
         <div class="top-actions">
           <div class="entity-toolbar"><select id="entitySwitcher" class="entity-select" aria-label="Controlled entity"></select><button id="addEntityBtn" class="ghost">+</button></div>
           <button id="saveBtn" class="ghost hide-mobile">Save</button>
-          <button id="resetBtn" class="ghost" title="Return to main menu">Menu</button>
+          <button id="resetBtn" class="ghost hide-mobile">New game</button>
           <button id="advanceBtn" class="advance">Next month</button>
         </div>
       </header>
@@ -1184,65 +1171,6 @@
   let pendingEvent = null;
 
   const el = id => document.getElementById(id);
-  let volatileSave = null;
-  function storageGet(key){try{return localStorage.getItem(key);}catch{return key==='mandate-save'?volatileSave:null;}}
-  function storageSet(key,value){try{localStorage.setItem(key,value);}catch{if(key==='mandate-save')volatileSave=value;}}
-  function storageRemove(key){try{localStorage.removeItem(key);}catch{if(key==='mandate-save')volatileSave=null;}}
-
-  function readSaveSummary(){
-    try{
-      const raw=storageGet('mandate-save');
-      if(!raw)return null;
-      const save=JSON.parse(raw);
-      if(!save?.countryId)return null;
-      const actor=Array.isArray(save.controlledEntities)?save.controlledEntities.find(x=>x.id===save.activeEntityId)||save.controlledEntities[0]:null;
-      return {
-        title:actor?.name||`${save.office||'Leader'} ${save.leader||''}`.trim(),
-        role:actor?.type||save.startingRole||'government',
-        country:save.country||countries[save.countryId]?.name||save.countryId,
-        month:save.month||1,
-        year:save.year||2026
-      };
-    }catch{return null;}
-  }
-  function updateMainMenu(){
-    const info=readSaveSummary(),card=el('menuSaveCard'),btn=el('menuContinue');
-    if(info){
-      const roleLabel={government:'National leader',opposition:'Opposition leader',underground:'Underground movement',company:'Multinational CEO'}[info.role]||'Career';
-      card.classList.remove('empty');
-      el('menuSaveTitle').textContent=info.title;
-      el('menuSaveMeta').textContent=`${roleLabel} · ${info.country} · ${monthNames[(info.month-1)%12]} ${info.year}`;
-      btn.disabled=false;
-    }else{
-      card.classList.add('empty');
-      el('menuSaveTitle').textContent='No saved game';
-      el('menuSaveMeta').textContent='Start a new career to create a local save.';
-      btn.disabled=true;
-    }
-  }
-  function showMainMenu(saveCurrent=false){
-    if(saveCurrent&&state)saveGame(false);
-    el('app').classList.add('hidden');
-    el('setup').classList.add('hidden');
-    el('mainMenu').classList.remove('hidden');
-    el('modalRoot').innerHTML='';
-    updateMainMenu();
-  }
-  function showNewGameSetup(){
-    el('mainMenu').classList.add('hidden');
-    el('app').classList.add('hidden');
-    el('setup').classList.remove('hidden');
-    window.scrollTo(0,0);
-  }
-  function continueSavedGame(){
-    if(!loadGame()){updateMainMenu();showToast('No valid saved game was found.');return;}
-    selectedCountry=state.countryId;
-    el('mainMenu').classList.add('hidden');
-    el('mainMenu').classList.add('hidden');
-    el('setup').classList.add('hidden');
-    el('app').classList.remove('hidden');
-    renderAll();
-  }
 
   function initCountryCards(){
     el('countryGrid').innerHTML = Object.entries(countries).map(([id,c])=>`
@@ -1255,6 +1183,8 @@
     document.querySelectorAll('.country-card').forEach(card=>card.addEventListener('click',()=>{
       selectedCountry=card.dataset.country;
       document.querySelectorAll('.country-card').forEach(x=>x.classList.toggle('selected',x===card));
+      el('countryGrid').classList.remove('needs-selection');
+      const err=el('setupError');if(err){err.textContent='';err.classList.remove('show');}
       el('startGame').disabled=false;
     }));
   }
@@ -1343,17 +1273,37 @@
   }
 
   function start(){
-    if(storageGet('mandate-save')&&!confirm('Starting a new game will replace your current saved career. Continue?'))return;
-    const name=el('leaderName').value.trim() || 'Alex Morgan';
-    const options={role:selectedRole,...roleOptionsFromSetup()};
-    state=newState(selectedCountry,name,options);
-    const actor=getActiveEntity();
-    addBrief(`You now control ${actor.name} in ${actor.country}. Other governments, parties, movements, and companies will continue evolving every month.`);
-    addTimeline(`Entered the world as ${actorLabel(actor)}.`);
-    el('setup').classList.add('hidden');
-    el('app').classList.remove('hidden');
-    renderAll();
-    saveGame(false);
+    const btn=el('startGame'),err=el('setupError');
+    if(btn?.dataset.loading==='1')return;
+    if(!selectedCountry){
+      if(err){err.textContent='Choose a country or headquarters before taking control.';err.classList.remove('show');void err.offsetWidth;err.classList.add('show');}
+      el('countryGrid')?.classList.add('needs-selection');
+      el('countryGrid')?.scrollIntoView({behavior:'smooth',block:'center'});
+      return;
+    }
+    const normalLabel=selectedRole==='government'?'Take control':selectedRole==='company'?'Launch company':'Begin campaign';
+    btn.dataset.loading='1';btn.disabled=true;btn.classList.add('is-loading');btn.textContent='Creating your world…';
+    if(err){err.textContent='Preparing the economy, institutions, parties, and national data…';err.classList.add('show');}
+    // Let mobile browsers paint the loading state before building the large world model.
+    requestAnimationFrame(()=>setTimeout(()=>{
+      try{
+        const name=el('leaderName').value.trim() || 'Alex Morgan';
+        const options={role:selectedRole,...roleOptionsFromSetup()};
+        state=newState(selectedCountry,name,options);
+        const actor=getActiveEntity();
+        addBrief(`You now control ${actor.name} in ${actor.country}. Your career is locked to this entity unless the role changes through gameplay.`);
+        addTimeline(`Entered the world as ${actorLabel(actor)}.`);
+        el('setup').classList.add('hidden');
+        el('app').classList.remove('hidden');
+        renderAll();
+        saveGame(false);
+      }catch(error){
+        console.error('Unable to start MANDATE:',error);
+        el('setup').classList.remove('hidden');el('app').classList.add('hidden');
+        btn.dataset.loading='0';btn.disabled=false;btn.classList.remove('is-loading');btn.textContent=normalLabel;
+        if(err){err.textContent=`The game could not start: ${error?.message||'unknown browser error'}. Refresh the page and try again.`;err.classList.add('show');}
+      }
+    },60));
   }
 
   function renderAll(){
@@ -2834,13 +2784,20 @@
   }
 
   function saveGame(toast=true){
-    storageSet('mandate-save',JSON.stringify(state));
-    if(toast)showToast('Game saved on this device.');
+    try{
+      localStorage.setItem('mandate-save',JSON.stringify(state));
+      if(toast)showToast('Game saved on this device.');
+      return true;
+    }catch(error){
+      console.warn('Local save unavailable:',error);
+      if(toast)showToast('The game is running, but this browser blocked local saving.');
+      return false;
+    }
   }
   function loadGame(){
-    try{const raw=storageGet('mandate-save');if(!raw)return false;state=JSON.parse(raw);return !!state.countryId;}catch{return false;}
+    try{const raw=localStorage.getItem('mandate-save');if(!raw)return false;state=JSON.parse(raw);return !!state.countryId;}catch{return false;}
   }
-  function resetGame(){storageRemove('mandate-save');state=null;selectedCountry=null;showMainMenu(false);}
+  function resetGame(){try{localStorage.removeItem('mandate-save');}catch{}location.reload();}
   function showToast(msg){const t=el('toast');t.textContent=msg;t.classList.remove('hidden');clearTimeout(showToast.timer);showToast.timer=setTimeout(()=>t.classList.add('hidden'),2600);}
 
   /* MANDATE v0.14 — 142-sector economic engine */
@@ -2935,16 +2892,199 @@
   const renderRoleAccessNoticeV13=renderRoleAccessNotice;renderRoleAccessNotice=function(page){if(page!=='sectors')return renderRoleAccessNoticeV13(page);const e=getActiveEntity();el('workspace').innerHTML=titleBlock('Government authority required',`${e.name} does not directly control national sector, trade, subsidy, or embargo policy.`,'ROLE-BASED ACCESS')+`<div class="panel"><p class="panel-sub">Win or hold national office to manage the 142-sector economy.</p><button class="primary" data-open-page="operations">Open operations</button></div>`;document.querySelectorAll('[data-open-page]').forEach(b=>b.addEventListener('click',()=>openPage(b.dataset.openPage)));};
   openAddEntityModal=()=>showToast('This career is locked to one entity. Start a new game to choose another role or country.');const oldRenderHeaderV14=renderHeader;renderHeader=function(){oldRenderHeaderV14();el('entitySwitcher').disabled=true;};document.querySelector('#nav [data-page="entities"]')?.remove();el('addEntityBtn').style.display='none';const navV14=document.createElement('button');navV14.dataset.page='sectors';navV14.innerHTML='<span class="nav-glyph">S</span>Sector Economy';const billsNavV14=document.querySelector('#nav [data-page="bills"]');document.getElementById('nav').insertBefore(navV14,billsNavV14);document.querySelector('.side-footer').innerHTML='<b>Economic survival:</b> 142 sectors, supply chains, trade, taxes, spending, currencies, debt, and markets interact every month.';
 
+  /* =========================================================
+     MANDATE 1.0C — TRADE & ECONOMIC DIPLOMACY
+     ========================================================= */
+  const tradePartnerCatalogV1C=[
+    {id:'unitedstates',name:'United States',bloc:'North America',market:96,resources:['Aircraft','Semiconductors','Agriculture'],currency:'USD'},
+    {id:'china',name:'China',bloc:'East Asia',market:94,resources:['Electronics','Machinery','Rare-earth processing'],currency:'CNY'},
+    {id:'france',name:'France / European market',bloc:'European Union',market:82,resources:['Aerospace','Pharmaceuticals','Luxury goods'],currency:'EUR'},
+    {id:'brazil',name:'Brazil',bloc:'South America',market:71,resources:['Food','Iron ore','Biofuels'],currency:'BRL'},
+    {id:'indonesia',name:'Indonesia',bloc:'ASEAN',market:73,resources:['Nickel','Coal','Palm products'],currency:'IDR'},
+    {id:'mexico',name:'Mexico',bloc:'North America',market:72,resources:['Vehicles','Electronics','Agri-food'],currency:'MXN'},
+    {id:'turkiye',name:'Türkiye',bloc:'Europe / West Asia',market:67,resources:['Machinery','Textiles','Defense equipment'],currency:'TRY'},
+    {id:'japan',name:'Japan',bloc:'East Asia',market:86,resources:['Vehicles','Robotics','Precision machinery'],currency:'JPY'},
+    {id:'southkorea',name:'South Korea',bloc:'East Asia',market:80,resources:['Semiconductors','Ships','Batteries'],currency:'KRW'},
+    {id:'india',name:'India',bloc:'South Asia',market:89,resources:['Pharmaceuticals','Software','Refined fuels'],currency:'INR'},
+    {id:'gulf',name:'Gulf Cooperation Council',bloc:'Middle East',market:76,resources:['Oil','Natural gas','Investment capital'],currency:'GCC'},
+    {id:'africa',name:'African Continental Market',bloc:'Africa',market:64,resources:['Critical minerals','Food commodities','New consumers'],currency:'AFR'},
+    {id:'asean',name:'ASEAN Regional Market',bloc:'Southeast Asia',market:78,resources:['Components','Food','Consumer goods'],currency:'ASEAN'},
+    {id:'eu',name:'European Union',bloc:'Europe',market:93,resources:['Capital goods','Medical equipment','Green technology'],currency:'EUR'}
+  ];
+  const tradeInstitutionDefsV1C=[
+    {id:'tradeForum',name:'World Trade Forum',desc:'Sets market-access norms, dispute procedures, and global trade rules.',effect:'Improves agreement acceptance and reduces retaliation risk.'},
+    {id:'stabilizationFund',name:'International Stabilization Fund',desc:'Coordinates emergency balance-of-payments and currency support.',effect:'Improves lender access and crisis credibility.'},
+    {id:'developmentBank',name:'Global Development Bank',desc:'Finances infrastructure, energy, logistics, and industrial upgrading.',effect:'Improves infrastructure finance and project terms.'},
+    {id:'regionalReserve',name:'Regional Reserve Facility',desc:'Provides reserve swaps and emergency liquidity among partner states.',effect:'Strengthens foreign-reserve defense and monetary cooperation.'}
+  ];
+  const tradeInfrastructureDefsV1C=[
+    {id:'freightRail',name:'Cross-border freight railway',duration:54,cost:.75,desc:'Connect industrial regions, ports, and foreign logistics networks.',access:11,reliability:7,infrastructure:3,energy:0},
+    {id:'powerGrid',name:'Regional electricity interconnector',duration:42,cost:.46,desc:'Trade electricity across borders and stabilize renewable generation.',access:5,reliability:10,infrastructure:1.5,energy:5},
+    {id:'gasPipeline',name:'International gas pipeline',duration:60,cost:.82,desc:'Secure long-term gas supply while creating geopolitical dependence.',access:6,reliability:12,infrastructure:2,energy:6},
+    {id:'portCorridor',name:'Port and customs logistics corridor',duration:40,cost:.52,desc:'Expand port capacity, customs automation, and bonded logistics zones.',access:12,reliability:6,infrastructure:2.5,energy:0},
+    {id:'digitalCable',name:'International digital cable',duration:28,cost:.22,desc:'Connect data centers, cloud services, finance, and digital exports.',access:8,reliability:4,infrastructure:1,energy:0},
+    {id:'customsWindow',name:'Regional single customs window',duration:20,cost:.12,desc:'Digitize customs documents, inspections, and origin certification.',access:10,reliability:5,infrastructure:.5,energy:0}
+  ];
+  const tradeOrganizationDefsV1C=[
+    {id:'ftaBloc',name:'Regional Free-Trade Area',type:'Free-trade organization',cost:.18,pc:8,desc:'Coordinate tariff elimination, common origin rules, and dispute settlement.',benefit:'Trade access +12; tariffs fall among members.'},
+    {id:'monetaryCouncil',name:'Monetary Cooperation Council',type:'Monetary organization',cost:.24,pc:10,desc:'Coordinate reserve swaps, payment settlement, and exchange-rate consultation.',benefit:'Currency confidence and reserve access improve.'},
+    {id:'exportersGroup',name:'Strategic Exporting Countries Organization',type:'Exporting-country organization',cost:.16,pc:9,desc:'Coordinate production, export standards, and long-term commodity contracts.',benefit:'Export prices and bargaining power improve.'},
+    {id:'infrastructureBank',name:'Cross-Border Infrastructure Bank',type:'Development organization',cost:.28,pc:10,desc:'Pool capital for transport, energy, digital, and logistics infrastructure.',benefit:'Cross-border project costs and delays decline.'},
+    {id:'supplyAlliance',name:'Supply-Chain Security Alliance',type:'Economic-security organization',cost:.20,pc:9,desc:'Coordinate strategic stockpiles and trusted suppliers for critical sectors.',benefit:'Shortage and embargo vulnerability decline.'}
+  ];
+  const tradeContractTypesV1C={
+    import:{label:'Import contract',desc:'Secure foreign supply to reduce shortages and price pressure.',relation:2,priceEffect:-.10,growth:.02},
+    export:{label:'Export contract',desc:'Guarantee foreign demand for a domestic industry.',relation:2,priceEffect:.03,growth:.10},
+    energy:{label:'Energy supply contract',desc:'Secure oil, gas, electricity, hydrogen, or nuclear fuel.',relation:3,priceEffect:-.14,growth:.06},
+    defense:{label:'Defense contract',desc:'Purchase or export defense systems with strategic conditions.',relation:4,priceEffect:.01,growth:.04},
+    resource:{label:'Natural-resource access',desc:'Negotiate rights to minerals, food, timber, or strategic raw materials.',relation:3,priceEffect:-.12,growth:.07}
+  };
+  let tradeViewV1C='overview';
+
+  function createTradeDiplomacyV1C(countryId){
+    const partners={};
+    tradePartnerCatalogV1C.filter(p=>p.id!==countryId).forEach((p,i)=>{
+      const r=seeded(hashSeed(`trade-v1c-${countryId}-${p.id}`));
+      const relation=round(42+r()*35,0),baseExportShare=round(.7+r()*2.4,2),baseImportShare=round(.7+r()*2.6,2);
+      partners[p.id]={...p,relationship:relation,tradeAccess:round(42+r()*35,0),tariff:round(3+r()*11,1),exportDemand:round(46+r()*32,0),importReliability:round(50+r()*35,0),companyConfidence:round(44+r()*34,0),consumerDemand:round(48+r()*28,0),consumerPricePressure:round(r()*4,1),geopoliticalRisk:round(18+r()*48,0),embargo:false,retaliation:false,agreementLevel:0,baseExportShare,baseImportShare,exports:0,imports:0,balance:0,lastActionTurn:-1};
+    });
+    const institutions={};tradeInstitutionDefsV1C.forEach((x,i)=>institutions[x.id]={influence:round(32+seededRange(hashSeed(countryId+x.id),0,28),0),lastActionTurn:-1});
+    return {version:'1.0C',partners,agreements:[],contracts:[],infrastructures:[],organizations:[],institutions,strategicSubsidies:[],history:[],lastSummary:null,lastAgreementTurn:-1,lastContractTurn:-1,lastEmbargoTurn:-1,lastOrganizationTurn:-1,totalExports:0,totalImports:0,tradeBalance:0,agreementCoverage:0,embargoCount:0,tradeAccess:50,companyResponse:50,consumerResponse:50,geopoliticalScore:50,growthEffect:0,inflationEffect:0,employmentEffect:0,investmentEffect:0,monthlyCost:0};
+  }
+  function ensureTradeV1C(target=state){
+    if(!target)return null;if(!target.tradeDiplomacy)target.tradeDiplomacy=createTradeDiplomacyV1C(target.countryId);
+    const td=target.tradeDiplomacy;td.partners=td.partners||{};
+    const fresh=createTradeDiplomacyV1C(target.countryId);
+    Object.entries(fresh.partners).forEach(([id,p])=>{td.partners[id]={...p,...(td.partners[id]||{})};});
+    Object.keys(td.partners).forEach(id=>{if(id===target.countryId)delete td.partners[id];});
+    ['agreements','contracts','infrastructures','organizations','strategicSubsidies','history'].forEach(k=>td[k]=Array.isArray(td[k])?td[k]:[]);
+    td.institutions=td.institutions||fresh.institutions;Object.entries(fresh.institutions).forEach(([id,x])=>td.institutions[id]={...x,...(td.institutions[id]||{})});
+    ['totalExports','totalImports','tradeBalance','agreementCoverage','embargoCount','tradeAccess','companyResponse','consumerResponse','geopoliticalScore','growthEffect','inflationEffect','employmentEffect','investmentEffect','monthlyCost'].forEach(k=>td[k]=Number.isFinite(td[k])?td[k]:fresh[k]);
+    return td;
+  }
+  function partnerListV1C(){return Object.values(ensureTradeV1C().partners).sort((a,b)=>b.relationship-a.relationship);}
+  function partnerLabelV1C(id){return ensureTradeV1C().partners[id]?.name||id;}
+  function activeContractValueV1C(type){return ensureTradeV1C().contracts.filter(x=>x.status==='Active'&&(!type||x.type===type)).reduce((n,x)=>n+x.annualValue,0);}
+  function activeInfrastructureMonthlyCostV1C(){return ensureTradeV1C().infrastructures.filter(x=>x.status==='Building').reduce((n,x)=>n+x.totalCost/x.duration,0);}
+  function activeTradeProgramMonthlyCostV1C(){const td=ensureTradeV1C();const subsidy=td.strategicSubsidies.reduce((n,x)=>n+(x.active?state.gdp*x.rate/100/12:0),0);const org=td.organizations.reduce((n,x)=>n+(x.active?state.gdp*.012/12:0),0);return activeInfrastructureMonthlyCostV1C()+subsidy+org;}
+  function tradePartnerOptionsV1C(selected=''){return partnerListV1C().map(p=>`<option value="${p.id}" ${p.id===selected?'selected':''}>${escapeHtml(p.name)}</option>`).join('');}
+  function strategicSectorOptionsV1C(selected=''){
+    ensureSectorV14();const all=Object.values(state.sectorEconomy?.sectors||{}).sort((a,b)=>a.name.localeCompare(b.name));
+    return all.map(s=>`<option value="${s.id}" ${s.id===selected?'selected':''}>${escapeHtml(s.name)}</option>`).join('');
+  }
+  function agreementNameV1C(level){return level>=3?'Free-trade area':level===2?'Comprehensive agreement':level===1?'Limited trade accord':'No agreement';}
+  function relationClassV1C(x){return x>=65?'good':x<38?'bad':'';}
+  function tradeSummaryV1C(){
+    const td=ensureTradeV1C(),partners=Object.values(td.partners),sector=state.sectorEconomy?.summary||{};
+    let exports=0,imports=0,weightedAccess=0,covered=0,embargoCount=0,company=0,consumer=0,geo=0;
+    partners.forEach(p=>{
+      const agreementBoost=1+p.agreementLevel*.10,embargo=p.embargo?.08:1,retaliation=p.retaliation?.74:1;
+      const relationFactor=.72+p.relationship/180,accessFactor=.68+p.tradeAccess/170;
+      const demandFactor=.72+p.exportDemand/175,consumerFactor=.76+p.consumerDemand/210;
+      p.exports=state.gdp*(p.baseExportShare/100)*agreementBoost*embargo*retaliation*relationFactor*accessFactor*demandFactor;
+      p.imports=state.gdp*(p.baseImportShare/100)*(1+p.agreementLevel*.09)*embargo*(.73+p.importReliability/185)*consumerFactor;
+      const contracts=td.contracts.filter(x=>x.status==='Active'&&x.partnerId===p.id);
+      contracts.forEach(c=>{if(c.type==='export'||(c.type==='defense'&&c.direction==='export'))p.exports+=c.annualValue;if(c.type==='import'||c.type==='energy'||c.type==='resource'||(c.type==='defense'&&c.direction!=='export'))p.imports+=c.annualValue;});
+      p.balance=p.exports-p.imports;exports+=p.exports;imports+=p.imports;weightedAccess+=p.tradeAccess;company+=p.companyConfidence;consumer+=p.consumerDemand;geo+=100-p.geopoliticalRisk;if(p.agreementLevel)covered++;if(p.embargo)embargoCount++;
+    });
+    const n=Math.max(1,partners.length),sectorTrade=Number.isFinite(sector.tradeBalance)?sector.tradeBalance:0;
+    const totalBalance=exports-imports+sectorTrade*.30;
+    const agreementCoverage=covered/n*100,tradeAccess=weightedAccess/n,companyResponse=company/n,consumerResponse=consumer/n,geopoliticalScore=geo/n;
+    const importPressure=Math.max(0,embargoCount*1.15+(state.sectorEconomy?.summary?.shortage||0)*.10-agreementCoverage*.018-activeContractValueV1C('import')/Math.max(1,state.gdp)*25-activeContractValueV1C('energy')/Math.max(1,state.gdp)*30);
+    const exportBoost=exports/Math.max(1,state.gdp)*100-13;
+    const growthEffect=clamp(totalBalance/state.gdp*.72+agreementCoverage*.006+tradeAccess*.004-embargoCount*.06,-1.2,1.5);
+    const inflationEffect=clamp(importPressure*.12-agreementCoverage*.008-imports/state.gdp*.06,-.65,1.4);
+    const employmentEffect=clamp(-growthEffect*.12+embargoCount*.035,-.18,.28);
+    const investmentEffect=clamp((companyResponse-50)*.04+(geopoliticalScore-50)*.025+agreementCoverage*.012-embargoCount*.35,-6,8);
+    Object.assign(td,{totalExports:exports,totalImports:imports,tradeBalance:totalBalance,agreementCoverage,embargoCount,tradeAccess,companyResponse,consumerResponse,geopoliticalScore,growthEffect,inflationEffect,employmentEffect,investmentEffect,monthlyCost:activeTradeProgramMonthlyCostV1C()});
+    return td;
+  }
+  function updateTradeDiplomacyV1C(){
+    const td=ensureTradeV1C(),shortage=state.sectorEconomy?.summary?.shortage||0;
+    Object.values(td.partners).forEach(p=>{
+      const agreement=p.agreementLevel*.18,embargo=p.embargo;
+      p.consumerPricePressure=clamp(p.consumerPricePressure+(state.inflation-4)*.025+shortage*.012+p.tariff*.008-agreement*.10+(embargo?1.1:-.04),0,100);
+      p.consumerDemand=clamp(p.consumerDemand+(state.growth-2)*.028-p.consumerPricePressure*.012+agreement+random(-.35,.35),10,100);
+      p.companyConfidence=clamp(p.companyConfidence+(state.businessClimate-50)*.015+(p.relationship-50)*.012+agreement-(embargo?1.4:0)-Math.max(0,state.inflation-8)*.035+random(-.35,.35),5,100);
+      p.exportDemand=clamp(p.exportDemand+(p.consumerDemand-50)*.012+(p.relationship-50)*.009+agreement-(p.retaliation?.35:0)+random(-.25,.25),10,100);
+      p.importReliability=clamp(p.importReliability+(p.relationship-50)*.008+agreement-(p.embargo?1.7:0)-p.geopoliticalRisk*.002+random(-.2,.2),5,100);
+      p.tradeAccess=clamp(p.tradeAccess+agreement*.18+(p.relationship-50)*.003-(p.embargo?.45:0),0,100);
+      p.relationship=clamp(p.relationship+(p.agreementLevel?0.035:0)-(p.embargo?.12:0)+(p.retaliation?.02:0)+random(-.12,.12),0,100);
+      p.geopoliticalRisk=clamp(p.geopoliticalRisk+(p.embargo?.15:-.025)+(state.stability<40?.04:0)+random(-.1,.1),0,100);
+    });
+    td.contracts.forEach(c=>{
+      if(c.status!=='Active')return;c.monthsRemaining--;
+      const p=td.partners[c.partnerId],s=state.sectorEconomy?.sectors?.[c.sectorId];if(p)p.relationship=clamp(p.relationship+.035,0,100);
+      if(s){const monthly=c.annualValue/12;if(c.type==='import'||c.type==='energy'||c.type==='resource'){s.imports+=monthly*.35;s.shortage=clamp(s.shortage-monthly/Math.max(.1,s.demand)*18,0,100);s.priceIndex=Math.max(35,s.priceIndex*(1-c.priceRelief/1200));}else{s.exports+=monthly*.42;s.demand+=monthly*.12;s.production*=1+c.outputBoost/1200;s.employment*=1+c.outputBoost/3200;}}
+      if(c.type==='energy'){state.energyResilience=clamp(state.energyResilience+.018,0,20);state.inflation-=.004;}
+      if(c.type==='defense'){state.security+=.012;state.temporarySpend+=c.annualValue/state.gdp*.006;}
+      if(c.type==='resource')state.businessClimate+=.006;
+      if(c.monthsRemaining<=0){c.status='Completed';addBrief(`TRADE CONTRACT COMPLETED: ${c.title} with ${partnerLabelV1C(c.partnerId)} reaches the end of its term.`);}
+    });
+    td.infrastructures.forEach(x=>{
+      if(x.status!=='Building')return;x.progress++;
+      const p=td.partners[x.partnerId];if(p)p.relationship=clamp(p.relationship+.025,0,100);
+      if(Math.random()<clamp(state.corruption/1200+x.risk*.015,.02,.22)){x.delayMonths++;x.totalCost*=1.006;}
+      if(x.progress>=x.duration){x.status='Operational';const d=tradeInfrastructureDefsV1C.find(v=>v.id===x.type);if(p){p.tradeAccess=clamp(p.tradeAccess+d.access,0,100);p.importReliability=clamp(p.importReliability+d.reliability,0,100);p.relationship=clamp(p.relationship+4,0,100);}state.infrastructure=clamp(state.infrastructure+d.infrastructure,0,100);state.energyResilience=clamp(state.energyResilience+d.energy,0,20);addBrief(`CROSS-BORDER PROJECT OPENED: ${d.name} with ${partnerLabelV1C(x.partnerId)} begins operation.`);addTimeline(`Opened ${d.name} with ${partnerLabelV1C(x.partnerId)}.`);}
+    });
+    td.organizations.forEach(o=>{if(!o.active)return;o.influence=clamp(o.influence+.08+(o.members.length-2)*.02,0,100);o.monthsActive++;});
+    const summary=tradeSummaryV1C();state.tradeGrowthEffect=summary.growthEffect;state.tradeInflationEffect=summary.inflationEffect;state.tradeEmploymentEffect=summary.employmentEffect;
+    state.inflation+=summary.inflationEffect*.018;state.unemployment+=summary.employmentEffect*.02;state.businessClimate+=summary.investmentEffect*.006;state.privateInvestment=clamp(state.privateInvestment+summary.investmentEffect*.025,0,100);state.currencyIndex=clamp(state.currencyIndex+summary.tradeBalance/state.gdp*.035+(summary.geopoliticalScore-50)*.002,0,100);
+    if(state.monetarySystem){state.monetarySystem.internationalAccess=clamp(state.monetarySystem.internationalAccess+(summary.geopoliticalScore-50)*.002+summary.agreementCoverage*.001,0,100);state.monetarySystem.marketConfidence=clamp(state.monetarySystem.marketConfidence+summary.investmentEffect*.003,0,100);}
+    if(state.turn%6===0)td.history.unshift({date:dateLabel(),exports:summary.totalExports,imports:summary.totalImports,balance:summary.tradeBalance,agreements:summary.agreementCoverage,embargoes:summary.embargoCount});
+    if(td.history.length>30)td.history.length=30;
+  }
+  function tradeAlertsV1C(){const td=tradeSummaryV1C(),alerts=[];if(td.embargoCount)alerts.push({type:'warn',title:`${td.embargoCount} active embargo${td.embargoCount===1?'':'es'}`,text:'Foreign supply and export access are restricted. Retaliation and shortages may intensify.'});if(td.tradeBalance<0)alerts.push({type:'warn',title:'External deficit',text:`Imports exceed exports by ${money(Math.abs(td.tradeBalance))}. Currency and debt pressure may rise.`});else alerts.push({type:'good',title:'External surplus',text:`Trade produces a ${money(td.tradeBalance)} surplus and supports the currency.`});if((state.sectorEconomy?.summary?.shortage||0)>7)alerts.push({type:'warn',title:'Supply-chain shortages',text:'Import contracts or a supply-chain alliance could reduce industrial bottlenecks.'});if(td.agreementCoverage<20)alerts.push({type:'',title:'Limited treaty network',text:'Most markets still trade under basic tariff and customs conditions.'});if(td.companyResponse>65)alerts.push({type:'good',title:'Companies expanding',text:'Foreign and domestic firms are responding positively to market access and confidence.'});return alerts.slice(0,4);}
+  function renderTradeV1C(){
+    if(!isPrimaryGovernment()){const e=getActiveEntity();el('workspace').innerHTML=titleBlock('Government authority required',`${e.name} cannot sign treaties, impose national embargoes, or negotiate sovereign trade policy.`,'ROLE-BASED ACCESS')+`<div class="panel"><p class="panel-sub">Win national office to manage trade and economic diplomacy.</p><button class="primary" data-open-page="operations">Open operations</button></div>`;document.querySelector('[data-open-page="operations"]')?.addEventListener('click',()=>openPage('operations'));return;}
+    const td=tradeSummaryV1C(),tabs=[['overview','Overview'],['agreements','Agreements & embargoes'],['contracts','Contracts & subsidies'],['infrastructure','Cross-border projects'],['organizations','Organizations & institutions']];
+    let body=tradeViewV1C==='agreements'?renderTradeAgreementsV1C():tradeViewV1C==='contracts'?renderTradeContractsV1C():tradeViewV1C==='infrastructure'?renderTradeInfrastructureV1C():tradeViewV1C==='organizations'?renderTradeOrganizationsV1C():renderTradeOverviewV1C();
+    el('workspace').innerHTML=titleBlock('Trade & Economic Diplomacy','Negotiate access to markets, resources, energy, technology, infrastructure, and international institutions. Governments, companies, and consumers react every month.','VERSION 1.0C')+`<div class="trade-tabs">${tabs.map(t=>`<button class="trade-tab ${tradeViewV1C===t[0]?'active':''}" data-trade-view="${t[0]}">${t[1]}</button>`).join('')}</div>${body}`;
+    bindTradeV1C();
+  }
+  function renderTradeHeroV1C(){const td=tradeSummaryV1C();return `<div class="trade-hero"><div class="trade-hero-main"><small>External economic position</small><strong>${td.tradeBalance>=0?'+':''}${money(td.tradeBalance)}</strong><span>${td.tradeBalance>=0?'Trade surplus supports reserves and the currency.':'Trade deficit requires financing and creates exchange-rate pressure.'}</span></div><div class="trade-kpi"><small>Exports</small><strong>${money(td.totalExports)}</strong><span>annualized goods and services</span></div><div class="trade-kpi"><small>Imports</small><strong>${money(td.totalImports)}</strong><span>annualized foreign supply</span></div><div class="trade-kpi"><small>Agreement coverage</small><strong>${pct(td.agreementCoverage,0)}</strong><span>partners under formal accords</span></div><div class="trade-kpi"><small>Trade access</small><strong>${Math.round(td.tradeAccess)}/100</strong><span>customs and market entry</span></div></div>`;}
+  function renderTradeOverviewV1C(){const td=tradeSummaryV1C(),top=partnerListV1C().slice(0,7);return `${renderTradeHeroV1C()}<div class="trade-response-grid"><div class="trade-response"><small>Company response</small><strong>${Math.round(td.companyResponse)}/100</strong><p>Firms react to taxes, confidence, access, sanctions, contracts, infrastructure, and political risk.</p></div><div class="trade-response"><small>Consumer response</small><strong>${Math.round(td.consumerResponse)}/100</strong><p>Demand changes with prices, product availability, wages, shortages, and imported alternatives.</p></div><div class="trade-response"><small>Geopolitical position</small><strong>${Math.round(td.geopoliticalScore)}/100</strong><p>Relations affect contract reliability, retaliation, lender access, and institutional support.</p></div></div><div class="two-col"><div class="panel"><h3>Strategic economic briefing</h3><div class="panel-sub">Immediate opportunities and vulnerabilities in the external economy.</div><div class="trade-alerts" style="margin-top:13px">${tradeAlertsV1C().map(a=>`<div class="trade-alert ${a.type}"><b>${a.title}</b>${a.text}</div>`).join('')}</div></div><div class="panel"><h3>Policy transmission</h3><div class="panel-sub">Estimated current contribution to the national economy.</div><div class="stat-list">${barRow('Growth support',clamp(50+td.growthEffect*28,0,100),td.growthEffect<0)}${barRow('Price stability',clamp(60-td.inflationEffect*35,0,100),td.inflationEffect>.4)}${barRow('Investment access',clamp(50+td.investmentEffect*5,0,100),td.investmentEffect<0)}${barRow('Supply security',clamp(100-(state.sectorEconomy?.summary?.shortage||0)*5-td.embargoCount*7,0,100),(state.sectorEconomy?.summary?.shortage||0)>8)}</div></div></div>${dataTable('Major economic partners','Bilateral trade changes with treaties, prices, contracts, shortages, companies, consumers, and political relations.',['Partner','Relations','Exports','Imports','Balance','Tariff','Companies','Consumers'],top.map(p=>[p.name,Math.round(p.relationship)+'/100',money(p.exports),money(p.imports),money(p.balance),pct(p.tariff,1),Math.round(p.companyConfidence)+'/100',Math.round(p.consumerDemand)+'/100']))}`;}
+  function renderTradeAgreementsV1C(){const td=tradeSummaryV1C();return `${renderTradeHeroV1C()}<div class="partner-grid">${partnerListV1C().map(p=>`<article class="partner-card"><div class="partner-head"><div><h3>${escapeHtml(p.name)}</h3><p>${escapeHtml(p.bloc)} · ${agreementNameV1C(p.agreementLevel)}</p></div><span class="relation-badge ${relationClassV1C(p.relationship)}">Relations ${Math.round(p.relationship)}</span></div><div class="partner-stats"><div class="partner-stat"><small>Exports</small><b>${money(p.exports)}</b></div><div class="partner-stat"><small>Imports</small><b>${money(p.imports)}</b></div><div class="partner-stat"><small>Tariff</small><b>${pct(p.tariff,1)}</b></div><div class="partner-stat"><small>Access</small><b>${Math.round(p.tradeAccess)}/100</b></div><div class="partner-stat"><small>Companies</small><b>${Math.round(p.companyConfidence)}/100</b></div><div class="partner-stat"><small>Consumers</small><b>${Math.round(p.consumerDemand)}/100</b></div><div class="partner-stat"><small>Supply</small><b>${Math.round(p.importReliability)}/100</b></div><div class="partner-stat"><small>Risk</small><b>${Math.round(p.geopoliticalRisk)}/100</b></div></div><div class="partner-actions"><button class="primary-mini" data-trade-agreement="${p.id}" data-level="2">Negotiate accord</button><button data-trade-agreement="${p.id}" data-level="3">Create FTA</button><button class="${p.embargo?'':'danger-mini'}" data-trade-embargo="${p.id}">${p.embargo?'Lift embargo':'Impose embargo'}</button></div></article>`).join('')}</div>`;}
+  function renderTradeContractsV1C(){const td=tradeSummaryV1C(),contracts=td.contracts.slice().sort((a,b)=>(a.status==='Active'?-1:1));return `<div class="trade-control-grid"><div class="trade-control"><h3>Negotiate import and export contracts</h3><p>Select a partner and one of the 142 economic sectors. Contract offers vary in price, duration, reliability, domestic benefits, and diplomatic conditions.</p><label>Partner<select id="tradeContractPartner">${tradePartnerOptionsV1C()}</select></label><label>Sector or product<select id="tradeContractSector">${strategicSectorOptionsV1C()}</select></label><div class="trade-action-row"><button data-contract-type="import">Import supply</button><button data-contract-type="export">Export sale</button><button data-contract-type="energy">Energy contract</button><button data-contract-type="resource">Resource access</button><button data-contract-type="defense">Defense contract</button></div></div><div class="trade-control"><h3>Strategic-sector subsidy</h3><p>Support domestic capacity and exports. Subsidies cost the state every month, can provoke trade disputes, and may preserve inefficient firms.</p><label>Strategic sector<select id="tradeSubsidySector">${strategicSectorOptionsV1C()}</select></label><div class="economy-grid" style="grid-template-columns:repeat(2,1fr);margin-bottom:10px"><div class="economy-cell"><small>Active programs</small><strong>${td.strategicSubsidies.filter(x=>x.active).length}</strong><em>sector support</em></div><div class="economy-cell"><small>Monthly cost</small><strong>${money(td.strategicSubsidies.filter(x=>x.active).reduce((n,x)=>n+state.gdp*x.rate/100/12,0))}</strong><em>government spending</em></div></div><div class="trade-action-row"><button data-trade-subsidy="0.10">Basic support</button><button data-trade-subsidy="0.25">Strategic program</button><button class="secondary" data-trade-subsidy="0">End selected subsidy</button></div></div></div><div class="panel"><h3>Active and completed contracts</h3><div class="panel-sub">Contract volumes feed directly into sector imports, exports, demand, shortages, employment, prices, and bilateral relations.</div><div class="contract-list" style="margin-top:13px">${contracts.length?contracts.map(c=>`<div class="contract-card"><div><h4>${escapeHtml(c.title)}</h4><p>${tradeContractTypesV1C[c.type].label} · ${escapeHtml(partnerLabelV1C(c.partnerId))} · ${escapeHtml(state.sectorEconomy?.sectors?.[c.sectorId]?.name||c.sectorId)}</p></div><div class="contract-cell"><small>Value</small><b>${money(c.annualValue)}/yr</b></div><div class="contract-cell"><small>Term</small><b>${Math.max(0,c.monthsRemaining)} months</b></div><div class="contract-cell"><small>Price</small><b>${pct(c.priceIndex,0)} market</b></div><div class="contract-cell"><small>Status</small><b class="contract-status">${c.status}</b></div></div>`).join(''):'<div class="brief-empty">No international contracts have been signed.</div>'}</div></div>`;}
+  function renderTradeInfrastructureV1C(){const td=ensureTradeV1C();return `<div class="trade-control"><h3>Partner for new cross-border infrastructure</h3><p>Projects require several years of financing before trade access, reliability, growth, and diplomatic benefits arrive.</p><label>Partner country or market<select id="tradeInfraPartner">${tradePartnerOptionsV1C()}</select></label></div><div class="infra-grid" style="margin-top:12px">${tradeInfrastructureDefsV1C.map(d=>`<article class="infra-card"><h3>${d.name}</h3><p>${d.desc}</p><div class="infra-meta"><span>${d.duration} months</span><span>${pct(d.cost,2)} GDP total</span><span>Access +${d.access}</span></div><button data-trade-infra="${d.id}">Negotiate and build</button></article>`).join('')}</div><div class="panel" style="margin-top:14px"><h3>Cross-border construction ledger</h3><div class="panel-sub">Costs are paid monthly. Corruption and political disputes can cause overruns or delays.</div><div class="contract-list" style="margin-top:13px">${td.infrastructures.length?td.infrastructures.map(x=>{const d=tradeInfrastructureDefsV1C.find(v=>v.id===x.type);return `<div class="contract-card"><div><h4>${d.name}</h4><p>${partnerLabelV1C(x.partnerId)} · ${x.status}</p></div><div class="contract-cell"><small>Progress</small><b>${Math.min(100,Math.round(x.progress/x.duration*100))}%</b></div><div class="contract-cell"><small>Spent</small><b>${money(x.totalCost*x.progress/x.duration)}</b></div><div class="contract-cell"><small>Delays</small><b>${x.delayMonths} months</b></div><div class="contract-cell"><small>Completion</small><b>${Math.max(0,x.duration-x.progress)} months</b></div></div>`}).join(''):'<div class="brief-empty">No cross-border projects are active.</div>'}</div></div>`;}
+  function renderTradeOrganizationsV1C(){const td=ensureTradeV1C();return `<div class="two-col"><div class="panel"><h3>Form international economic organizations</h3><div class="panel-sub">Organizations require diplomatic support, recurring contributions, and several partner governments.</div><div style="margin-top:13px">${tradeOrganizationDefsV1C.map(d=>{const active=td.organizations.find(x=>x.id===d.id&&x.active);return `<div class="organization-card"><div><h4>${d.name}</h4><p>${d.type} · ${d.desc}<br><b>${d.benefit}</b></p></div><button data-trade-org="${d.id}" ${active?'disabled':''}>${active?'Formed':'Form organization'}</button></div>`}).join('')}</div></div><div class="panel"><h3>Existing organizations</h3><div class="panel-sub">Your country’s leadership positions and memberships.</div><div style="margin-top:13px">${td.organizations.length?td.organizations.map(o=>`<div class="organization-card"><div><h4>${escapeHtml(o.name)}</h4><p>${o.members.length} founding members · influence ${Math.round(o.influence)}/100 · active ${o.monthsActive} months</p></div><span class="relation-badge good">ACTIVE</span></div>`).join(''):'<div class="brief-empty">No new organization has been formed during this career.</div>'}</div></div></div><div class="institution-grid">${tradeInstitutionDefsV1C.map(d=>{const x=td.institutions[d.id];return `<article class="institution-card"><h3>${d.name}</h3><p>${d.desc}<br><b>${d.effect}</b></p><div class="institution-score"><strong>${Math.round(x.influence)}</strong><div class="bar"><i style="width:${x.influence}%"></i></div></div><button data-trade-institution="${d.id}" ${x.lastActionTurn===state.turn?'disabled':''}>Increase national influence</button></article>`}).join('')}</div>`;}
+  function bindTradeV1C(){
+    document.querySelectorAll('[data-trade-view]').forEach(b=>b.addEventListener('click',()=>{tradeViewV1C=b.dataset.tradeView;renderTradeV1C();}));
+    document.querySelectorAll('[data-trade-agreement]').forEach(b=>b.addEventListener('click',()=>openAgreementNegotiationV1C(b.dataset.tradeAgreement,Number(b.dataset.level))));
+    document.querySelectorAll('[data-trade-embargo]').forEach(b=>b.addEventListener('click',()=>toggleEmbargoV1C(b.dataset.tradeEmbargo)));
+    document.querySelectorAll('[data-contract-type]').forEach(b=>b.addEventListener('click',()=>openContractNegotiationV1C(b.dataset.contractType,el('tradeContractPartner').value,el('tradeContractSector').value)));
+    document.querySelectorAll('[data-trade-subsidy]').forEach(b=>b.addEventListener('click',()=>setStrategicSubsidyV1C(el('tradeSubsidySector').value,Number(b.dataset.tradeSubsidy))));
+    document.querySelectorAll('[data-trade-infra]').forEach(b=>b.addEventListener('click',()=>startTradeInfrastructureV1C(b.dataset.tradeInfra,el('tradeInfraPartner').value)));
+    document.querySelectorAll('[data-trade-org]').forEach(b=>b.addEventListener('click',()=>formTradeOrganizationV1C(b.dataset.tradeOrg)));
+    document.querySelectorAll('[data-trade-institution]').forEach(b=>b.addEventListener('click',()=>influenceTradeInstitutionV1C(b.dataset.tradeInstitution)));
+  }
+  function openAgreementNegotiationV1C(partnerId,level){const p=ensureTradeV1C().partners[partnerId];if(!p)return;const fta=level===3,styles=[{id:'protective',label:'Domestic-first agreement',chance:-8,pc:4,tariff:-2,access:7,relation:4,competition:2,desc:'Open selected markets while protecting sensitive sectors.'},{id:'balanced',label:'Balanced market-access package',chance:4,pc:6,tariff:fta?-p.tariff:-4,access:fta?15:11,relation:fta?9:6,competition:fta?10:6,desc:'Exchange tariff cuts, customs reform, services access, and investment protections.'},{id:'open',label:'Deep integration package',chance:10,pc:9,tariff:-p.tariff,access:fta?22:16,relation:fta?12:8,competition:fta?17:12,desc:'Offer broad access and regulatory alignment to maximize trade and investment.'}];el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">Economic diplomacy</div><h2>${fta?'Create a free-trade area':'Negotiate a trade agreement'} with ${escapeHtml(p.name)}</h2><p class="modal-desc">The partner evaluates relations, access to your market, domestic politics, company interests, consumers, strategic rivalry, and the concessions offered.</p>${styles.map(x=>`<button class="choice" data-agreement-style="${x.id}"><b>${x.label}</b><span>${x.desc} Political capital ${x.pc}; estimated acceptance ${Math.round(clamp(35+p.relationship*.42+p.tradeAccess*.16+x.chance-p.geopoliticalRisk*.15,8,92))}%.</span></button>`).join('')}<div class="modal-footer"><button id="cancelTradeAgreement" class="small-btn light">Cancel</button></div></div></div></div>`;styles.forEach(x=>document.querySelector(`[data-agreement-style="${x.id}"]`)?.addEventListener('click',()=>concludeAgreementV1C(partnerId,level,x)));el('cancelTradeAgreement').addEventListener('click',()=>el('modalRoot').innerHTML='');}
+  function concludeAgreementV1C(partnerId,level,style){const td=ensureTradeV1C(),p=td.partners[partnerId];if(state.politicalCapital<style.pc){showToast('Not enough political capital for this negotiation.');return;}state.politicalCapital-=style.pc;const chance=clamp(35+p.relationship*.42+p.tradeAccess*.16+style.chance-p.geopoliticalRisk*.15+(state.legislature-50)*.12,8,92),passed=Math.random()*100<chance;el('modalRoot').innerHTML='';if(passed){p.agreementLevel=Math.max(p.agreementLevel,level);p.tariff=clamp(p.tariff+style.tariff,0,45);p.tradeAccess=clamp(p.tradeAccess+style.access,0,100);p.relationship=clamp(p.relationship+style.relation,0,100);p.companyConfidence=clamp(p.companyConfidence+style.competition*.45,0,100);td.agreements.unshift({id:`agr-${Date.now()}`,partnerId,level,style:style.id,title:`${agreementNameV1C(level)} with ${p.name}`,date:dateLabel(),active:true});state.businessClimate+=style.competition*.05;state.approval+=level===3?.8:.35;state.legislature-=level===3?.6:.2;addBrief(`TRADE AGREEMENT: ${state.country} and ${p.name} sign a ${agreementNameV1C(level).toLowerCase()}. Tariffs fall and market access expands.`);addTimeline(`Signed a ${agreementNameV1C(level).toLowerCase()} with ${p.name}.`);showModalResult('Agreement signed',`${p.name} accepts the negotiated package.`,`Tariffs, customs access, investment, companies, consumers, imports, and exports will adjust over the coming months.`);}else{p.relationship-=2;p.companyConfidence-=1.5;state.approval-=.25;addBrief(`TRADE TALKS FAIL: ${p.name} rejects the proposed agreement after domestic and strategic objections.`);showModalResult('Negotiations fail',`${p.name} rejects the package.`,`Political capital was spent and relations weaken slightly.`);}normalize();renderAll();saveGame(false);}
+  function toggleEmbargoV1C(partnerId){const td=ensureTradeV1C(),p=td.partners[partnerId];if(!p)return;const imposing=!p.embargo;if(!confirm(`${imposing?'Impose':'Lift'} a trade embargo on ${p.name}?`))return;p.embargo=imposing;p.retaliation=imposing&&Math.random()<(p.geopoliticalRisk/110+.2);p.relationship=clamp(p.relationship+(imposing?-24:5),0,100);p.tradeAccess=clamp(p.tradeAccess+(imposing?-22:6),0,100);p.importReliability=clamp(p.importReliability+(imposing?-25:7),0,100);p.exportDemand=clamp(p.exportDemand+(imposing?-18:5),0,100);state.politicalCapital-=imposing?3:1;state.approval+=imposing&&state.security>60?.35:imposing?-.25:.15;state.hiddenRisk+=imposing?2.5:-.3;td.lastEmbargoTurn=state.turn;addBrief(`${imposing?'EMBARGO IMPOSED':'EMBARGO LIFTED'}: Trade with ${p.name} is ${imposing?'severely restricted':'gradually restored'}.${p.retaliation?' The partner announces retaliatory measures.':''}`);addTimeline(`${imposing?'Imposed':'Lifted'} a trade embargo on ${p.name}.`);normalize();renderTradeV1C();renderMetrics();saveGame(false);}
+  function openContractNegotiationV1C(type,partnerId,sectorId){const p=ensureTradeV1C().partners[partnerId],s=state.sectorEconomy?.sectors?.[sectorId],def=tradeContractTypesV1C[type];if(!p||!s||!def)return;const base=state.gdp*(type==='defense'?.0025:type==='energy'?.004:type==='resource'?.0035:.003);const options=[{id:'cheap',label:'Demand favorable price',chance:-12,value:base*.82,price:88,months:48,reliability:58,relief:16,output:10,desc:'Strong fiscal terms, but the partner may reject or underdeliver.'},{id:'balanced',label:'Balanced commercial terms',chance:4,value:base,price:100,months:60,reliability:76,relief:12,output:14,desc:'Market pricing with standard guarantees and moderate political conditions.'},{id:'secure',label:'Pay for strategic security',chance:14,value:base*1.24,price:118,months:84,reliability:92,relief:20,output:18,desc:'Higher price, longer duration, stronger reliability, and diplomatic alignment.'}];el('modalRoot').innerHTML=`<div class="modal-backdrop"><div class="modal"><div class="modal-band"></div><div class="modal-body"><div class="modal-kicker">International contract</div><h2>${def.label}: ${escapeHtml(s.name)}</h2><p class="modal-desc">Negotiate with ${escapeHtml(p.name)}. ${def.desc}</p>${options.map(x=>`<button class="choice" data-contract-offer="${x.id}"><b>${x.label}</b><span>${x.desc} Value ${money(x.value)}/year · ${x.months} months · estimated acceptance ${Math.round(clamp(30+p.relationship*.38+p.companyConfidence*.20+x.chance-p.geopoliticalRisk*.12,8,94))}%.</span></button>`).join('')}<div class="modal-footer"><button id="cancelTradeContract" class="small-btn light">Cancel</button></div></div></div></div>`;options.forEach(x=>document.querySelector(`[data-contract-offer="${x.id}"]`)?.addEventListener('click',()=>concludeContractV1C(type,partnerId,sectorId,x)));el('cancelTradeContract').addEventListener('click',()=>el('modalRoot').innerHTML='');}
+  function concludeContractV1C(type,partnerId,sectorId,offer){const td=ensureTradeV1C(),p=td.partners[partnerId],s=state.sectorEconomy?.sectors?.[sectorId],def=tradeContractTypesV1C[type];const pc=type==='defense'?4:2.5;if(state.politicalCapital<pc){showToast('Not enough political capital to conclude the contract.');return;}state.politicalCapital-=pc;const chance=clamp(30+p.relationship*.38+p.companyConfidence*.20+offer.chance-p.geopoliticalRisk*.12+(state.businessClimate-50)*.15,8,94),passed=Math.random()*100<chance;el('modalRoot').innerHTML='';if(passed){const direction=type==='defense'&&s.exports>s.imports?'export':'import';const c={id:`con-${Date.now()}-${Math.floor(Math.random()*9999)}`,type,partnerId,sectorId,title:`${s.name} ${def.label.toLowerCase()}`,annualValue:offer.value,priceIndex:offer.price,monthsRemaining:offer.months,totalMonths:offer.months,reliability:offer.reliability,priceRelief:offer.relief,outputBoost:offer.output,status:'Active',direction,date:dateLabel()};td.contracts.unshift(c);p.relationship=clamp(p.relationship+def.relation,0,100);p.companyConfidence=clamp(p.companyConfidence+2,0,100);state.growth+=def.growth;state.inflation+=def.priceEffect*.08;addBrief(`CONTRACT SIGNED: ${state.country} and ${p.name} conclude a ${def.label.toLowerCase()} for ${s.name}, valued at ${money(offer.value)} per year.`);addTimeline(`Signed a ${offer.months}-month ${def.label.toLowerCase()} with ${p.name}.`);showModalResult('Contract signed',`${p.name} accepts the ${s.name} contract.`,`The agreement is active for ${offer.months} months and will influence production, shortages, trade, prices, and relations.`);}else{p.relationship-=1;state.businessClimate-=.2;addBrief(`CONTRACT TALKS FAIL: ${p.name} rejects the proposed ${s.name} terms.`);showModalResult('Contract rejected',`${p.name} declines the offer.`,`The government may return with a different price or improve relations first.`);}normalize();renderAll();saveGame(false);}
+  function setStrategicSubsidyV1C(sectorId,rate){const td=ensureTradeV1C(),s=state.sectorEconomy?.sectors?.[sectorId];if(!s)return;let x=td.strategicSubsidies.find(v=>v.sectorId===sectorId);if(!x){x={sectorId,rate:0,active:false,startDate:dateLabel()};td.strategicSubsidies.push(x);}if(rate===0){x.active=false;x.rate=0;s.subsidy=Math.max(0,s.subsidy-.5);addBrief(`STRATEGIC SUBSIDY ENDED: State support for ${s.name} is withdrawn.`);}else{x.active=true;x.rate=rate;s.subsidy=clamp((s.subsidy||0)+rate*2,0,8);s.rdPriority=true;s.production*=1.003;s.innovation+=.4;state.politicalCapital-=rate>.1?2:1;state.hiddenRisk+=rate*1.5;addBrief(`STRATEGIC SUBSIDY: ${s.name} receives support equal to ${pct(rate,2)} of GDP each year.`);}normalize();renderTradeV1C();renderMetrics();saveGame(false);}
+  function startTradeInfrastructureV1C(type,partnerId){const td=ensureTradeV1C(),d=tradeInfrastructureDefsV1C.find(x=>x.id===type),p=td.partners[partnerId];if(!d||!p)return;if(td.infrastructures.some(x=>x.type===type&&x.partnerId===partnerId&&x.status==='Building')){showToast('That project is already under construction with this partner.');return;}if(state.politicalCapital<5){showToast('You need 5 political capital to negotiate this project.');return;}const acceptance=clamp(34+p.relationship*.45+p.tradeAccess*.12-p.geopoliticalRisk*.14,10,90);if(Math.random()*100>acceptance){state.politicalCapital-=2;p.relationship-=1;addBrief(`INFRASTRUCTURE TALKS FAIL: ${p.name} rejects the proposed ${d.name.toLowerCase()}.`);showToast('The partner rejected the cross-border project.');normalize();renderTradeV1C();saveGame(false);return;}state.politicalCapital-=5;p.relationship+=4;td.infrastructures.unshift({id:`infra-${Date.now()}`,type,partnerId,progress:0,duration:d.duration,totalCost:state.gdp*d.cost/100,status:'Building',delayMonths:0,risk:round(2+Math.random()*5,1),startDate:dateLabel()});addBrief(`CROSS-BORDER INFRASTRUCTURE: ${state.country} and ${p.name} authorize ${d.name.toLowerCase()}.`);addTimeline(`Started ${d.name} with ${p.name}.`);normalize();renderTradeV1C();renderMetrics();saveGame(false);}
+  function formTradeOrganizationV1C(id){const td=ensureTradeV1C(),d=tradeOrganizationDefsV1C.find(x=>x.id===id);if(!d||td.organizations.some(x=>x.id===id&&x.active))return;if(state.politicalCapital<d.pc){showToast(`You need ${d.pc} political capital.`);return;}const eligible=partnerListV1C().filter(p=>p.relationship>=50&&!p.embargo).slice(0,5);if(eligible.length<2){showToast('At least two cooperative foreign partners are required.');return;}const avg=eligible.reduce((n,p)=>n+p.relationship,0)/eligible.length,chance=clamp(25+avg*.55+(state.stability-50)*.15,20,90);state.politicalCapital-=d.pc;state.treasury=Math.max(0,state.treasury-state.gdp*d.cost/100);if(Math.random()*100>chance){eligible.forEach(p=>p.relationship-=.5);addBrief(`ORGANIZATION BID FAILS: Partner governments decline to establish ${d.name}.`);showToast('The founding conference ended without agreement.');normalize();renderTradeV1C();saveGame(false);return;}const members=eligible.slice(0,3+Math.floor(Math.random()*3)).map(p=>p.id);td.organizations.push({id:d.id,name:d.name,type:d.type,members,active:true,influence:45+members.length*5,monthsActive:0,founded:dateLabel()});members.forEach(pid=>{const p=td.partners[pid];p.relationship+=5;p.tradeAccess+=id==='ftaBloc'?8:3;if(id==='ftaBloc'){p.agreementLevel=Math.max(2,p.agreementLevel);p.tariff=Math.max(0,p.tariff-4);}});if(id==='monetaryCouncil'){state.currencyIndex+=3;state.monetarySystem.reserves+=state.gdp*.004;}if(id==='exportersGroup')state.businessClimate+=1.2;if(id==='supplyAlliance'&&state.sectorEconomy)Object.values(state.sectorEconomy.sectors).forEach(s=>s.shortage*=.97);addBrief(`NEW INTERNATIONAL ORGANIZATION: ${state.country} and ${members.length} partners establish ${d.name}.`);addTimeline(`Founded ${d.name}.`);normalize();renderAll();saveGame(false);}
+  function influenceTradeInstitutionV1C(id){const td=ensureTradeV1C(),x=td.institutions[id],d=tradeInstitutionDefsV1C.find(v=>v.id===id);if(!x||!d||x.lastActionTurn===state.turn)return;if(state.politicalCapital<2){showToast('You need 2 political capital.');return;}const cost=state.gdp*.00018;if(state.treasury<cost){showToast('Treasury reserves are insufficient for the diplomatic campaign.');return;}state.politicalCapital-=2;state.treasury-=cost;x.influence=clamp(x.influence+random(5,10),0,100);x.lastActionTurn=state.turn;state.approval-=.05;state.businessClimate+=.25;if(id==='stabilizationFund'||id==='regionalReserve'){state.monetarySystem.internationalAccess=clamp(state.monetarySystem.internationalAccess+2,0,100);state.currencyIndex+=.4;}if(id==='developmentBank')state.infrastructure+=.15;if(id==='tradeForum')Object.values(td.partners).forEach(p=>p.geopoliticalRisk=Math.max(0,p.geopoliticalRisk-.2));addBrief(`INSTITUTIONAL DIPLOMACY: National influence in ${d.name} rises to ${Math.round(x.influence)}/100.`);normalize();renderTradeV1C();renderMetrics();saveGame(false);}
+
+  const newStateV14Trade=newState;newState=function(...args){const s=newStateV14Trade(...args);s.tradeDiplomacy=createTradeDiplomacyV1C(s.countryId);return s;};
+  const normalizeV14Trade=normalize;normalize=function(){normalizeV14Trade();ensureTradeV1C();tradeSummaryV1C();};
+  const computeGrowthV14Trade=computeGrowth;computeGrowth=function(){return clamp(computeGrowthV14Trade()+(state.tradeGrowthEffect||0),-12,12);};
+  const monthlySpendingV14Trade=monthlySpending;monthlySpending=function(){return monthlySpendingV14Trade()+activeTradeProgramMonthlyCostV1C();};
+  const taxRevenueForecastV14Trade=taxRevenueForecast;taxRevenueForecast=function(){const r=taxRevenueForecastV14Trade(),td=state?.tradeDiplomacy;if(!td)return r;const tariffYield=Math.max(0,td.totalImports)*(Object.values(td.partners).reduce((n,p)=>n+p.tariff,0)/Math.max(1,Object.keys(td.partners).length))/100*.20/state.gdp*100;r.grossPct+=tariffYield;r.netTaxPct+=tariffYield;r.totalPct+=tariffYield;r.monthly+=state.gdp*(tariffYield/100)/12;r.byCategory['Trade taxes']=(r.byCategory['Trade taxes']||0)+tariffYield;return r;};
+  const advanceMonthV14Trade=advanceMonth;advanceMonth=function(){if(state&&!state.gameOver&&isPrimaryGovernment())updateTradeDiplomacyV1C();return advanceMonthV14Trade();};
+  const renderWorkspaceV14Trade=renderWorkspace;renderWorkspace=function(){if(currentPage==='trade')return renderTradeV1C();return renderWorkspaceV14Trade();};
+  const renderDashboardV14Trade=renderDashboard;renderDashboard=function(){renderDashboardV14Trade();if(!isPrimaryGovernment())return;const td=tradeSummaryV1C(),box=document.createElement('div');box.className='panel';box.innerHTML=`<div class="page-title" style="margin:0 0 12px"><div><h3 style="font-size:14px">Trade & economic diplomacy</h3><div class="panel-sub">Agreements, contracts, embargoes, partner responses, cross-border projects, and international organizations.</div></div><button class="small-btn light" id="openTradeV1C">Open diplomacy</button></div><div class="economy-grid"><div class="economy-cell"><small>Exports</small><strong>${money(td.totalExports)}</strong><em>annualized</em></div><div class="economy-cell"><small>Trade balance</small><strong>${money(td.tradeBalance)}</strong><em>${td.tradeBalance>=0?'surplus':'deficit'}</em></div><div class="economy-cell"><small>Agreements</small><strong>${pct(td.agreementCoverage,0)}</strong><em>partner coverage</em></div><div class="economy-cell"><small>Company response</small><strong>${Math.round(td.companyResponse)}/100</strong><em>investment confidence</em></div></div>`;el('workspace').appendChild(box);el('openTradeV1C').addEventListener('click',()=>openPage('trade'));};
+  document.querySelector('.side-footer').innerHTML='<b>Global economic power:</b> 142 sectors, taxes, budgets, currencies, markets, trade agreements, contracts, embargoes, and international institutions interact every month.';
+
 
   initCountryCards();
   initRoleCards();
-  el('menuNewGame').addEventListener('click',showNewGameSetup);
-  el('menuContinue').addEventListener('click',continueSavedGame);
-  el('setupBack').addEventListener('click',()=>showMainMenu(false));
   el('startGame').addEventListener('click',start);
   el('advanceBtn').addEventListener('click',advanceMonth);
   el('saveBtn').addEventListener('click',()=>saveGame(true));
-  el('resetBtn').addEventListener('click',()=>showMainMenu(true));
+  el('resetBtn').addEventListener('click',()=>{if(confirm('Start a new world? Your current shared-world save will be deleted.'))resetGame();});
   el('nav').addEventListener('click',e=>{
     const btn=e.target.closest('button[data-page]');if(!btn)return;
     currentPage=btn.dataset.page;
@@ -2954,8 +3094,10 @@
   el('entitySwitcher').addEventListener('change',e=>switchEntity(e.target.value));
   el('addEntityBtn').addEventListener('click',openAddEntityModal);
 
-  updateMainMenu();
-  showMainMenu(false);
+  if(loadGame()){
+    selectedCountry=state.countryId;
+    el('setup').classList.add('hidden');el('app').classList.remove('hidden');renderAll();
+  }
 })();
 </script>
 </body>

@@ -1,30 +1,83 @@
-# MANDATE v0.15 — Main Menu Restored
+# MANDATE 1.0C — Trade & Economic Diplomacy
 
-Open `index.html` in a modern browser. The game is a single-file browser simulation and stores the current career locally in the browser.
+Open `index.html` in a modern browser. MANDATE is a single-file, single-player political and economic simulation. Progress is stored locally in the browser when local storage is available.
 
-## Correct launch flow
+## Version 1.0C
 
-1. The game always opens on the **Main Menu**.
-2. **New Game** opens the role and country setup.
-3. Choose one role, one country, and a leader or organization name.
-4. Starting the new career replaces the previous local save after confirmation.
-5. **Continue** appears only when a valid save exists.
-6. The in-game **Menu** button saves the current career and returns to the Main Menu.
+The new **Trade & Diplomacy** workspace contains five sections:
+
+1. Overview
+2. Agreements and embargoes
+3. Contracts and subsidies
+4. Cross-border projects
+5. Organizations and institutions
+
+## Trade agreements and embargoes
+
+The player can negotiate limited agreements, comprehensive market-access agreements, and free-trade areas with modeled partner countries and regional markets. Partners evaluate the proposal using bilateral relations, market access, domestic companies, consumers, geopolitical risk, the legislature, and the concessions offered.
+
+Embargoes immediately restrict imports and exports. A targeted partner may retaliate, reduce export demand, interrupt strategic supply, or damage diplomatic and lender access. Embargoes can later be removed.
+
+## International contracts
+
+Contracts can cover:
+
+- Imports
+- Exports
+- Energy supply
+- Defense equipment
+- Natural-resource access
+
+Each negotiation offers different price, duration, reliability, political conditions, and acceptance chances. Active contracts affect the selected sector’s production, demand, imports, exports, shortages, prices, employment, and bilateral relations every month.
+
+## Strategic subsidies
+
+Any of the 142 modeled sectors can receive basic or strategic support. Subsidies increase capacity, production, research, and export competitiveness, but add permanent government spending, corruption risk, and possible trade disputes.
+
+## Cross-border infrastructure
+
+Available projects include:
+
+- Freight railways
+- Regional electricity interconnectors
+- International gas pipelines
+- Port and customs corridors
+- International digital cables
+- Regional single customs windows
+
+Projects take 20–60 months, create monthly costs, and can suffer corruption-driven delays or overruns. Completed projects improve market access, supply reliability, infrastructure, energy security, trade, and relations.
+
+## International organizations
+
+The country can attempt to establish:
+
+- A regional free-trade area
+- A monetary cooperation council
+- A strategic exporting-countries organization
+- A cross-border infrastructure bank
+- A supply-chain security alliance
+
+The player can also build influence inside fictional international trade, stabilization, development-finance, and regional-reserve institutions.
+
+## Dynamic economic response
+
+Partner governments, companies, and consumers update monthly according to:
+
+- Prices and shortages
+- Inflation and growth
+- Taxes and tariffs
+- Currency and market confidence
+- Political stability
+- Trade agreements and contracts
+- Embargoes and retaliation
+- Infrastructure and institutional influence
+
+Trade policy feeds into GDP growth, inflation, unemployment, investment, business confidence, currency pressure, tax revenue, government spending, sector shortages, and the 142-sector economy.
 
 ## Single-career rule
 
-Each save contains one playable entity. The player cannot manually switch to another country, organization, or company during the run. A different starting entity requires returning to the Main Menu and beginning a new game. Political transformations caused by gameplay, such as losing office and becoming opposition, remain possible.
-
-## Main systems retained
-
-- 142-sector economic and supply-chain simulation
-- Taxation, budgets, deficits, debt, and credit ratings
-- Central-bank rates, currencies, exchange rates, stock markets, and international lenders
-- Government, cabinet, workforce, intelligence, and crisis management
-- Parliament, legislation, referendums, laws, and repeals
-- Infrastructure, energy, industrial, and long-term projects
-- National data, demographics, security, services, environment, culture, and science
+A new game begins with one playable role and one country or headquarters. The player cannot manually add or switch entities during the career. A different starting role or country requires a new game. Role changes caused by elections or other gameplay events remain possible.
 
 ## Deployment
 
-Upload `index.html` to any static host such as GitHub Pages, Netlify, or Cloudflare Pages. No server is required for the local single-player build.
+Upload `index.html` to a static host such as GitHub Pages, Netlify, or Cloudflare Pages. No backend server is required for this version.
